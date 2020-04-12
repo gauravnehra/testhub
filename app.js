@@ -4,6 +4,29 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+const mongoose = require("mongoose")
+/*var url =
+  "mongodb+srv://vamshi:rGBgBprJbzNiIKBv@development-i76n3.mongodb.net/test?retryWrites=true&w=majority";*/
+  
+var url = "mongodb+srv://admin:admin@testhub-3r1as.mongodb.net/test?retryWrites=true&w=majority";
+mongoose.Promise = global.Promise
+// Connecting to the database
+mongoose
+  .connect(url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
+  .then(() => {
+    console.log("Successfully connected to the database")
+  })
+  .catch(err => {
+    console.log("Could not connect to the database. Exiting now...", err)
+    process.exit()
+  })
+
+console.log("started main code")
+
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
