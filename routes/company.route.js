@@ -13,11 +13,20 @@ router.post("/signoutall", company_controller.signoutall)
 
 router.post("/resetpassword", company_controller.resetpassword)
 
+// create test
 router.post("/test", company_controller.createtest)
 
-router.delete("/:id", company_controller.deletetest)
+// delete test with id
+router.delete("/test/:id", company_controller.deletetest)
 
-router.get("/testresult/:id", company_controller.testresult)
+// delete all tests
+router.delete("/test", company_controller.deletetest)
+
+// get test with id
+router.get("/test/:id", company_controller.testresult)
+
+// get all tests
+router.get("/test", company_controller.testresult)
 
 router.get("/", company_controller.dashboard)
 

@@ -13,13 +13,13 @@ router.post("/signoutall", candidate_controller.signoutall)
 
 router.post("/resetpassword", candidate_controller.resetpassword)
 
-router.get("/test", candidate_controller.practicetest)
+// router.get("/test", candidate_controller.practicetest)
 
 // attempt test with id
 router.get("/test/:id", candidate_controller.attempttest)
 
 // update candidate profile with id
-router.patch("/profile/:id", candidate_controller.updateprofile)
+router.put("/:id", candidate_controller.updateprofile)
 
 router.get("/", candidate_controller.dashboard)
 
