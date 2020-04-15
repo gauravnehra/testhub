@@ -1,6 +1,6 @@
-const http = require ('http');
+const http = require ('http')
 const bcrypt = require('bcrypt')
-const salt = bcrypt.genSaltSync(10);
+const salt = bcrypt.genSaltSync(10)
 const Company = require('../models/company.model')
 
 

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 var Schema = mongoose.Schema
-//var SkillSchema = new Schema({ skill: String })
+var SkillSchema = new Schema({ skill: String })
 
 let candidateSchema = new Schema({
     name: { type: String, required: true },
@@ -8,6 +8,7 @@ let candidateSchema = new Schema({
     password: { type: String, required: true},
     gender: { type: String, required: true }, // use M or F
     location: { type: String, required: true},
+    skills: [{ type: SkillSchema, ref: 'Skill', required: false}]
     //skills : { type: [SkillSchema], required: false }
     //assigned tests
 })
