@@ -13,9 +13,9 @@ router.post("/signoutall", company_controller.signoutall)
 
 router.post("/resetpassword", company_controller.resetpassword)
 
-router.post("/createtest", company_controller.createtest)
+router.post("/test", company_controller.createtest)
 
-router.delete("/", company_controller.deletetest)
+router.delete("/:id", company_controller.deletetest)
 
 router.get("/testresult/:id", company_controller.testresult)
 
