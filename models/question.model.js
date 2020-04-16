@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 var Schema = mongoose.Schema
 
 let questionSchema = new Schema({
-    name: { type: String, required: true },
+    question: { type: String, required: true },
     type: { type: String, required: true },  // MCQ or notMCQ
     score: { type: Number, required: true },
     optionA: { type: String, required: false },
