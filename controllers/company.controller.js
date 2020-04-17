@@ -117,7 +117,7 @@ function sendVerifyMail(toId, toEmail) {
   let mailOptions = {
     to : toEmail,
     subject : "testhub - Account Verification",
-    html : "A account is registered with this email id on testhub. Click the link following link to verify. " + link
+    html : "A account is registered with this email id on testhub. Click the following link to verify. " + link
   }
 
   smtpTransport.sendMail(mailOptions, function(err, msg){
