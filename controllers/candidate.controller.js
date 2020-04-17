@@ -77,7 +77,7 @@ exports.verifyAccount = async (req, res) => {
   }
   
   if(bcrypt.compareSync(req.body.password, candidate.password)) {
-    candidate = Candidate.findByIdAndUpdate(req.params.id, { isVerified: true }, (err, candidate) => {
+    Candidate.findByIdAndUpdate(req.params.id, { isVerified: true }, (err, candidate) => {
       if(err) res.status(500).send({ msg: "Some error occured", err: err})
       res.send({ msg: "Account verified", user: candidate })
     })
