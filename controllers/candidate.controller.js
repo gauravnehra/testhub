@@ -76,6 +76,11 @@ exports.verifyAccount = async (req, res) => {
     return res.status(404).send({ msg: "Account does not exist." })
   }
   
+  if(candidate._id != req.params.id) {
+    // 421 : Misdirected Request
+    return res.status(421).send({ msg: "Wrong URL" })
+  }
+
   if(bcrypt.compareSync(req.body.password, candidate.password)) {
     Candidate.findByIdAndUpdate(req.params.id, { isVerified: true }, (err, candidate) => {
       if(err) res.status(500).send({ msg: "Some error occured", err: err})

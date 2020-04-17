@@ -68,12 +68,17 @@ exports.resetpassword = function (req, res) {
 
 exports.verifyAccount = async (req, res) => {
   let company = await Company.findOne({ email: req.body.email })
-
+  console.log(company)
   if(!company) {
     // 404 : Not Found
     return res.status(404).send({ msg: "Account does not exist." })
   }
   
+  if(company._id != req.params.id) {
+    // 421 : Misdirected Request
+    return res.status(421).send({ msg: "Wrong URL" })
+  }
+
   if(bcrypt.compareSync(req.body.password, company.password)) {
     Company.findByIdAndUpdate(req.params.id, { isVerified: true }, (err, company) => {
       if(err) res.status(500).send({ msg: "Some error occured", err: err})
