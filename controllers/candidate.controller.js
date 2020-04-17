@@ -24,11 +24,13 @@ exports.signup = async (req, res) => {
     skills: req.body.skills
   })
 
-  sendVerifyMail(candidate._id, candidate.email)
   // saving user in DB
-  candidate = (await candidate).save( function (err){
+  candidate.save( function (err){
     if(err) res.status(500).send({ msg: "Some error occured", err: err})
-    else res.status(200).send({ msg: "Account created successfully." })
+    else {
+      sendVerifyMail(candidate._id, candidate.email)
+      res.status(200).send({ msg: "Account created successfully." })
+    }
   })
 
 };

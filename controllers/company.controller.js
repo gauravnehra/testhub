@@ -22,11 +22,13 @@ exports.signup = async (req, res) => {
     domain: req.body.domain
   })
 
-  sendVerifyMail(company._id, company.email)
   // saving user in DB
-  company = (await company).save( function (err){
+  company.save( function (err){
     if(err) res.status(500).send({ msg: "Some error occured", err: err})
-    else res.status(200).send({ msg: "Account created successfully." })
+    else {
+      sendVerifyMail(company._id, company.email)
+      res.status(200).send({ msg: "Account created successfully." })
+    }
   })
 
 };
