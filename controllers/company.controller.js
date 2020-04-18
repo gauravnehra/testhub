@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt')
 const salt = bcrypt.genSaltSync(10)
 const nodemailer = require('nodemailer')
 const Company = require('../models/company.model')
+require('dotenv').config()
 
 
 exports.signup = async (req, res) => {
@@ -108,8 +109,8 @@ function sendVerifyMail(toId, toEmail) {
   let smtpTransport = nodemailer.createTransport({
     service: "Gmail",
     auth: {
-      user: "edumaker3@gmail.com",
-      pass: "qwertyuiop123@#$"
+      user: process.env.EMAIL,
+      pass: process.env.PASS
     }
   });
 
