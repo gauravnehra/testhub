@@ -153,15 +153,23 @@ exports.addQuestion = async (req, res) => {
   question.save( async function (err){
     if(err) res.status(500).send({ msg: "Some error occured", err: err})
     else {
-      console.log(question._id)
       await Test.findByIdAndUpdate(req.params.id, { $push: { questions: question._id } })
       res.status(200).send({ msg: "Question added to test successfully." })
     }
   })
 }
 
-exports.deleteTest = function (req, res) {
-    //TODO
+exports.deleteTest = async (req, res) => {
+  let token = await Token.findById(req.header("authorization"))
+  console.log(token.userId)
+
+  Test.findByIdAndDelete(req.params.id, async (err) => {
+    if(err) res.status(500).send({ msg: "Some error occured", err: err})
+    else {
+      await Company.findByIdAndUpdate(token.userId, { $pullAll: { createdtests: [req.params.id] } })
+      res.status(200).send({ msg: "Test deleted successfully." })
+    }
+  })
 };
 
 exports.deleteAllTests = function (req, res) {
