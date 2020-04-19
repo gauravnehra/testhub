@@ -11,7 +11,7 @@ router.post("/signout", candidate_controller.signout)
 
 router.post("/signoutall", candidate_controller.signoutall)
 
-router.post("/resetpassword", candidate_controller.resetpassword)
+router.post("/resetpassword", candidate_controller.resetPassword)
 
 // verify user
 router.put("/verify/:id", candidate_controller.verifyAccount)
@@ -19,10 +19,10 @@ router.put("/verify/:id", candidate_controller.verifyAccount)
 // router.get("/test", candidate_controller.practicetest)
 
 // attempt test with id
-router.get("/test/:id", candidate_controller.attempttest)
+router.get("/test/:id", candidate_controller.attemptTest)
 
 // update candidate profile
-router.put("/profile", candidate_controller.updateprofile)
+router.put("/profile", candidate_controller.updateProfile)
 
 router.get("/", candidate_controller.dashboard)
 

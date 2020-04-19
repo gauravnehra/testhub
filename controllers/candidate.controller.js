@@ -71,7 +71,7 @@ exports.dashboard = function (req, res) {
     //TODO
 };
 
-exports.resetpassword = async (req, res) => {
+exports.resetPassword = async (req, res) => {
   let token = await Token.findById(req.header("authorization"))
   console.log(token.userId)
   let candidate = await Candidate.findById(token.userId)
@@ -120,7 +120,7 @@ exports.verifyAccount = async (req, res) => {
   
 };
 
-exports.updateprofile = async (req, res) => {
+exports.updateProfile = async (req, res) => {
   let token = await Token.findById(req.header("authorization"))
   Candidate.findByIdAndUpdate(token.userId, {
     name: req.body.name,
@@ -136,7 +136,7 @@ exports.updateprofile = async (req, res) => {
   })
 };
 
-exports.attempttest = function (req, res) {
+exports.attemptTest = function (req, res) {
     //TODO
 };
 
