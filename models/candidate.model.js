@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 var Schema = mongoose.Schema
-var SkillSchema = new Schema({ skill: String })
 
 let candidateSchema = new Schema({
     name: { type: String, required: true },

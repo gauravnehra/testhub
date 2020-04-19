@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt')
 const salt = bcrypt.genSaltSync(10)
 const nodemailer = require('nodemailer')
 const Candidate = require('../models/candidate.model')
+const Token = require('../models/token.model')
 require('dotenv').config()
 
 
@@ -26,11 +27,13 @@ exports.signup = async (req, res) => {
   })
 
   // saving user in DB
-  candidate.save( function (err){
+  candidate.save( async function (err){
     if(err) res.status(500).send({ msg: "Some error occured", err: err})
     else {
+      let token = new Token({ userId: candidate._id })
+      await token.save()
       sendVerifyMail(candidate._id, candidate.email)
-      res.status(200).send({ msg: "Account created successfully." })
+      res.status(200).header("authorization", token._id).send({ msg: "Account created successfully." })
     }
   })
 
@@ -50,7 +53,10 @@ exports.signin = async (req, res) => {
     return res.status(403).send({ msg: "Invalid Password." })
   }
 
-  res.status(200).send(candidate);
+  let token = new Token({ userId: candidate._id })
+  await token.save()
+
+  res.status(200).header("authorization", token._id).send(candidate);
 };
 
 exports.signout = function (req, res) {
@@ -65,8 +71,27 @@ exports.dashboard = function (req, res) {
     //TODO
 };
 
-exports.resetpassword = function (req, res) {
-    //TODO
+exports.resetpassword = async (req, res) => {
+  let token = await Token.findById(req.header("authorization"))
+  console.log(token.userId)
+  let candidate = await Candidate.findById(token.userId)
+  if(!candidate) {
+    // 404 : Not Found
+    return res.status(404).send({ msg: "Account does not exist." })
+  }
+
+  // check credentials
+  if(bcrypt.compareSync(req.body.password, candidate.password)) {
+    Candidate.findByIdAndUpdate(token.userId, { password: bcrypt.hashSync(req.body.newpassword, salt) }, { "new": true }, (err, candidate) => {
+      if(err) res.status(500).send({ msg: "Some error occured", err: err})
+      res.send({ msg: "Password successfully changed", user: candidate })
+    })
+  }
+  else if(!bcrypt.compareSync(req.body.password, candidate.password)) {
+    // 403 : Forbidden
+    return res.status(403).send({ msg: "Invalid Password." })
+  }
+
 };
 
 exports.verifyAccount = async (req, res) => {
@@ -119,8 +144,8 @@ function sendVerifyMail(toId, toEmail) {
   let link = "localhost:3000/company/verify/" + toId;
   let mailOptions = {
     to : toEmail,
-    subject : "testhub - Account Verification",
-    html : "A account is registered with this email id on testhub. Click the following link to verify. " + link
+    subject : process.env.EMAIL_SUB,
+    html : process.env.EMAIL_MSG + " " + link
   }
 
   smtpTransport.sendMail(mailOptions, function(err, msg){
