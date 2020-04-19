@@ -3,6 +3,8 @@ const bcrypt = require('bcrypt')
 const salt = bcrypt.genSaltSync(10)
 const nodemailer = require('nodemailer')
 const Company = require('../models/company.model')
+const Test = require('../models/test.model')
+const Question = require('../models/question.model')
 const Token = require('../models/token.model')
 require('dotenv').config()
 
@@ -68,7 +70,7 @@ exports.dashboard = function (req, res) {
     //TODO
 };
 
-exports.resetpassword = async (req, res) => {
+exports.resetPassword = async (req, res) => {
   let token = await Token.findById(req.header("authorization"))
   console.log(token.userId)
   let company = await Company.findById(token.userId)
@@ -117,13 +119,54 @@ exports.verifyAccount = async (req, res) => {
   
 };
 
-exports.createtest = function (req, res) {
+exports.createTest = async (req, res) => {
+  let token = await Token.findById(req.header("authorization"))
+  console.log(token.userId)
+
+  let test = new Test({
+    name: req.body.testName,
+    duration: req.body.testDuration
+  })
+
+  test.save( async function (err){
+    if(err) res.status(500).send({ msg: "Some error occured", err: err})
+    else {
+      await Company.findByIdAndUpdate(token.userId, { $push: { createdtests: test._id } })
+      res.status(200).send({ msg: "Test created successfully." })
+    }
+  })
+};
+
+exports.addQuestion = async (req, res) => {
+
+  let question = new Question({
+    question: req.body.question,
+    type: req.body.type,
+    score: req.body.score,
+    optionA: req.body.optionA,
+    optionB: req.body.optionB,
+    optionC: req.body.optionC,
+    optionD: req.body.optionD,
+    correct: req.body.correct
+  })
+
+  question.save( async function (err){
+    if(err) res.status(500).send({ msg: "Some error occured", err: err})
+    else {
+      console.log(question._id)
+      await Test.findByIdAndUpdate(req.params.id, { $push: { questions: question._id } })
+      res.status(200).send({ msg: "Question added to test successfully." })
+    }
+  })
+}
+
+exports.deleteTest = function (req, res) {
     //TODO
 };
 
-exports.deletetest = function (req, res) {
-    //TODO
-};
+exports.deleteAllTests = function (req, res) {
+
+}
 
 exports.testresult = function (req, res) {
     //TODO
