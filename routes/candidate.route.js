@@ -21,8 +21,8 @@ router.put("/verify/:id", candidate_controller.verifyAccount)
 // attempt test with id
 router.get("/test/:id", candidate_controller.attempttest)
 
-// update candidate profile with id
-router.put("/:id", candidate_controller.updateprofile)
+// update candidate profile
+router.put("/profile", candidate_controller.updateprofile)
 
 router.get("/", candidate_controller.dashboard)
 

@@ -120,8 +120,20 @@ exports.verifyAccount = async (req, res) => {
   
 };
 
-exports.updateprofile = function (req, res) {
-    //TODO
+exports.updateprofile = async (req, res) => {
+  let token = await Token.findById(req.header("authorization"))
+  Candidate.findByIdAndUpdate(token.userId, {
+    name: req.body.name,
+    gender: req.body.gender,
+    age: req.body.age,
+    location: req.body.location,
+    skills: req.body.skills
+  },
+  { new: true },
+  (err, candidate) => {
+    if(err) res.status(500).send({ msg: "Some error occured", err: err})
+    res.send({ msg: "Profile updated successfully", user: candidate })
+  })
 };
 
 exports.attempttest = function (req, res) {
