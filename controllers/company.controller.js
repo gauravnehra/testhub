@@ -172,8 +172,20 @@ exports.deleteTest = async (req, res) => {
   })
 };
 
-exports.deleteAllTests = function (req, res) {
+exports.deleteAllTests = async (req, res) => {
+  let token = await Token.findById(req.header("authorization"))
+  console.log(token.userId)
 
+  let company = await Company.findById(token.userId)
+  let tests = company.createdtests
+
+  for(i = 0; i < tests.length; i++) {
+    await Test.findByIdAndDelete(tests[i])
+  }
+  Company.findByIdAndUpdate(token.userId, { $set: { createdtests: [] } }, function(err){
+    if(err) res.status(500).send({ msg: "Some error occured", err: err})
+    else res.status(200).send({ msg: "All tests deleted successfully." })
+  })
 }
 
 exports.testresult = function (req, res) {

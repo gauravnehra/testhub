@@ -25,7 +25,7 @@ router.post("/test/:id/addquestion", company_controller.addQuestion)
 // delete test with id
 router.delete("/test/:id", company_controller.deleteTest)
 
-// delete all tests
+// delete all tests created by company
 router.delete("/test", company_controller.deleteAllTests)
 
 // get test with id
