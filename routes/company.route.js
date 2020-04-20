@@ -32,7 +32,7 @@ router.delete("/test", company_controller.deleteAllTests)
 router.get("/test/:id", company_controller.testresult)
 
 // get all tests
-router.get("/test", company_controller.testresult)
+router.get("/tests", company_controller.testresult)
 
 router.get("/", company_controller.dashboard)
 

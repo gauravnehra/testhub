@@ -59,12 +59,20 @@ exports.signin = async (req, res) => {
   res.status(200).header("authorization", token._id).send(candidate);
 };
 
-exports.signout = function (req, res) {
-  //TODO
+exports.signout = async (req, res) => {
+  let token = await Token.findById(req.header("authorization"))
+  console.log(token.userId)
+  token = await Token.findByIdAndDelete(token._id)
+  
+  res.status(200).send({ msg: "Signout success" })
 };
 
-exports.signoutall = function (req, res) {
-  //TODO
+exports.signoutall = async (req, res) => {
+  let token = await Token.findById(req.header("authorization"))
+  console.log(token.userId)
+  let tokens = await Token.deleteMany({ userId: token.userId })
+
+  res.status(200).send({ msg: "Signout all success" })
 };
 
 exports.dashboard = function (req, res) {
