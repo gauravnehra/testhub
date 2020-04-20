@@ -1,0 +1,23 @@
+<body>
+    <h1 style="text-align: center;">TestHub</h1>
+    <h5 style="text-align: center;">Welcome to TestHub</h5>
+    <div style="text-align: center;">
+        <button onclick="signIn()">Sign In</button>
+        <button onclick="signUp()">Sign </button>
+    </div>
+ 
+
+     <script>
+        var test="hello this is test"
+         var up='signup'
+        function signIn() {
+            window.location = "/signin"
+        }
+
+        function signUp() {
+            window.location = `/${up}/:${test}`
+        }
+
+        
+    </script>
+</body>
