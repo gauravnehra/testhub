@@ -19,17 +19,26 @@ router.put("/verify/:id", company_controller.verifyAccount)
 // create test
 router.post("/test", company_controller.createTest)
 
-// add questions in created test
-router.post("/test/:id/addquestion", company_controller.addQuestion)
+// add question in created test
+router.post("/test/:tid/question", company_controller.addQuestion)
+
+// delete question from test
+router.delete("/test/:tid/question/:qid", company_controller.deleteQuestion)
+
+// edit question
+router.put("/test/:tid/questin/:qid", company_controller.editQuestion)
+
+// edit test info
+router.put("/test/:tid", company_controller.editTest)
 
 // delete test with id
-router.delete("/test/:id", company_controller.deleteTest)
+router.delete("/test/:tid", company_controller.deleteTest)
 
 // delete all tests created by company
 router.delete("/test", company_controller.deleteAllTests)
 
 // get test with id
-router.get("/test/:id", company_controller.testresult)
+router.get("/test/:tid", company_controller.testresult)
 
 // get all tests
 router.get("/tests", company_controller.testresult)
