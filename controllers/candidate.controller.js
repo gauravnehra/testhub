@@ -60,17 +60,17 @@ exports.signin = async (req, res) => {
 };
 
 exports.signout = async (req, res) => {
-  let token = await Token.findById(req.header("authorization"))
-  console.log(token.userId)
-  token = await Token.findByIdAndDelete(token._id)
+  
+  console.log(req.token.userId)
+  token = await Token.findByIdAndDelete(req.token._id)
   
   res.status(200).send({ msg: "Signout success" })
 };
 
 exports.signoutall = async (req, res) => {
-  let token = await Token.findById(req.header("authorization"))
-  console.log(token.userId)
-  let tokens = await Token.deleteMany({ userId: token.userId })
+  
+  console.log(req.token.userId)
+  let tokens = await Token.deleteMany({ userId: req.token.userId })
 
   res.status(200).send({ msg: "Signout all success" })
 };
@@ -80,9 +80,9 @@ exports.dashboard = function (req, res) {
 };
 
 exports.resetPassword = async (req, res) => {
-  let token = await Token.findById(req.header("authorization"))
-  console.log(token.userId)
-  let candidate = await Candidate.findById(token.userId)
+  
+  console.log(req.token.userId)
+  let candidate = await Candidate.findById(req.token.userId)
   if(!candidate) {
     // 404 : Not Found
     return res.status(404).send({ msg: "Account does not exist." })
@@ -90,7 +90,7 @@ exports.resetPassword = async (req, res) => {
 
   // check credentials
   if(bcrypt.compareSync(req.body.password, candidate.password)) {
-    Candidate.findByIdAndUpdate(token.userId, { password: bcrypt.hashSync(req.body.newpassword, salt) }, { "new": true }, (err, candidate) => {
+    Candidate.findByIdAndUpdate(req.token.userId, { password: bcrypt.hashSync(req.body.newpassword, salt) }, { "new": true }, (err, candidate) => {
       if(err) res.status(500).send({ msg: "Some error occured", err: err})
       res.send({ msg: "Password successfully changed", user: candidate })
     })
@@ -129,8 +129,8 @@ exports.verifyAccount = async (req, res) => {
 };
 
 exports.updateProfile = async (req, res) => {
-  let token = await Token.findById(req.header("authorization"))
-  Candidate.findByIdAndUpdate(token.userId, {
+  
+  Candidate.findByIdAndUpdate(req.token.userId, {
     name: req.body.name,
     gender: req.body.gender,
     age: req.body.age,

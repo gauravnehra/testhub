@@ -59,17 +59,17 @@ exports.signin = async (req, res) => {
 };
 
 exports.signout = async (req, res) => {
-  let token = await Token.findById(req.header("authorization"))
-  console.log(token.userId)
-  token = await Token.findByIdAndDelete(token._id)
+  
+  console.log(req.token.userId)
+  token = await Token.findByIdAndDelete(req.token._id)
   
   res.status(200).send({ msg: "Signout success" })
 };
 
 exports.signoutall = async (req, res) => {
-  let token = await Token.findById(req.header("authorization"))
-  console.log(token.userId)
-  let tokens = await Token.deleteMany({ userId: token.userId })
+  
+  console.log(req.token.userId)
+  let tokens = await Token.deleteMany({ userId: req.token.userId })
 
   res.status(200).send({ msg: "Signout all success" })
 };
@@ -79,9 +79,9 @@ exports.dashboard = function (req, res) {
 };
 
 exports.resetPassword = async (req, res) => {
-  let token = await Token.findById(req.header("authorization"))
-  console.log(token.userId)
-  let company = await Company.findById(token.userId)
+  
+  console.log(req.token.userId)
+  let company = await Company.findById(req.token.userId)
   if(!company) {
     // 404 : Not Found
     return res.status(404).send({ msg: "Account does not exist." })
@@ -89,7 +89,7 @@ exports.resetPassword = async (req, res) => {
 
   // check credentials
   if(bcrypt.compareSync(req.body.password, company.password)) {
-    Company.findByIdAndUpdate(token.userId, { password: bcrypt.hashSync(req.body.newpassword, salt) }, { "new": true }, (err, company) => {
+    Company.findByIdAndUpdate(req.token.userId, { password: bcrypt.hashSync(req.body.newpassword, salt) }, { "new": true }, (err, company) => {
       if(err) res.status(500).send({ msg: "Some error occured", err: err})
       res.send({ msg: "Password successfully changed", user: company })
     })
@@ -128,8 +128,8 @@ exports.verifyAccount = async (req, res) => {
 };
 
 exports.createTest = async (req, res) => {
-  let token = await Token.findById(req.header("authorization"))
-  console.log(token.userId)
+  
+  console.log(req.token.userId)
 
   let test = new Test({
     name: req.body.testName,
@@ -139,7 +139,7 @@ exports.createTest = async (req, res) => {
   test.save( async function (err){
     if(err) res.status(500).send({ msg: "Some error occured", err: err})
     else {
-      await Company.findByIdAndUpdate(token.userId, { $push: { createdtests: test._id } })
+      await Company.findByIdAndUpdate(req.token.userId, { $push: { createdtests: test._id } })
       res.status(200).send({ msg: "Test created successfully." })
     }
   })
@@ -180,36 +180,40 @@ exports.editTest = async (req, res) => {
 };
 
 exports.deleteTest = async (req, res) => {
-  let token = await Token.findById(req.header("authorization"))
-  console.log(token.userId)
+  
+  console.log(req.token.userId)
 
   Test.findByIdAndDelete(req.params.tid, async (err) => {
     if(err) res.status(500).send({ msg: "Some error occured", err: err})
     else {
-      await Company.findByIdAndUpdate(token.userId, { $pullAll: { createdtests: [req.params.id] } })
+      await Company.findByIdAndUpdate(req.token.userId, { $pullAll: { createdtests: [req.params.id] } })
       res.status(200).send({ msg: "Test deleted successfully." })
     }
   })
 };
 
 exports.deleteAllTests = async (req, res) => {
-  let token = await Token.findById(req.header("authorization"))
-  console.log(token.userId)
+  
+  console.log(req.token.userId)
 
-  let company = await Company.findById(token.userId)
+  let company = await Company.findById(req.token.userId)
   let tests = company.createdtests
 
   for(i = 0; i < tests.length; i++) {
     await Test.findByIdAndDelete(tests[i])
   }
-  Company.findByIdAndUpdate(token.userId, { $set: { createdtests: [] } }, function(err){
+  Company.findByIdAndUpdate(req.token.userId, { $set: { createdtests: [] } }, function(err){
     if(err) res.status(500).send({ msg: "Some error occured", err: err})
     else res.status(200).send({ msg: "All tests deleted successfully." })
   })
-}
+};
+
+exports.inviteCandidates = async (req, res) => {
+  //TODO
+};
 
 exports.testresult = function (req, res) {
-    //TODO
+  //TODO
 };
 
 function sendVerifyMail(toId, toEmail) {

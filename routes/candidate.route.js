@@ -7,11 +7,11 @@ router.post("/signup", candidate_controller.signup)
 
 router.post("/signin", candidate_controller.signin)
 
-router.post("/signout", candidate_controller.signout)
+router.post("/signout", auth, candidate_controller.signout)
 
-router.post("/signoutall", candidate_controller.signoutall)
+router.post("/signoutall", auth, candidate_controller.signoutall)
 
-router.post("/resetpassword", candidate_controller.resetPassword)
+router.post("/resetpassword", auth, candidate_controller.resetPassword)
 
 // verify user
 router.put("/verify/:id", candidate_controller.verifyAccount)
