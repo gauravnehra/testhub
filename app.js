@@ -26,7 +26,7 @@ mongoose
 console.log("started main code")
 
 
-var indexRouter = require('./routes/index');
+var indexRouter = require('./routes/index.route');
 var companyRouter = require('./routes/company.route');
 var candidateRouter = require('./routes/candidate.route');
 
@@ -34,7 +34,7 @@ var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'hbs');
 
 app.use(logger('dev'));
 app.use(express.json());
