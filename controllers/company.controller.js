@@ -158,22 +158,50 @@ exports.addQuestion = async (req, res) => {
 };
 
 exports.deleteQuestion = async (req, res) => {
-  //TODO
+  Question.findByIdAndDelete(req.params.qid, async (err) => {
+    if(err) res.status(500).send({ msg: "Some error occured", err: err})
+    else {
+      await Test.findByIdAndUpdate(req.params.tid, { $pullAll: { questions: [req.params.qid] } })
+      res.status(200).send({ msg: "Question deleted successfully." })
+    }
+  })
 };
 
 exports.editQuestion = async (req, res) => {
-  //TODO
+  Question.findByIdAndUpdate(req.params.qid, {
+    question: req.body.question,
+    type: req.body.type,
+    score: req.body.score,
+    optionA: req.body.optionA,
+    optionB: req.body.optionB,
+    optionC: req.body.optionC,
+    optionD: req.body.optionD,
+    correct: req.body.correct
+  },
+  { new: true },
+  (err, question) => {
+    if(err) res.status(500).send({ msg: "Some error occured", err: err})
+    res.send({ msg: "Question updated successfully", question: question })
+  })
 };
 
 exports.editTest = async (req, res) => {
-  //TODO
+  Test.findByIdAndUpdate(req.params.tid, {
+    name: req.body.testName,
+    duration: req.body.testDuration
+  },
+  { new: true },
+  (err, test) => {
+    if(err) res.status(500).send({ msg: "Some error occured", err: err})
+    res.send({ msg: "Test updated successfully", test: test })
+  })
 };
 
 exports.deleteTest = async (req, res) => {
   Test.findByIdAndDelete(req.params.tid, async (err) => {
     if(err) res.status(500).send({ msg: "Some error occured", err: err})
     else {
-      await Company.findByIdAndUpdate(req.token.userId, { $pullAll: { createdtests: [req.params.id] } })
+      await Company.findByIdAndUpdate(req.token.userId, { $pullAll: { createdtests: [req.params.tid] } })
       res.status(200).send({ msg: "Test deleted successfully." })
     }
   })

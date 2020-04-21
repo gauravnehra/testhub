@@ -26,7 +26,7 @@ router.post("/test/:tid/question", auth, company_controller.addQuestion)
 router.delete("/test/:tid/question/:qid", auth, company_controller.deleteQuestion)
 
 // edit question
-router.put("/test/:tid/questin/:qid", auth, company_controller.editQuestion)
+router.put("/test/:tid/question/:qid", auth, company_controller.editQuestion)
 
 // edit test info
 router.put("/test/:tid", auth, company_controller.editTest)
