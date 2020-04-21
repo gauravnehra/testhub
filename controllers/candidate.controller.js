@@ -60,16 +60,12 @@ exports.signin = async (req, res) => {
 };
 
 exports.signout = async (req, res) => {
-  
-  console.log(req.token.userId)
   token = await Token.findByIdAndDelete(req.token._id)
   
   res.status(200).send({ msg: "Signout success" })
 };
 
 exports.signoutall = async (req, res) => {
-  
-  console.log(req.token.userId)
   let tokens = await Token.deleteMany({ userId: req.token.userId })
 
   res.status(200).send({ msg: "Signout all success" })
@@ -80,8 +76,6 @@ exports.dashboard = function (req, res) {
 };
 
 exports.resetPassword = async (req, res) => {
-  
-  console.log(req.token.userId)
   let candidate = await Candidate.findById(req.token.userId)
   if(!candidate) {
     // 404 : Not Found

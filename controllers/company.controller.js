@@ -59,16 +59,12 @@ exports.signin = async (req, res) => {
 };
 
 exports.signout = async (req, res) => {
-  
-  console.log(req.token.userId)
   token = await Token.findByIdAndDelete(req.token._id)
   
   res.status(200).send({ msg: "Signout success" })
 };
 
 exports.signoutall = async (req, res) => {
-  
-  console.log(req.token.userId)
   let tokens = await Token.deleteMany({ userId: req.token.userId })
 
   res.status(200).send({ msg: "Signout all success" })
@@ -79,8 +75,6 @@ exports.dashboard = function (req, res) {
 };
 
 exports.resetPassword = async (req, res) => {
-  
-  console.log(req.token.userId)
   let company = await Company.findById(req.token.userId)
   if(!company) {
     // 404 : Not Found
@@ -103,7 +97,6 @@ exports.resetPassword = async (req, res) => {
 
 exports.verifyAccount = async (req, res) => {
   let company = await Company.findOne({ email: req.body.email })
-  console.log(company)
   if(!company) {
     // 404 : Not Found
     return res.status(404).send({ msg: "Account does not exist." })
@@ -128,9 +121,6 @@ exports.verifyAccount = async (req, res) => {
 };
 
 exports.createTest = async (req, res) => {
-  
-  console.log(req.token.userId)
-
   let test = new Test({
     name: req.body.testName,
     duration: req.body.testDuration
@@ -180,9 +170,6 @@ exports.editTest = async (req, res) => {
 };
 
 exports.deleteTest = async (req, res) => {
-  
-  console.log(req.token.userId)
-
   Test.findByIdAndDelete(req.params.tid, async (err) => {
     if(err) res.status(500).send({ msg: "Some error occured", err: err})
     else {
@@ -193,9 +180,6 @@ exports.deleteTest = async (req, res) => {
 };
 
 exports.deleteAllTests = async (req, res) => {
-  
-  console.log(req.token.userId)
-
   let company = await Company.findById(req.token.userId)
   let tests = company.createdtests
 
