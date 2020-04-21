@@ -1,23 +1,116 @@
 <body>
-    <h1 style="text-align: center;">TestHub</h1>
-    <h5 style="text-align: center;">Welcome to TestHub</h5>
-    <div style="text-align: center;">
-        <button onclick="signIn()">Sign In</button>
-        <button onclick="signUp()">Sign </button>
-    </div>
- 
+    <nav class="navbar navbar-expand-md navbar-dark" style="background-color: #3696C8; height:40px">
+        <a href="#" class="navbar-brand">TestHub</a>
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-     <script>
-        var test="hello this is test"
-         var up='signup'
+        <div class="collapse navbar-collapse" id="navbarMenu">
+            <ul class="navbar-nav ml-auto">
+                {{!-- ul can have a class mr-auto-->shifts links to the left --}}
+                <li class="nav-item">
+                    <a href="#" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Features</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container my-container" style="max-width: 1080px;">
+        {{!-- Extra grey --}}
+        <div class="row " style="height: 20px;">
+        </div>
+        <div class="row my-row" style="  height: 411px;">
+            <div class="col my-col">
+                <div>
+                    <p class="lead text-center ">For Business <br>
+                        Create and conducut tests to recruit new people <br>
+                        for your business
+                    </p>
+                    <br>
+                    <br>
+                    <br>
+                    <div class="text-center">
+                        <button class="btn btn-lg btn-dark" onclick="signIn()">
+                            SignIn
+                        </button>
+                        <br>
+                        <br>
+                        <button class="btn btn-lg btn-dark" onclick="companySignUp()"> 
+                            SignUp
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col my-col">
+                <div>
+                    <p class="lead text-center ">For Test Takers <br>
+                        Improve your skills by practicing <br>
+                        and taking tests
+                    </p>
+                    <br>
+                    <br>
+                    <br>
+                    <div class="text-center">
+                        <button class="btn btn-lg btn-dark">
+                            SignIn
+                        </button>
+                        <br>
+                        <br>
+                        <button class="btn btn-lg btn-dark" onclick="candidateSignUp()">
+                            SignUp
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row " style="height: 37px;">
+        </div>
+
+
+    </div>
+    </div>
+    <footer>
+        <div class="container footer-container" style="max-width: 1366px;">
+            <div class="row text-light text-center footer-row align-items-center" style="height: 70px;">
+                <div class="col-4 footer-col ">
+                    Social Media and updates
+                </div>
+                <div class="col-4 footer-col">
+                    Copyright @ 2020 Testhub.com
+                </div>
+                <div class="col-4 footer-col">
+                    TestHub
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    </div>
+
+
+   
+
+
+
+    <script>
+        var test = "hello this is test"
+        var up = 'signup'
         function signIn() {
+            console.log('signIn of index.hbss')
             window.location = "/signin"
         }
 
-        function signUp() {
-            window.location = `/${up}/:${test}`
+        function companySignUp() {
+            window.location = "/companySignup"
+        }
+  function candidateSignUp() {
+            window.location = "/candidateSignup"
         }
 
-        
+
     </script>
 </body>

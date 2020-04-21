@@ -1,8 +1,67 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+/* body {
+  margin: 50px;
+  font: 20px "Lucida Grande", Helvetica, Arial, sans-serif;
+
 }
 
 a {
   color: #00B7FF;
+} */
+
+ body{
+ background-color:whitesmoke; 
+ 
+}
+
+/* FONTS */
+.lead{
+  font-family: 'Vollkorn', serif;
+
+}
+
+/* STRUCTURE */
+/* .my-container{
+  border: 1px solid green;
+ 
+  
+}
+
+.my-row{
+  border: 3px solid red;
+}
+
+.footer-row{
+  border: 3px solid red;
+}
+
+
+.footer-col{
+  border: 3px solid blue;
+ 
+} 
+
+
+.footer-container{
+  border: 1px solid green;
+
+ 
+}
+
+ */
+
+.my-col{
+  border: 1px solid black;
+  background-color: white;
+}
+
+
+
+/* FOOTER */
+
+footer{
+background-color: #3696C8;
+}
+
+.my-btn{
+  background-color: #3696C8;
 }
