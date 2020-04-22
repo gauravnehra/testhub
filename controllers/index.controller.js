@@ -1,7 +1,7 @@
 
 exports.homePage = function (req,res)  {
-    res.render ('index'
-   , {style:'style.css'}
+    res.render ('create_test'
+   , {style:'create_test.css'}
     )
 }
 
