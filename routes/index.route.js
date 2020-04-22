@@ -10,7 +10,9 @@ router.get("/", indexController.homePage)
 
 router.get("/signin", indexController.signinPage)
 
-router.get("/signup", indexController.signupPage)
+router.get("/companySignup", indexController.companySignupPage)
+
+router.get("/candidateSignup", indexController.candidateSignupPage)
 
 router.get("/delete",indexController.delete)
 

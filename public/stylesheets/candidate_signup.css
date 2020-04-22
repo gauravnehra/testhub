@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+body {
+	font-family: 'Roboto', sans-serif;
+	background: url(../images/mountain.png) no-repeat center center fixed;
+	background-size: 1280px 720px;
+}
+
+.main-section{
+    margin:0 auto;
+    
+    padding: 0;
+}
+
+.modal-content{
+    background-color: #434e5a;
+    opacity: .8;
+    padding: 0 18px;
+    border-radius: 10px;
+}
+
+.user-img img {
+    height: 120px;
+    width: 120px;
+}
+.user-img{
+    margin-top: -60px; 
+    margin-bottom: 45px;
+}
+
+.form-group{
+    margin-bottom: 25px;
+    margin-top: 25px;
+}
+
+.form-group input{
+    height: 40px;
+    border-radius: 5px;
+    border: 0px;
+    font-size: 18px;
+    letter-spacing: 2px;
+    padding-left: 54px;
+}
+
+.form-group::before{
+    font-family:'Font Awesome\ 5 Free';
+    content:"\f007";
+    position:absolute;
+    font-size: 22px;
+    left: 28px;
+    padding-top: 4px;
+    color:#555e60 ;
+}
+.form-group:nth-of-type(3)::before{
+    content: '\f1fa';
+  
+}
+
+.form-group:nth-of-type(4)::before{
+content: '\f023';
+}
+
+.form-group:nth-of-type(5)::before{
+    content: '\f3c5';
+}
+
+.form-group:nth-of-type(6)::before{
+    content: '\f091'
+}
+.form-input button{
+    width: 40%;
+    margin: 5px 0 25px;
+
+}
+
+.btn-success{
+    background-color: #1c6288;
+    font-size: 19px;
+    border-radius: 5px;
+    padding: 5px 14px;
+    border:1px solid #daf1ff ;
+}
+
+.btn-success:hover{
+    background-color: #13445e;
+    border: 1px solid #daf1ff;
+}

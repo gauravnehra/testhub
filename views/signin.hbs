@@ -1,50 +1,53 @@
-<h1 style="text-align: center;">TestHub</h1>
-<h5 style="text-align: center;">Welcome to TestHub</h5>
-<br>
-<br>
-<br>
+<body>
+    <div class="modal-dialog text-center">'
+        <div class="col-sm-9 main-section">
+            <div class="modal-content">
+                <div class="col-12 user-img">
+                    <img src="../images/face.png">
 
-<div style="text-align: center;">
-    <h1 style="text-align: center;">
-        <strong>Sign in</strong></h1>
-    <br>
-    <p style="display: inline;">Email Address: </p><input type="email" placeholder="abc@xyz.com" required="required"
-        id="email">
-    <br>
-    <br>
-    <p style="display: inline;">Password: </p><input type="password" required="required" id="password">
-    <br>
-    <br>
-    <button onclick="signIn()">Sign in</button>
-    <p id="error" class="text-center" style="color: red;"></p>
-    <br>
-    <button onclick="signUp()">Sign Up</button>
+                </div>
+                <div class="col-12 form-input">
+                    <form>
+                        <div class="form-group">
+                            <input id="email" type="email" class="form-control" placeholder="Enter Email">
+                        </div>
+                        <div class="form-group">
+                            <input id="password" type="password" class="form-control" placeholder="Enter password">
+                        </div>
+                        <button onclick="signIn()" class="btn btn-success">SignIn</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
-</div>
-<script>
+    <script>
 
-    function signIn() {
-        var email = document.getElementById("email").value
-        var password = document.getElementById("password").value
-        var xmlHttpRequest = new XMLHttpRequest()
-        xmlHttpRequest.onreadystatechange = function () {
-            if (this.readyState === 4) {
-                if (this.status === 200) {
-                    document.cookie = "authorization=" + this.getResponseHeader("authorization")
-                    console.log("signin success")
-                    window.location = "/delete"
-                }
-                else {
-                    document.getElementById("error").innerText = JSON.parse(this.responseText).message
+        function signIn() {
+            console.log("entered")
+            var email = document.getElementById("email").value
+            var password = document.getElementById("password").value
+            var xmlHttpRequest = new XMLHttpRequest()
+            xmlHttpRequest.onreadystatechange = function () {
+                if (this.readyState === 4) {
+                    if (this.status === 200) {
+                        document.cookie = "authorization=" + this.getResponseHeader("authorization")
+                        console.log("signin success")
+                        window.location = "/"
+                    }
+                    else {
+                        console.log('error')
+                        document.getElementById("error").innerText = JSON.parse(this.responseText).message
+                    }
                 }
             }
+            xmlHttpRequest.open("POST", "/company/signin", true)
+            console.log("Request Made");
+            xmlHttpRequest.setRequestHeader("Content-Type", "application/json")
+            xmlHttpRequest.send(JSON.stringify({ email: email, password: password }))
         }
-        xmlHttpRequest.open("POST", "/company/signin", true)
-        console.log("Request Made");
-        xmlHttpRequest.setRequestHeader("Content-Type", "application/json")
-        xmlHttpRequest.send(JSON.stringify({ email: email, password: password }))
-    }
-    function signUp() {
-        window.location = "/signup";
-    }
-</script>
+        function signUp() {
+            window.location = "/signup";
+        }
+    </script>
+</body>
