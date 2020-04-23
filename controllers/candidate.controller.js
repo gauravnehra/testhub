@@ -4,6 +4,7 @@ const salt = bcrypt.genSaltSync(10)
 const nodemailer = require('nodemailer')
 const Candidate = require('../models/candidate.model')
 const Test = require('../models/test.model')
+const Question = require('../models/question.model')
 const Answer = require('../models/answer.model')
 const Token = require('../models/token.model')
 require('dotenv').config()
@@ -189,7 +190,8 @@ exports.saveResponse = async (req, res) => {
   }
 
   // set answer for question
-  await answer.answers.set(req.params.qid, req.body.userResponse)
+  answer.answers.set(req.params.qid, req.body.userResponse)
+  await answer.save()
 
   res.status(200).send({ msg: "Response saved.", answer: answer })
 };
@@ -205,6 +207,26 @@ exports.submitTest = async (req, res) => {
   }
 
   answer.submitted = true;
+
+  // calculate result for MCQs
+  let test = await Test.findById(req.params.tid)
+  let questions = test.questions
+  let maxMarks = 0
+  let result = 0
+  for(i = 0; i < questions.length; i++) {
+    let question = await Question.findById(questions[i])
+    if(question.type == 'MCQ') {
+      maxMarks = maxMarks + question.score
+      if(question.correct == answer.answers.get(question._id.toString())) {
+        result = result + question.score
+      }
+    }
+  }
+
+  answer.result = result
+  answer.maxMarks = maxMarks
+  console.log(answer)
+  await answer.save()
 
   res.status(200).send({ msg: "Test submitted.", answer: answer })
 };
