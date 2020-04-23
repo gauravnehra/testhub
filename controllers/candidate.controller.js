@@ -3,6 +3,8 @@ const bcrypt = require('bcrypt')
 const salt = bcrypt.genSaltSync(10)
 const nodemailer = require('nodemailer')
 const Candidate = require('../models/candidate.model')
+const Test = require('../models/test.model')
+const Answer = require('../models/answer.model')
 const Token = require('../models/token.model')
 require('dotenv').config()
 
@@ -123,7 +125,6 @@ exports.verifyAccount = async (req, res) => {
 };
 
 exports.updateProfile = async (req, res) => {
-  
   Candidate.findByIdAndUpdate(req.token.userId, {
     name: req.body.name,
     gender: req.body.gender,
@@ -138,12 +139,68 @@ exports.updateProfile = async (req, res) => {
   })
 };
 
-exports.attemptTest = function (req, res) {
-    //TODO
+exports.attemptTest = async (req, res) => {
+  // check if user already took test
+  let answer = await Answer.findOne({ candidate: req.token.userId, test: req.params.tid })
+  let test = await Test.findById(req.params.tid)
+  let candidate = await Candidate.findById(req.token.userId)
+  if(candidate.assignedtests.indexOf(req.params.tid) < 0) {
+    // 403 : Forbidden
+    return res.status(403).send({ msg: "You are not authorized to take this test." })
+  }
+  if(!test) {
+    // 404 : Not Found
+    return res.status(404).send({ msg: "Sorry, could not find test." })
+  }
+  if(answer) {
+    if(answer.submitted) {
+      // 409 : Conflict
+      return res.status(409).send({ msg: "Sorry, you already submitted the test."})
+    }
+    return res.status(200).send({ msg: "You were in the middle of taking your test.", test: test })
+  }
+
+  answer = new Answer({
+    candidate: req.token.userId,
+    test: req.params.tid
+  })
+
+  answer.save( async function (err){
+    if(err) res.status(500).send({ msg: "Some error occured", err: err})
+    else {
+      res.status(200).send({ msg: "Success", test: test })
+    }
+  })
 };
 
-exports.practicetest = function (req, res) {
-    //TODO
+exports.saveResponse = async (req, res) => {
+  let answer = await Answer.findOne({ candidate: req.token.userId, test: req.params.tid })
+  if(!answer) {
+    return res.status(404).send({ msg: "Some Error Occured" })
+  }
+  if(answer.submitted) {
+    // 409 : Conflict
+    return res.status(409).send({ msg: "Sorry, you already submitted the test."})
+  }
+
+  await answer.answers.set(req.params.qid, req.body.userResponse)
+
+  res.status(200).send({ msg: "Response saved.", answer: answer })
+};
+
+exports.submitTest = async (req, res) => {
+  let answer = await Answer.findOne({ candidate: req.token.userId, test: req.params.tid })
+  if(!answer) {
+    return res.status(404).send({ msg: "Some Error Occured" })
+  }
+  if(answer.submitted) {
+    // 409 : Conflict
+    return res.status(409).send({ msg: "Sorry, you already submitted the test."})
+  }
+
+  answer.submitted = true;
+
+  res.status(200).send({ msg: "Test submitted.", answer: answer })
 };
 
 function sendVerifyMail(toId, toEmail) {

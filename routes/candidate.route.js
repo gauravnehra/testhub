@@ -19,10 +19,16 @@ router.put("/verify/:id", candidate_controller.verifyAccount)
 // router.get("/test", candidate_controller.practicetest)
 
 // attempt test with id
-router.get("/test/:id", candidate_controller.attemptTest)
+router.get("/test/:tid", auth, candidate_controller.attemptTest)
+
+// save question response
+router.post("/test/:tid/question/:qid", auth, candidate_controller.saveResponse)
+
+// submit test
+router.post("/test/:tid/submit", auth, candidate_controller.submitTest)
 
 // update candidate profile
-router.put("/profile", candidate_controller.updateProfile)
+router.put("/profile", auth, candidate_controller.updateProfile)
 
 router.get("/", candidate_controller.dashboard)
 
