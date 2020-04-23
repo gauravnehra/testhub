@@ -6,6 +6,7 @@ const Company = require('../models/company.model')
 const Candidate = require('../models/candidate.model')
 const Test = require('../models/test.model')
 const Question = require('../models/question.model')
+const Answer = require('../models/answer.model')
 const Token = require('../models/token.model')
 require('dotenv').config()
 
@@ -251,8 +252,20 @@ exports.inviteCandidates = async (req, res) => {
   res.status(200).send({ msg: "Candidates Invited", linkForTest: "localhost:3000/candidate/test/" + req.params.tid })
 };
 
-exports.testresult = function (req, res) {
-  //TODO
+exports.testresult = async (req, res) => {
+  let test = await Test.findById(req.params.tid)
+  // check if test exists
+  if(!test) {
+    res.status(404).send({ msg: "Test Not Found in DB" })
+  }
+  let answersId = test.answers
+  let answers = []
+  for(i = 0; i < answersId.length; i++) {
+    let answer = await Answer.findById(answersId[i])
+    answers.push(answer)
+  }
+
+  res.status(200).send(answers)
 };
 
 function sendVerifyMail(toId, toEmail) {

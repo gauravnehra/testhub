@@ -225,10 +225,14 @@ exports.submitTest = async (req, res) => {
 
   answer.result = result
   answer.maxMarks = maxMarks
-  console.log(answer)
-  await answer.save()
 
-  res.status(200).send({ msg: "Test submitted.", answer: answer })
+  answer.save( async function (err){
+    if(err) res.status(500).send({ msg: "Some error occured", err: err})
+    else {
+      await Test.findByIdAndUpdate(req.params.tid, { $push: { answers: answer._id } })
+      res.status(200).send({ msg: "Response submitted.", answer: answer })
+    }
+  })
 };
 
 function sendVerifyMail(toId, toEmail) {

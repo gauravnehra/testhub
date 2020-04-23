@@ -40,8 +40,8 @@ router.delete("/tests", auth, company_controller.deleteAllTests)
 // invite candidates to test
 router.post("/test/:tid/invite", auth, company_controller.inviteCandidates)
 
-// get test with id
-router.get("/test/:tid", company_controller.testresult)
+// get test result with id
+router.get("/test/:tid/result", company_controller.testresult)
 
 // get all tests
 router.get("/tests", company_controller.testresult)
