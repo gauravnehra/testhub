@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt')
 const salt = bcrypt.genSaltSync(10)
 const nodemailer = require('nodemailer')
 const Company = require('../models/company.model')
+const Candidate = require('../models/candidate.model')
 const Test = require('../models/test.model')
 const Question = require('../models/question.model')
 const Token = require('../models/token.model')
@@ -221,7 +222,24 @@ exports.deleteAllTests = async (req, res) => {
 };
 
 exports.inviteCandidates = async (req, res) => {
-  //TODO
+  test = await Test.findById(req.params.tid)
+  if(!test) {
+    res.status(404).send({ msg: "Test Not Found in DB" })
+  }
+  let candidatesEmail = req.body.candidates
+  for(i = 0; i < candidatesEmail.length; i++) {
+    let candidate = await Candidate.findOne({ email: candidatesEmail[i] })
+    if(candidate) {
+      candidate.assignedtests.push(req.params.tid)
+      await candidate.save()
+    }
+  }
+
+  let company = await Company.findById(req.token.userId)
+  let companyName = company.name
+  sendInviteMail(candidatesEmail, companyName, req.params.tid)
+
+  res.status(200).send({ msg: "Candidates Invited", linkForTest: "localhost:3000/candidate/test/" + req.params.tid })
 };
 
 exports.testresult = function (req, res) {
@@ -242,6 +260,32 @@ function sendVerifyMail(toId, toEmail) {
     to : toEmail,
     subject : process.env.EMAIL_SUB,
     html : process.env.EMAIL_MSG + " " + link
+  }
+
+  smtpTransport.sendMail(mailOptions, function(err, msg){
+    if(err) {
+      console.log(err);
+    }
+    else {
+      console.log("mail sent");
+    }
+  });
+}
+
+function sendInviteMail(toEmail, by, tid) {
+  let smtpTransport = nodemailer.createTransport({
+    service: "Gmail",
+    auth: {
+      user: process.env.EMAIL,
+      pass: process.env.PASS
+    }
+  });
+
+  let link = "localhost:3000/candidate/test/" + tid
+  let mailOptions = {
+    to : toEmail,
+    subject : "testhub - Test Invite",
+    html : "You have been invites to a test by " + by + " on testhub. To attempt the test you can either login and take test from dashboard or go to: " + link
   }
 
   smtpTransport.sendMail(mailOptions, function(err, msg){

@@ -38,7 +38,7 @@ router.delete("/test/:tid", auth, company_controller.deleteTest)
 router.delete("/tests", auth, company_controller.deleteAllTests)
 
 // invite candidates to test
-router.post("/test/:tid/invite", company_controller.inviteCandidates)
+router.post("/test/:tid/invite", auth, company_controller.inviteCandidates)
 
 // get test with id
 router.get("/test/:tid", company_controller.testresult)

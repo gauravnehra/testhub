@@ -6,7 +6,7 @@ let companySchema = new Schema({
     email: { type: String, required: true },
     password: { type: String, required: true},
     location: { type: String, required: true},
-    domain: { type: String, required: true},
+    domain: { type: String, required: false, default: null },
     createdtests: [{ type: mongoose.Types.ObjectId, ref: 'Test', required: false, default: null }],
     isVerified: { type: Boolean, default: false }
 })
