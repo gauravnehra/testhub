@@ -60,12 +60,14 @@ exports.signin = async (req, res) => {
 };
 
 exports.signout = async (req, res) => {
+  // delete from token from DB
   token = await Token.findByIdAndDelete(req.token._id)
   
   res.status(200).send({ msg: "Signout success" })
 };
 
 exports.signoutall = async (req, res) => {
+  // delete all tokens from Db
   let tokens = await Token.deleteMany({ userId: req.token.userId })
 
   res.status(200).send({ msg: "Signout all success" })
@@ -76,6 +78,7 @@ exports.dashboard = function (req, res) {
 };
 
 exports.resetPassword = async (req, res) => {
+  // check if user exists
   let company = await Company.findById(req.token.userId)
   if(!company) {
     // 404 : Not Found
@@ -98,6 +101,7 @@ exports.resetPassword = async (req, res) => {
 
 exports.verifyAccount = async (req, res) => {
   let company = await Company.findOne({ email: req.body.email })
+  // check if user exists
   if(!company) {
     // 404 : Not Found
     return res.status(404).send({ msg: "Account does not exist." })
@@ -108,6 +112,7 @@ exports.verifyAccount = async (req, res) => {
     return res.status(421).send({ msg: "Wrong URL" })
   }
 
+  // check password and verify account
   if(bcrypt.compareSync(req.body.password, company.password)) {
     Company.findByIdAndUpdate(req.params.id, { isVerified: true }, (err, company) => {
       if(err) res.status(500).send({ msg: "Some error occured", err: err})
@@ -122,6 +127,7 @@ exports.verifyAccount = async (req, res) => {
 };
 
 exports.createTest = async (req, res) => {
+  // create new test
   let test = new Test({
     name: req.body.testName,
     duration: req.body.testDuration
@@ -137,7 +143,7 @@ exports.createTest = async (req, res) => {
 };
 
 exports.addQuestion = async (req, res) => {
-
+  // create a new question
   let question = new Question({
     question: req.body.question,
     type: req.body.type,
@@ -148,7 +154,7 @@ exports.addQuestion = async (req, res) => {
     optionD: req.body.optionD,
     correct: req.body.correct
   })
-
+  // save question in DB and add entry in test
   question.save( async function (err){
     if(err) res.status(500).send({ msg: "Some error occured", err: err})
     else {
@@ -223,10 +229,12 @@ exports.deleteAllTests = async (req, res) => {
 
 exports.inviteCandidates = async (req, res) => {
   test = await Test.findById(req.params.tid)
+  // check if test exists
   if(!test) {
     res.status(404).send({ msg: "Test Not Found in DB" })
   }
   let candidatesEmail = req.body.candidates
+  // add entry in existing candidate profiles for assigned test
   for(i = 0; i < candidatesEmail.length; i++) {
     let candidate = await Candidate.findOne({ email: candidatesEmail[i] })
     if(candidate) {
@@ -237,6 +245,7 @@ exports.inviteCandidates = async (req, res) => {
 
   let company = await Company.findById(req.token.userId)
   let companyName = company.name
+  // send invite mail to all candidates
   sendInviteMail(candidatesEmail, companyName, req.params.tid)
 
   res.status(200).send({ msg: "Candidates Invited", linkForTest: "localhost:3000/candidate/test/" + req.params.tid })

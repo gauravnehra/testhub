@@ -62,12 +62,14 @@ exports.signin = async (req, res) => {
 };
 
 exports.signout = async (req, res) => {
+  // delete token from DB
   token = await Token.findByIdAndDelete(req.token._id)
   
   res.status(200).send({ msg: "Signout success" })
 };
 
 exports.signoutall = async (req, res) => {
+  // delete all tokens from DB
   let tokens = await Token.deleteMany({ userId: req.token.userId })
 
   res.status(200).send({ msg: "Signout all success" })
@@ -78,6 +80,7 @@ exports.dashboard = function (req, res) {
 };
 
 exports.resetPassword = async (req, res) => {
+  // check if account exists
   let candidate = await Candidate.findById(req.token.userId)
   if(!candidate) {
     // 404 : Not Found
@@ -100,7 +103,7 @@ exports.resetPassword = async (req, res) => {
 
 exports.verifyAccount = async (req, res) => {
   let candidate = await Candidate.findOne({ email: req.body.email })
-
+  // check if user exists
   if(!candidate) {
     // 404 : Not Found
     return res.status(404).send({ msg: "Account does not exist." })
@@ -111,6 +114,7 @@ exports.verifyAccount = async (req, res) => {
     return res.status(421).send({ msg: "Wrong URL" })
   }
 
+  // check password and verify account
   if(bcrypt.compareSync(req.body.password, candidate.password)) {
     Candidate.findByIdAndUpdate(req.params.id, { isVerified: true }, (err, candidate) => {
       if(err) res.status(500).send({ msg: "Some error occured", err: err})
@@ -160,6 +164,7 @@ exports.attemptTest = async (req, res) => {
     return res.status(200).send({ msg: "You were in the middle of taking your test.", test: test })
   }
 
+  // create new answer document
   answer = new Answer({
     candidate: req.token.userId,
     test: req.params.tid
@@ -183,6 +188,7 @@ exports.saveResponse = async (req, res) => {
     return res.status(409).send({ msg: "Sorry, you already submitted the test."})
   }
 
+  // set answer for question
   await answer.answers.set(req.params.qid, req.body.userResponse)
 
   res.status(200).send({ msg: "Response saved.", answer: answer })
