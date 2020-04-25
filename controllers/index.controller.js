@@ -1,7 +1,7 @@
 
 exports.homePage = function (req,res)  {
-    res.render ('create_test'
-   , {style:'create_test.css'}
+    res.render ('index'
+   , {style:'style.css'}
     )
 }
 
@@ -17,6 +17,6 @@ exports.candidateSignupPage = function (req, res) {
     res.render ('candidate_signup',{style:'candidate_signup.css'})
 }
 
-exports.delete = function (req, res) {
-    res.render ('delete')
+exports.dashboard = function (req, res) {
+    res.render ('company_dashboard',{style:'company_dashboard.css'})
 }

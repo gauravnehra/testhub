@@ -75,7 +75,9 @@ exports.signoutall = async (req, res) => {
 };
 
 exports.dashboard = function (req, res) {
-    //TODO
+    
+  res.send({msg:'reached dashboard'})
+  //TODO
 };
 
 exports.resetPassword = async (req, res) => {

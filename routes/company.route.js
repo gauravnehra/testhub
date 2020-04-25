@@ -46,6 +46,6 @@ router.get("/test/:tid/result", company_controller.testresult)
 // get all tests
 router.get("/tests", company_controller.testresult)
 
-router.get("/", company_controller.dashboard)
+router.get("/",company_controller.dashboard)
 
 module.exports = router // /home/x/Data/testhub/routes/company.route.js

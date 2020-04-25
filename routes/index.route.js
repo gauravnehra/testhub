@@ -14,7 +14,7 @@ router.get("/companySignup", indexController.companySignupPage)
 
 router.get("/candidateSignup", indexController.candidateSignupPage)
 
-router.get("/delete",indexController.delete)
+router.get("/dashboard",indexController.dashboard)
 
 
 module.exports = router;
