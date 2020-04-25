@@ -298,17 +298,14 @@ exports.getAllTests = async (req, res) => {
     // 404 : Not Found
     return res.status(404).send({ msg: "Account does not exist." })
   }
-  let responseObject = {
-    userName: "",
-    tests: []
-  }
-  responseObject.userName = company.name
+
+  let tests = []
   let createdtests = company.createdtests
   for(i = 0; i < createdtests.length; i++) {
     test = await Test.findById(createdtests[i])
-    responseObject.tests.push(test)
+    tests.push(test)
   }
-  res.status(200).send(responseObject)
+  res.status(200).send(tests)
 };
 
 function sendVerifyMail(toId, toEmail) {
