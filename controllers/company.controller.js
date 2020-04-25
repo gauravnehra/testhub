@@ -74,8 +74,24 @@ exports.signoutall = async (req, res) => {
   res.status(200).send({ msg: "Signout all success" })
 };
 
-exports.dashboard = function (req, res) {
-    //TODO
+exports.dashboard = async (req, res) => {
+  // check if user exists
+  let company = await Company.findById(req.token.userId)
+  if(!company) {
+    // 404 : Not Found
+    return res.status(404).send({ msg: "Account does not exist." })
+  }
+  let responseObject = {
+    userName: "",
+    tests: []
+  }
+  responseObject.userName = company.name
+  let createdtests = company.createdtests
+  for(i = createdtests.length - 1; i > createdtests.length - 6; i--) {
+    test = await Test.findById(createdtests[i])
+    responseObject.tests.push(test)
+  }
+  res.status(200).send(responseObject)
 };
 
 exports.resetPassword = async (req, res) => {
@@ -273,6 +289,26 @@ exports.testresult = async (req, res) => {
   }
 
   res.status(200).send(answers)
+};
+
+exports.getAllTests = async (req, res) => {
+  // check if user exists
+  let company = await Company.findById(req.token.userId)
+  if(!company) {
+    // 404 : Not Found
+    return res.status(404).send({ msg: "Account does not exist." })
+  }
+  let responseObject = {
+    userName: "",
+    tests: []
+  }
+  responseObject.userName = company.name
+  let createdtests = company.createdtests
+  for(i = 0; i < createdtests.length; i++) {
+    test = await Test.findById(createdtests[i])
+    responseObject.tests.push(test)
+  }
+  res.status(200).send(responseObject)
 };
 
 function sendVerifyMail(toId, toEmail) {
