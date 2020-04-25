@@ -29,7 +29,7 @@ exports.signup = async (req, res) => {
   })
 
   // saving user in DB
-  company.save( async function (err){
+  company.save( async (err) => {
     if(err) res.status(500).send({ msg: "Some error occured", err: err})
     else {
       let token = new Token({ userId: company._id })
@@ -128,13 +128,20 @@ exports.verifyAccount = async (req, res) => {
 };
 
 exports.createTest = async (req, res) => {
+  // check if user account is verified or not
+  let company = await Company.findById(req.token.userId)
+  if(!(company.isVerified)) {
+    // 403 : Forbidden
+    return res.status(403).send({ msg: "You need to verify your account before you can create tests." })
+  }
+
   // create new test
   let test = new Test({
     name: req.body.testName,
     duration: req.body.testDuration
   })
 
-  test.save( async function (err){
+  test.save( async (err) => {
     if(err) res.status(500).send({ msg: "Some error occured", err: err})
     else {
       await Company.findByIdAndUpdate(req.token.userId, { $push: { createdtests: test._id } })
@@ -156,7 +163,7 @@ exports.addQuestion = async (req, res) => {
     correct: req.body.correct
   })
   // save question in DB and add entry in test
-  question.save( async function (err){
+  question.save( async (err) => {
     if(err) res.status(500).send({ msg: "Some error occured", err: err})
     else {
       await Test.findByIdAndUpdate(req.params.tid, { $push: { questions: question._id } })

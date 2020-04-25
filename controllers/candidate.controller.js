@@ -30,7 +30,7 @@ exports.signup = async (req, res) => {
   })
 
   // saving user in DB
-  candidate.save( async function (err){
+  candidate.save( async (err) => {
     if(err) res.status(500).send({ msg: "Some error occured", err: err})
     else {
       let token = new Token({ userId: candidate._id })
@@ -171,7 +171,7 @@ exports.attemptTest = async (req, res) => {
     test: req.params.tid
   })
 
-  answer.save( async function (err){
+  answer.save( async (err) => {
     if(err) res.status(500).send({ msg: "Some error occured", err: err})
     else {
       res.status(200).send({ msg: "Success", test: test })
@@ -226,7 +226,7 @@ exports.submitTest = async (req, res) => {
   answer.result = result
   answer.maxMarks = maxMarks
 
-  answer.save( async function (err){
+  answer.save( async (err) => {
     if(err) res.status(500).send({ msg: "Some error occured", err: err})
     else {
       await Test.findByIdAndUpdate(req.params.tid, { $push: { answers: answer._id } })
