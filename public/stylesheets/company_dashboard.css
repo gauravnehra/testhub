@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+body{
+    font-family: 'Roboto', sans-serif;
+    background: url(../images/mountain.png) no-repeat center center fixed;
+	background-size: 1280px 720px;
+}
+
+.heading{
+    margin-top: 15px;
+}
+
+/* .row-border{
+    border: 2px solid black;
+}
+
+.col-border{
+    border: 2px solid white;
+} */
+
+.btn-custom{
+background: none;
+border: none;
+color: white;
+}
+
+.row-main{
+    margin-top: 5px;   
+    background-color: #343A40;
+}
+
+.my-row{
+
+    margin-top: 20px;
+    background-color: black;
+    color: white;
+    opacity: .8;
+}
+footer{
+    background-color: #343A40;
+    margin-top: 20px;
+    }
+
+    .recent-tests{
+        color: white;
+        background-color: black;
+        opacity: .8;
+        margin-top: 3px;
+        height: 300px;
+
+    }
