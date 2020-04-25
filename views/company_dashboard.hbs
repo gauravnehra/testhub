@@ -1,0 +1,108 @@
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark" style=" height:40px">
+        <a href="#" class="navbar-brand">TestHub</a>
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarMenu">
+            <ul class="navbar-nav ml-auto">
+                {{!-- ul can have a class mr-auto-->shifts links to the left --}}
+                <li class="nav-item">
+                    <a href="#" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Features</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+<div class="container my-container">
+    <div class="row row-border heading">
+        <h2 >Dashboard</h2>
+    </div>
+    <div class="row row-border row-main text-center">
+        <div class="col-2 col-border">
+          <button class="btn btn-custom">Create New Test</button>
+        </div>
+        <div class="col-2 col-border">
+            <button class="btn btn-custom">View All Tests</button>
+        </div>
+    </div>
+
+    <div class="row row-border my-row align-items-center"> 
+        <div class="col col-border">
+            <p style="margin-top:10px ;">Recently Created Tests</p>
+            
+        </div>
+    </div>
+
+    <div class=" row recent-tests"> 
+   
+    </div>
+    
+</div>
+
+<footer>
+        <div class="container footer-container" style="max-width: 1366px;">
+            <div class="row text-light text-center footer-row align-items-center" style="height: 70px;">
+                <div class="col-4 footer-col ">
+                    Social Media and updates
+                </div>
+                <div class="col-4 footer-col">
+                    Copyright @ 2020 Testhub.com
+                </div>
+                <div class="col-4 footer-col">
+                    TestHub
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+
+
+
+
+<script>
+   (function (){
+       console.log('here')
+       var xmlHttpRequest = new XMLHttpRequest()
+            xmlHttpRequest.onreadystatechange = function () {
+                if (this.readyState === 4) {
+                    if (this.status === 200) {
+                        console.log("dashboard loded")
+                        console.log(JSON.parse(this.responseText).msg)
+                    }
+                    else {
+                        document.getElementById("error").innerText = JSON.parse(this.responseText).message
+                    }
+                }
+            }   
+            xmlHttpRequest.open("GET", "/company", true)
+            xmlHttpRequest.setRequestHeader("Content-Type", "application/json")
+            xmlHttpRequest.setRequestHeader("authorization", getCookie("authorization"));
+            
+            xmlHttpRequest.send();
+            function getCookie(cname) {
+               
+                var name = cname + "=";
+                var decodedCookie = decodeURIComponent(document.cookie);
+                var ca = decodedCookie.split(';');
+                for (var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                        return c.substring(name.length, c.length);
+                    }
+                }
+                return "";
+            }
+   })();
+</script>
+
+
+</body>
