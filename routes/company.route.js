@@ -44,8 +44,8 @@ router.post("/test/:tid/invite", auth, company_controller.inviteCandidates)
 router.get("/test/:tid/result", company_controller.testresult)
 
 // get all tests
-router.get("/tests", company_controller.testresult)
+router.get("/tests", auth, company_controller.getAllTests)
 
-router.get("/",company_controller.dashboard)
+router.get("/", auth, company_controller.dashboard)
 
 module.exports = router // /home/x/Data/testhub/routes/company.route.js
