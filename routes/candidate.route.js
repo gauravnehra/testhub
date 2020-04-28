@@ -30,6 +30,6 @@ router.post("/test/:tid/submit", auth, candidate_controller.submitTest)
 // update candidate profile
 router.put("/profile", auth, candidate_controller.updateProfile)
 
-router.get("/", candidate_controller.dashboard)
+router.get("/", auth,candidate_controller.dashboard)
 
 module.exports = router  // /home/x/Data/testhub/routes/candidate.route.js
