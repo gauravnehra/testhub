@@ -86,11 +86,8 @@ exports.dashboard = async (req, res) => {
     tests: []
   }
   responseObject.userName = company.name
-  let createdtests = company.createdtests
-  for(i = createdtests.length - 1; i > createdtests.length - 6; i--) {
-    test = await Test.findById(createdtests[i])
-    responseObject.tests.push(test)
-  }
+  responseObject.tests = await Test.find({ company: req.token.userId }).limit(5).sort('-date')
+
   res.status(200).send(responseObject)
 };
 
@@ -153,6 +150,7 @@ exports.createTest = async (req, res) => {
 
   // create new test
   let test = new Test({
+    company: req.token.userId,
     name: req.body.testName,
     duration: req.body.testDuration
   })
@@ -255,7 +253,7 @@ exports.inviteCandidates = async (req, res) => {
   test = await Test.findById(req.params.tid)
   // check if test exists
   if(!test) {
-    res.status(404).send({ msg: "Test Not Found in DB" })
+    return res.status(404).send({ msg: "Test Not Found in DB" })
   }
   let candidatesEmail = req.body.candidates
   // add entry in existing candidate profiles for assigned test
@@ -279,14 +277,10 @@ exports.testresult = async (req, res) => {
   let test = await Test.findById(req.params.tid)
   // check if test exists
   if(!test) {
-    res.status(404).send({ msg: "Test Not Found in DB" })
+    return res.status(404).send({ msg: "Test Not Found in DB" })
   }
-  let answersId = test.answers
-  let answers = []
-  for(i = 0; i < answersId.length; i++) {
-    let answer = await Answer.findById(answersId[i])
-    answers.push(answer)
-  }
+  
+  let answers = await Answer.find({ test: req.params.tid }).sort('result')
 
   res.status(200).send(answers)
 };
@@ -299,12 +293,8 @@ exports.getAllTests = async (req, res) => {
     return res.status(404).send({ msg: "Account does not exist." })
   }
 
-  let tests = []
-  let createdtests = company.createdtests
-  for(i = 0; i < createdtests.length; i++) {
-    test = await Test.findById(createdtests[i])
-    tests.push(test)
-  }
+  let tests = await Test.find({ company: req.token.userId }).sort('-date')
+
   res.status(200).send(tests)
 };
 
