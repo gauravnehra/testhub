@@ -149,7 +149,7 @@ exports.attemptTest = async (req, res) => {
   let answer = await Answer.findOne({ candidate: req.token.userId, test: req.params.tid })
   let test = await Test.findById(req.params.tid)
   let candidate = await Candidate.findById(req.token.userId)
-  if(candidate.assignedtests.indexOf(req.params.tid) < 0) {
+  if(test.invitedCandidates.indexOf(candidate.email.toString()) < 0) {
     // 403 : Forbidden
     return res.status(403).send({ msg: "You are not authorized to take this test." })
   }
@@ -230,6 +230,7 @@ exports.submitTest = async (req, res) => {
     if(err) res.status(500).send({ msg: "Some error occured", err: err})
     else {
       await Test.findByIdAndUpdate(req.params.tid, { $push: { answers: answer._id } })
+      await Candidate.findByIdAndUpdate(req.token.userId, { $pullAll: { assignedtests: [req.params.tid] } })
       res.status(200).send({ msg: "Response submitted.", answer: answer })
     }
   })

@@ -250,7 +250,7 @@ exports.deleteAllTests = async (req, res) => {
 };
 
 exports.inviteCandidates = async (req, res) => {
-  test = await Test.findById(req.params.tid)
+  let test = await Test.findById(req.params.tid)
   // check if test exists
   if(!test) {
     return res.status(404).send({ msg: "Test Not Found in DB" })
@@ -263,6 +263,8 @@ exports.inviteCandidates = async (req, res) => {
       candidate.assignedtests.push(req.params.tid)
       await candidate.save()
     }
+    test.invitedCandidates.push(candidatesEmail[i])
+    await test.save()
   }
 
   let company = await Company.findById(req.token.userId)

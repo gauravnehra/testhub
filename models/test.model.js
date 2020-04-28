@@ -7,6 +7,7 @@ let testSchema = new Schema({
     duration: { type: String, required: false},
     questions: [{ type: mongoose.Types.ObjectId, ref: 'Question', required: false}],
     answers: [{ type: mongoose.Types.ObjectId, ref: 'Answer', required: false }],
+    invitedCandidates: [{ type: String, required: false, default: [] }],    //array of candidate emails to validate in attemptTest
     date: { type: Date, default: Date, required: true }
 })
 
