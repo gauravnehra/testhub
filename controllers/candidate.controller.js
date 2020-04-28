@@ -231,6 +231,8 @@ exports.submitTest = async (req, res) => {
     else {
       await Test.findByIdAndUpdate(req.params.tid, { $push: { answers: answer._id } })
       await Candidate.findByIdAndUpdate(req.token.userId, { $pullAll: { assignedtests: [req.params.tid] } })
+      let candidate = await Candidate.findById(req.token.userId)
+      await Test.findByIdAndUpdate(req.params.tid, { $pullAll: { invitedCandidates: [candidate.email] } })  // removing candidates email from list of invitedCandidates in Test Model
       res.status(200).send({ msg: "Response submitted.", answer: answer })
     }
   })
