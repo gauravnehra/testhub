@@ -78,3 +78,11 @@ exports.companyDashboard = function (req, res) {
 
 //    res.render ('company_dashboard',{style:'company_dashboard.css'})
 }
+
+exports.createTest = async (req, res) => {
+    res.render ('create_test',{style:'create_test.css'})
+}
+
+exports.addQuestion = async (req, res) => {
+    res.render ('')
+}

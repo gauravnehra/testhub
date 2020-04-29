@@ -17,5 +17,9 @@ router.get("/candidateSignup", indexController.candidateSignupPage)
 
 router.get("/companyDashboard",indexController.companyDashboard)
 
+router.get("/createtest", indexController.createTest)
+
+router.get("/addquestion/:tid", indexController.addQuestion)
+
 
 module.exports = router;
