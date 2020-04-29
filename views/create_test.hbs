@@ -39,9 +39,8 @@
                         window.location = `/addquestion/${test._id}`
                     }
                     else {
-                        let msg = JSON.parse(this.responseText).msg
                         let p = document.createElement("p")
-                        p.innerText = msg
+                        p.innerText = JSON.parse(this.responseText).msg
                         document.getElementById("error").classList.add("alert", "alert-danger")
                         document.getElementById("error").appendChild(p)
                     }

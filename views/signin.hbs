@@ -8,6 +8,7 @@
                 </div>
                 <div class="col-12 form-input">
                     <form>
+                        <div id="error"></div>
                         <div class="form-group">
                             <input id="email" type="email" class="form-control" placeholder="Enter Email">
                         </div>
@@ -24,7 +25,6 @@
     <script>
 
         function signIn() {
-            console.log("entered")
             var email = document.getElementById("email").value
             var password = document.getElementById("password").value
             var xmlHttpRequest = new XMLHttpRequest()
@@ -37,7 +37,10 @@
                     }
                     else {
                         console.log('error')
-                        document.getElementById("error").innerText = JSON.parse(this.responseText).message
+                        let p = document.createElement("p")
+                        p.innerText = JSON.parse(this.responseText).msg
+                        document.getElementById("error").classList.add("alert", "alert-danger")
+                        document.getElementById("error").appendChild(p)
                     }
                 }
             }

@@ -4,23 +4,24 @@
             <div class="modal-content">
 
                 <div class="col-sm-12 form-input">
+                    <div id="error"></div>
                     <form>
                         <div class="form-group">
-                            <input id="company_name" type="text" class="form-control" placeholder="Enter Company Name">
+                            <input id="name" type="text" class="form-control" placeholder="Enter Company Name*">
                         </div>
                         <div class="form-group">
                             <input id="domain" type="text" class="form-control" placeholder="Enter Domain">
                         </div>
                         <div class="form-group">
-                            <input id="email" type="email" class="form-control" placeholder="Enter Email">
+                            <input id="email" type="email" class="form-control" placeholder="Enter Email*">
                         </div>
                         <div class="form-group">
-                            <input id="password" type="password" class="form-control" placeholder="Enter password">
+                            <input id="password" type="password" class="form-control" placeholder="Enter Password*">
                         </div>
                         <div class="form-group">
-                            <input id="location" type="text" class="form-control" placeholder="Enter Location">
+                            <input id="location" type="text" class="form-control" placeholder="Enter Location*">
                         </div>
-                        <button onclick="signIn()" class="btn btn-success">SignUp</button>
+                        <button onclick="signUp()" type="button" class="btn btn-success">SignUp</button>
                     </form>
                 </div>
             </div>
@@ -30,26 +31,31 @@
 <script>
      function signUp() {
             console.log("entered")
-            var email = document.getElementById("email").value
-            var password = document.getElementById("password").value
+            let name = document.getElementById('name').value
+            let domain = document.getElementById('domain').value
+            let email = document.getElementById("email").value
+            let password = document.getElementById("password").value
+            let location = document.getElementById('location').value
             var xmlHttpRequest = new XMLHttpRequest()
+            xmlHttpRequest.open("POST", "/company/signup", true)
+            xmlHttpRequest.setRequestHeader("Content-Type", "application/json")
             xmlHttpRequest.onreadystatechange = function () {
                 if (this.readyState === 4) {
                     if (this.status === 200) {
                         document.cookie = "authorization=" + this.getResponseHeader("authorization")
-                        console.log("signin success")
-                        window.location = "/"
+                        console.log("signup success")
+                        window.location = "/companyDashboard"
                     }
                     else {
                         console.log('error')
-                        document.getElementById("error").innerText = JSON.parse(this.responseText).message
+                        let p = document.createElement("p")
+                        p.innerText = JSON.parse(this.responseText).msg
+                        document.getElementById("error").classList.add("alert", "alert-danger")
+                        document.getElementById("error").appendChild(p)
                     }
                 }
             }
-            xmlHttpRequest.open("POST", "/company/signin", true)
-            console.log("Request Made");
-            xmlHttpRequest.setRequestHeader("Content-Type", "application/json")
-            xmlHttpRequest.send(JSON.stringify({ email: email, password: password }))
+            xmlHttpRequest.send(JSON.stringify({ name: name, email: email, password: password, location: location, domain: domain }))
         }
 </script>
 </body>
