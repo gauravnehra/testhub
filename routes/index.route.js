@@ -17,5 +17,15 @@ router.get("/candidateSignup", indexController.candidateSignupPage)
 
 router.get("/companyDashboard",indexController.companyDashboard)
 
+router.get("/addQuestionMCQ/:testId",indexController.addQuestionMCQ)
+
+router.get("/addQuestionSubjective",indexController.addQuestionSubjective)
+
+router.get("/resetPassword", indexController.resetPassword)
+
+router.get("/veriflyEmail", indexController.verifyEmail)
+
+router.get("/createTest", indexController.createTest)
 
 module.exports = router;
+

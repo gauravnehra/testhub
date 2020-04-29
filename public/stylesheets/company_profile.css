@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+body{
+    font-family: 'Roboto', sans-serif;
+    background: url(../images/mountain.png) no-repeat center center fixed;
+    background-size: cover;
+    /* height: 100%; */
+    margin-bottom:30px;
+
+}
+
+html{
+    /* height: 100%; */
+}
+footer{
+    /* margin-top: 30px !important; */
+    background-color: #343A40;
+}
+
+.back{
+    height: 450px;
+    background-color: black;
+    color: white;
+    opacity: .8;
+}
+
+.form-group{
+    margin-bottom: 25px;
+
+}
+
+.form-group input{
+    height: 42px;
+    border-radius: 5px;
+    border: 0px;
+    font-size: 18px;
+    letter-spacing: 2px;
+    
+    width:400px;
+}
+
+p{
+    margin-left: 20px;
+    font-size: 18px;
+}
+
+.form-input button{
+    width: 40%;
+    margin-left: 20px;
+    
+}
+
+a{
+color: white;
+font-size: 18px;    
+}
+
+a:hover{
+color: whitesmoke;
+    
+}
+

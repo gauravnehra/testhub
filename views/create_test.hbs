@@ -12,21 +12,62 @@
                             <input id="test_name" type="text" class="form-control" placeholder="Enter Test Name">
                         </div>
                         <div class="form-group">
-                            <input id="duration" type="password" class="form-control" placeholder="Enter Test Duration">
+                            <input id="duration" type="number" class="form-control" placeholder="Enter Test Duration">
                         </div>
 
-                        <label style="color: white;"  for="exampleFormControlSelect1">Type</label>
+                        {{!-- <label style="color: white;"  for="exampleFormControlSelect1">Type</label>
                         <select class="form-control" id="exampleFormControlSelect1">
                             <option>MCQ</option>
                             <option>Subjective</option>
                             
-                        </select>
+                        </select> --}}
 
-                        <button class="btn btn-success">Create Test</button>
+                        <button onclick="createTest()" class="btn btn-success">Create Test</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+
+<script>
+   
+        function createTest() {
+            let name = document.getElementById("test_name").value;
+            let duration = document.getElementById("duration").value;
+            var xmlHttpRequest = new XMLHttpRequest()
+            xmlHttpRequest.onreadystatechange = function () {
+                if (this.readyState === 4) {
+                    if (this.status === 200) {
+                        console.log("enter")
+                        let test = xmlHttpRequest.response
+                        console.log(test)
+                        window.location = "/${test._id}"
+                    }
+                    else {
+                        console.log(JSON.parse(this.responseText).msg)
+                        document.getElementById("error").innerText = JSON.parse(this.responseText).msg
+                    }
+                }
+            }
+            xmlHttpRequest.open("POST", "/company/test", true)
+            xmlHttpRequest.setRequestHeader("Content-Type", "application/json")
+            xmlHttpRequest.setRequestHeader("authorization", getCookie("authorization"));
+            console.log(JSON.stringify({ name: name, duration: duration }))
+            xmlHttpRequest.send(JSON.stringify({ testName: name, testDuration: duration }))
+            console.log("hhhhhhhhhh")
+
+
+    }
+
+    function getCookie(name) {
+    var value = "; " + document.cookie;
+    var parts = value.split("; " + name + "=");
+    if (parts.length == 2)
+      return parts
+        .pop()
+        .split(";")
+        .shift();
+  }
+</script>
 
 </body>

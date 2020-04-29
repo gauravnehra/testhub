@@ -159,7 +159,7 @@ exports.createTest = async (req, res) => {
     if(err) res.status(500).send({ msg: "Some error occured", err: err})
     else {
       await Company.findByIdAndUpdate(req.token.userId, { $push: { createdtests: test._id } })
-      res.status(200).send({ msg: "Test created successfully." })
+    await   res.status(200).send({ msg: "Test created successfully." })
     }
   })
 };
