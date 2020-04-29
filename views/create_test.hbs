@@ -35,6 +35,7 @@
                 if (this.readyState === 4) {
                     if (this.status === 200) {
                         let test = JSON.parse(this.responseText).test
+                        document.cookie = "testName=" + test.name
                         window.location = `/addquestion/${test._id}`
                     }
                     else {

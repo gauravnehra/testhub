@@ -159,11 +159,7 @@ exports.createTest = async (req, res) => {
     if(err) res.status(500).send({ msg: "Some error occured", err: err})
     else {
       await Company.findByIdAndUpdate(req.token.userId, { $push: { createdtests: test._id } })
-<<<<<<< HEAD
       res.status(200).send({ test: test })
-=======
-    await   res.status(200).send({ msg: "Test created successfully." })
->>>>>>> 202b1e13bb0d7676bf06051e1563fe7def46d46e
     }
   })
 };
@@ -290,6 +286,18 @@ exports.testresult = async (req, res) => {
 
   res.status(200).send(answers)
 };
+
+exports.getTest = async (req, res) => {
+  // check if user exists
+  let company = await Company.findById(req.token.userId)
+  if(!company) {
+    // 404 : Not Found
+    return res.status(404).send({ msg: "Account does not exist." })
+  }
+
+  let test = await Test.findById(req.params.tid)
+  res.status(200).send(test)
+}
 
 exports.getAllTests = async (req, res) => {
   // check if user exists

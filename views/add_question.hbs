@@ -19,7 +19,7 @@
     </nav>
     <div class="container my-container" style="max-width: 90%;">
         <div class="row  my-row-border">
-            <h2>Create Test</h2>
+            <h2 id="test-name"></h2>
         </div>
 
         <div class="row my-row my-row-border align-items-center"
@@ -28,7 +28,10 @@
                 Test Type :
             </div>
             <div class="col-10 my-col my-col-border">
-                MCQ
+                <select name="question-type" id="question-type">
+                    <option value="MCQ">MCQ</option>
+                    <option value="notMCQ">notMCQ</option>
+                </select>
             </div>
            
         </div>
@@ -36,53 +39,53 @@
         <div class="row my-row my-row-border">
             <div class="col-12 my-col my-col-color box">
                 <p>Question</p>
-                <input type="text">
+                <input type="text" id="question">
             </div>
         </div>
 
-        <div class="row my-row my-row-border">
+        <div class="row my-row my-row-border option-div">
             <div class="col-12 my-col my-col-color box">
                 <p>Option A</p>
-                <input type="text">
+                <input type="text" id="optionA">
             </div>
         </div>
 
-        <div class="row my-row my-row-border">
+        <div class="row my-row my-row-border option-div">
             <div class="col-12 my-col my-col-color box">
                 <p>Option B</p>
-                <input type="text">
+                <input type="text" id="optionB">
             </div>
         </div>
 
-        <div class="row my-row my-row-border">
+        <div class="row my-row my-row-border option-div">
             <div class="col-12 my-col my-col-color box">
                 <p>Option C</p>
-                <input type="text">
+                <input type="text" id="optionC">
             </div>
         </div>
 
-        <div class="row my-row my-row-border">
+        <div class="row my-row my-row-border option-div">
             <div class="col-12 my-col my-col-color box">
                 <p>Option D</p>
-                <input type="text">
+                <input type="text" id="optionD">
             </div>
 
 
         </div>
 
-        <div class="row my-row my-row-border">
+        <div class="row my-row my-row-border option-div">
             <div class="col-12 my-col my-col-color box">
                 <p>Correct Option</p>
-                <input class="small-input" type="text">
+                <input class="small-input" type="text" id="correct">
             </div>
 
 
         </div>
 
         <div class="row my-row my-row-border">
-            <div class="col-12 my-col my-col-color box">
+            <div class="col-12 my-col my-col-color box option-div">
                 <p>Marks</p>
-                <input class="small-input" type="number">
+                <input class="small-input" type="number" id="score">
             </div>
 
         </div>
@@ -91,7 +94,7 @@
 
         <div class="row my-row my-row-border">
             <div class="col-2 my-col my-col-border box">
-                <button  class="btn btn-success">Add Question</button>
+                <button  class="btn btn-success" onclick="addQuestion()">Add Question</button>
 
             </div>
             <div class="col-2 my-col my-col-border box">
@@ -126,5 +129,100 @@
             </div>
         </div>
     </footer> --}}
+
+    <script>
+        // calling this to make sure correct form is loaded on page refresh
+        changeQuestionType()
+
+        document.getElementById('test-name').innerText = getCookie("testName") + " - Add Question"
+        document.getElementById('question-type').addEventListener('change', changeQuestionType)
+        function changeQuestionType() {
+            let qType = document.getElementById('question-type').value
+            optionDiv = document.getElementsByClassName('option-div')
+            if(qType == 'MCQ') {
+                for(i = 0; i < optionDiv.length; i++) {
+                    optionDiv[i].style.display = "block"
+                }
+            }
+            else if(qType == 'notMCQ') {
+                for(i = 0; i < optionDiv.length; i++) {
+                    optionDiv[i].style.display = "none"
+                }
+            }
+        }
+        
+        function addQuestion() {
+            let tid = `{{data.tid}}`
+            let qType = document.getElementById('question-type').value
+            if(qType == 'MCQ') {
+                let question = document.getElementById('question').value
+                let optionA = document.getElementById('optionA').value
+                let optionB = document.getElementById('optionB').value
+                let optionC = document.getElementById('optionC').value
+                let optionD = document.getElementById('optionD').value
+                let correct = document.getElementById('correct').value
+                let score = document.getElementById('score').value
+                
+                var xmlHttpRequest = new XMLHttpRequest()
+                xmlHttpRequest.open("POST", `/company/test/${tid}/question`, true)
+                xmlHttpRequest.setRequestHeader("Content-Type", "application/json")
+                xmlHttpRequest.setRequestHeader("authorization", getCookie("authorization"));
+                xmlHttpRequest.onreadystatechange = function () {
+                    if (this.readyState === 4) {
+                        if (this.status === 200) {
+                            //let test = JSON.parse(this.responseText).test
+                            //document.cookie = "testName=" + test.name
+                            //window.location = `/addquestion/${test._id}`
+                            console.log('success')
+                        }
+                        else {
+                            //let msg = JSON.parse(this.responseText).msg
+                            //let p = document.createElement("p")
+                            //p.innerText = msg
+                            //document.getElementById("error").classList.add("alert", "alert-danger")
+                            //document.getElementById("error").appendChild(p)
+                            console.log('error')
+                        }
+                    }
+                }
+            
+                xmlHttpRequest.send(JSON.stringify({ question: question, optionA: optionA, optionB: optionB, optionC: optionC, optionD: optionD, correct: correct, score: score, type: qType }))
+            }
+            else if(qType == 'notMCQ') {
+                let question = document.getElementById('question').value
+                
+                var xmlHttpRequest = new XMLHttpRequest()
+                xmlHttpRequest.open("POST", `/company/test/${tid}/question`, true)
+                xmlHttpRequest.setRequestHeader("Content-Type", "application/json")
+                xmlHttpRequest.setRequestHeader("authorization", getCookie("authorization"));
+                xmlHttpRequest.onreadystatechange = function () {
+                    if (this.readyState === 4) {
+                        if (this.status === 200) {
+                            //let test = JSON.parse(this.responseText).test
+                            //document.cookie = "testName=" + test.name
+                            //window.location = `/addquestion/${test._id}`
+                            console.log('success')
+                        }
+                        else {
+                            //let msg = JSON.parse(this.responseText).msg
+                            //let p = document.createElement("p")
+                            //p.innerText = msg
+                            //document.getElementById("error").classList.add("alert", "alert-danger")
+                            //document.getElementById("error").appendChild(p)
+                            console.log('error')
+                        }
+                    }
+                }
+            
+                xmlHttpRequest.send(JSON.stringify({ question: question, type: qType }))
+            }
+        }
+
+        function saveTest() {
+            addQuestion();
+            alert("Test Saved")
+            window.location('/companyDashboard')
+        }
+    </script>
 
 </body>

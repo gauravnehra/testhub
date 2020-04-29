@@ -4,7 +4,7 @@ var Schema = mongoose.Schema
 let questionSchema = new Schema({
     question: { type: String, required: true },
     type: { type: String, required: true },  // MCQ or notMCQ
-    score: { type: Number, required: true },
+    score: { type: Number, required: false },
     optionA: { type: String, required: false, default: null },
     optionB: { type: String, required: false, default: null },
     optionC: { type: String, required: false, default: null },
