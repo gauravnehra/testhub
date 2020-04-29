@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono:ital@1&display=swap');
 
 body{
     font-family: 'Roboto', sans-serif;
@@ -32,10 +33,10 @@ body{
 */
 /* .my-row-border{
     
-    border: 3px solid red;
+    border: 2px solid red;
 }
 .my-col-border  {
-    border: 3px solid yellow;
+    border: 2px solid yellow;
     
 } */
 /* .my-col{
@@ -51,10 +52,21 @@ body{
 input{
     color: black;
     background-color: white;
+    width: 400px;
+    height:30px;
+    border: unset;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+/* Input box of question */
+#question{
+    color: black;
+    background-color: white;
     width: 800px;
     height:70px;
     border: unset;
     border-radius: 8px;
+    margin-bottom: 10px;
 }
     
 .box{
@@ -86,4 +98,23 @@ footer{
     .btn-success:hover{
         background-color: #13445e;
         border: 1px solid #daf1ff;
+    }
+
+    /* .error-msg{
+        
+        opacity: .5x;
+
+    } */
+
+    .error-p{
+        height: 10px;
+        font-family: 'Ubuntu Mono', monospace;
+        color: red;
+        font-size: 20px;
+        font-weight: bolder;
+
+    }
+
+    p{
+     height: 10px;   
     }
