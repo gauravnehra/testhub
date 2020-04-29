@@ -72,21 +72,14 @@ exports.companyDashboard = function (req, res) {
         })
         promises.push(recentTestPromise)
         Promise.all(promises).then(() => {
-          //  data.style='company_dashboard.css'
-            // data.layout='layout2.hbs'
-            console.log(data)
-           
+          
             res.render("company_dashboard",{data,style:'company_dashboard.css'})
             
         }).catch(error => {
-            console.log(error)
+           
             res.render("error", error)
         })
     }
-
-
-
-//    res.render ('company_dashboard',{style:'company_dashboard.css'})
 }
 
 exports.createTest = async (req, res) => {

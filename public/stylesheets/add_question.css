@@ -15,12 +15,9 @@ body{
 /* .my-container{
   border: 1px solid green;
 }
+*/
 
-.my-row-border{
-    
-    border: 3px solid red;
-}
-
+/*
 .footer-row{
   border: 3px solid red;
 }
@@ -32,11 +29,15 @@ body{
  .footer-container{
   border: 1px solid green;
 }
-
-.my-col-border  {
-    border: 1px solid plum;
+*/
+/* .my-row-border{
     
-  } */
+    border: 3px solid red;
+}
+.my-col-border  {
+    border: 3px solid yellow;
+    
+} */
 /* .my-col{
     background-color: #434e5a;
     opacity: .4;
