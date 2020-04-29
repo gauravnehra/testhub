@@ -11,19 +11,21 @@ router.get("/", indexController.homePage)
 
 router.get("/signin", indexController.signinPage)
 
-router.get("/companySignup", indexController.companySignupPage)
+router.get("/companysignup", indexController.companySignupPage)
 
-router.get("/candidateSignup", indexController.candidateSignupPage)
+router.get("/candidatesignup", indexController.candidateSignupPage)
 
-router.get("/companyDashboard",indexController.companyDashboard)
+router.get("/companydashboard",indexController.companyDashboard)
+
+router.get("/companyprofile", indexController.companyProfile)
 
 router.get("/createtest", indexController.createTest)
 
 router.get("/addquestion/:tid", indexController.addQuestion)
 
-router.get("/resetPassword", indexController.resetPassword)
+router.get("/resetpassword", indexController.resetPassword)
 
-router.get("/veriflyEmail", indexController.verifyEmail)
+router.get("/veriflyemail", indexController.verifyEmail)
 
 module.exports = router;
 

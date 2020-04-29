@@ -91,6 +91,17 @@ exports.dashboard = async (req, res) => {
   res.status(200).send(responseObject)
 };
 
+exports.profile = async (req, res) => {
+  // check if user exists
+  let company = await Company.findById(req.token.userId)
+  if(!company) {
+    // 404 : Not Found
+    return res.status(404).send({ msg: "Account does not exist." })
+  }
+
+  res.status(200).send({ user: company })
+}
+
 exports.resetPassword = async (req, res) => {
   // check if user exists
   let company = await Company.findById(req.token.userId)

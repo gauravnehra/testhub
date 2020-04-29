@@ -51,4 +51,6 @@ router.get("/tests", auth, company_controller.getAllTests)
 
 router.get("/", auth, company_controller.dashboard)
 
+router.get("/profile", auth, company_controller.profile)
+
 module.exports = router // /home/x/Data/testhub/routes/company.route.js

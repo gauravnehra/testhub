@@ -26,30 +26,30 @@
             <form>
                 <div class="form-group">
                     <p>Company Name : <input id="company_name" type="text" class="form-control " readonly
-                            placeholder=" Company Name"></p>
+                            placeholder=" Company Name" value="{{data.user.name}}"></p>
 
                 </div>
                 <div class="form-group">
-                    <p>Domain : <input id="domain" type="email" class="form-control " readonly placeholder=" Domain">
+                    <p>Domain : <input id="domain" type="email" class="form-control " readonly placeholder=" Domain" value="{{data.user.domain}}">
                     </p>
                 </div>
 
                 <div class="form-group">
-                    <p>Email Id : <input id="email" type="email" class="form-control " readonly placeholder=" Email">
+                    <p>Email Id : <input id="email" type="email" class="form-control " readonly placeholder=" Email" value="{{data.user.email}}">
                     </p>
-                </div>
-                <div class="form-group row " style="margin-bottom: 0;">
-                    <div class="col">
-                        <p>Password :<input id="password" type="password" class="form-control " readonly
-                                placeholder=" Password">
-                    </div>
-                    <div style="margin-top: 35px;" class="col">
-                        <a  href="#">Reset Password</a></p>
-                    </div>
                 </div>
                 <div class="form-group">
                     <p>Location :<input id="location" type="text" class="form-control " readonly
-                            placeholder=" Location"></p>
+                            placeholder=" Location" value="{{data.user.location}}"></p>
+                </div>
+                 <div class="form-group row " style="margin-bottom: 0;">
+                    <div class="col">
+                        <p>Password :<input id="password" type="password" class="form-control " readonly
+                                placeholder=" Password" value="{{data.user.password}}">
+                    </div>
+                    <div style="margin-top: 35px;" class="col">
+                        <a  href="/resetpassword">Reset Password</a></p>
+                    </div>
                 </div>
                
             </form>
@@ -57,7 +57,7 @@
 
         </div>
 
-        <div class="row" style="height: 20px;"> <div class="col"></div>kjbkjhvjh </div>
+        <div class="row" style="height: 20px;"> <div class="col"></div> </div>
 
     </div>
 

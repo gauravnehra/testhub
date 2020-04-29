@@ -89,5 +89,55 @@ exports.createTest = async (req, res) => {
 exports.addQuestion = async (req, res) => {
     let data = {}
     data.tid = req.params.tid
-    res.render ('add_question', {style:'add_question.css', data})
+    res.render('add_question', {style:'add_question.css', data})
+}
+
+exports.companyProfile = async (req, res) => {
+    var promises = []
+    var data = {}
+    if (req.cookies.authorization) {
+        var profilePromise = new Promise((resolve, reject) => {
+            // Create options
+            const options = {
+                hostname: req.hostname,
+                port: 3000,
+                path: "/company/profile",
+                method: "GET",
+                headers: { authorization: req.cookies.authorization }
+            }
+
+            // Make http request
+            const httpReq = http.request(options, httpRes => {
+                var buff = ""
+                httpRes.on("data", chunks => {
+                    buff += chunks
+                })
+
+                httpRes.on("end", () => {
+                    if (httpRes.statusCode === 200) {
+                        data = JSON.parse(buff)
+                        resolve()
+                    }
+                    else {
+                        reject(JSON.parse(buff))
+                    }
+
+                })
+            })
+
+            httpReq.on("error", error => {
+                reject(error)
+            })
+
+            httpReq.end()
+        })
+        promises.push(profilePromise)
+        Promise.all(promises).then(() => {
+            res.render("company_profile",{data,style:'company_profile.css'})
+            
+        }).catch(error => {
+           
+            res.render("error", error)
+        })
+    }
 }
