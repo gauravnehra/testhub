@@ -96,6 +96,11 @@ exports.addQuestion = async (req, res) => {
     res.render('add_question', {style:'add_question.css',layout:'layout2.hbs' ,data})
 }
 
+exports.editTest = async (req, res) => {
+    res.render ('edit_test',{style:'edit_test.css',layout:'layout2.hbs'})
+}
+
+
 exports.companyProfile = async (req, res) => {
     var promises = []
     var data = {}

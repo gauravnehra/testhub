@@ -1,0 +1,48 @@
+<body>
+    <div class="container " style="max-width: 90%;">
+        <div class="row row-border">
+            <div class="col-2 col-border">
+                Test Name:
+            </div>
+            <div class="col-2 col-border">
+                {{!-- Test name using JS --}}
+            </div>
+        </div>
+        <div class="row row-border">
+            <div class="col-2 col-border">
+                Test Duration:
+            </div>
+            <div class="col-2 col-border">
+                {{!-- Test Duration using JS --}}
+            </div>
+        </div>
+        <div class="row row-border recent-tests">
+            
+
+            <div id="recent-test" class="col col-border">
+                {{!-- {{#each data.recentTest.tests}} --}}
+
+                <div class="row row-border question text-center ">
+                    <div class="col-6 col-border">
+                        {{!-- <a href="#">question using HBS</a> --}}
+                    </div>
+                    <div class="col-2 col-border">
+                        <a href="#">
+                            Edit
+                        </a>
+                    </div>
+
+                    <div class="col-2 col-border">
+                        <a href="#">
+                            Delete
+                        </a>
+                    </div>
+
+                   
+                </div>
+                {{!-- {{/each}} --}}
+            </div>
+        </div>
+
+    </div>
+</body>

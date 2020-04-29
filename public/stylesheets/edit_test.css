@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+body{
+    font-family: 'Roboto', sans-serif;
+    background: url(../images/mountain.png) no-repeat center center fixed;
+	background-size: cover;
+}
+
+.row-border{
+    border: 2px solid yellow;
+}
+
+.col-border{
+    border: 2px solid red;
+}
+
+.question{
+    margin-top: 20px;
+    background-color: black;
+    color: white;
+    opacity: .8;
+}
+
+a{
+    color: white;
+}
