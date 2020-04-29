@@ -3,7 +3,7 @@
 body{
     font-family: 'Roboto', sans-serif;
     background: url(../images/mountain.png) no-repeat center center fixed;
-	background-size: 1280px 720px;
+	background-size: cover;
 }
 
 /* .main-row{
@@ -72,7 +72,8 @@ input{
 
 footer{
     background-color: #343A40;
-    margin-top: 62px;
+    margin-top: 30px;
+
     }
 
     .btn-success{
