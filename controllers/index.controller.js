@@ -71,8 +71,12 @@ exports.companyDashboard = function (req, res) {
             httpReq.end()
         })
         promises.push(recentTestPromise)
+        console.log('this is data')
+        console.log(data)
+
         Promise.all(promises).then(() => {
-          
+          console.log(data)
+         // document.cookie="userName="+data.userName
             res.render("company_dashboard",{data,style:'company_dashboard.css'})
             
         }).catch(error => {
@@ -89,7 +93,7 @@ exports.createTest = async (req, res) => {
 exports.addQuestion = async (req, res) => {
     let data = {}
     data.tid = req.params.tid
-    res.render('add_question', {style:'add_question.css', data})
+    res.render('add_question', {style:'add_question.css',layout:'layout2.hbs' ,data})
 }
 
 exports.companyProfile = async (req, res) => {
