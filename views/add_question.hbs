@@ -34,43 +34,43 @@
                     <option value="notMCQ">notMCQ</option>
                 </select>
             </div>
-             <div class="col-6 my-col my-col-border text-center error-msg ">
-               <p class="error-p">This is error</p> 
+             <div class="col-6 my-col my-col-border text-center error-msg " >
+               <p class="error-p" id="error"></p> 
             </div>
            
         </div>
 
         <div class="row my-row my-row-border">
             <div class="col-12 my-col my-col-color box ques">
-                <p>Question</p>
+                <p>Question:</p>
                 <input type="text" id="question">
             </div>
         </div>
 
         <div class="row my-row my-row-border option-div">
             <div class="col-12 my-col my-col-color box">
-                <p>Option A</p>
+                <p>Option A:</p>
                 <input type="text" id="optionA">
             </div>
         </div>
 
         <div class="row my-row my-row-border option-div">
             <div class="col-12 my-col my-col-color box">
-                <p>Option B</p>
+                <p>Option B:</p>
                 <input type="text" id="optionB">
             </div>
         </div>
 
         <div class="row my-row my-row-border option-div">
             <div class="col-12 my-col my-col-color box">
-                <p>Option C</p>
+                <p>Option C:</p>
                 <input type="text" id="optionC">
             </div>
         </div>
 
         <div class="row my-row my-row-border option-div">
             <div class="col-12 my-col my-col-color box">
-                <p>Option D</p>
+                <p>Option D:</p>
                 <input type="text" id="optionD">
             </div>
 
@@ -79,7 +79,7 @@
 
         <div class="row my-row my-row-border option-div">
             <div class="col-12 my-col my-col-color box">
-                <p>Correct Option</p>
+                <p>Correct Option:</p>
                 <input class="small-input" type="text" id="correct">
             </div>
 
@@ -88,7 +88,7 @@
 
         <div class="row my-row my-row-border">
             <div class="col-12 my-col my-col-color box option-div">
-                <p>Marks</p>
+                <p>Marks:</p>
                 <input class="small-input" type="number" id="score">
             </div>
 
@@ -187,7 +187,8 @@
                             //p.innerText = msg
                             //document.getElementById("error").classList.add("alert", "alert-danger")
                             //document.getElementById("error").appendChild(p)
-                            console.log('error')
+
+                            document.getElementById("error").innerText = JSON.parse(this.responseText).msg
                         }
                     }
                 }
@@ -215,8 +216,8 @@
                             //let p = document.createElement("p")
                             //p.innerText = msg
                             //document.getElementById("error").classList.add("alert", "alert-danger")
-                            //document.getElementById("error").appendChild(p)
-                            console.log('error')
+
+                            document.getElementById("error").innerText = JSON.parse(this.responseText).msg
                         }
                     }
                 }
