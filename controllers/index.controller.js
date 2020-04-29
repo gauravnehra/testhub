@@ -6,6 +6,8 @@ exports.homePage = function (req,res)  {
     )
 }
 
+
+
 exports.signinPage = function (req, res)  {
     res.render ('signin',{style:'signin.css'})
   }
@@ -16,6 +18,26 @@ exports.companySignupPage = function (req, res) {
 
 exports.candidateSignupPage = function (req, res) {
     res.render ('candidate_signup',{style:'candidate_signup.css'})
+}
+
+exports.addQuestionMCQ = function (req, res) {
+    res.render ('create_test',{style:'create_test.css'})
+}
+
+exports.addQuestionSubjective = function (req, res) {
+    res.render ('add_question_subjective',{style:'add_question_subjective.css'})
+}
+
+exports.resetPassword = function (req, res) {
+    res.render ('reset_password',{style:'reset_password.css'})
+}
+
+exports.verifyEmail = function (req, res) {
+    res.render ('verify_email',{style:'signin.css'})
+}
+
+exports.createTest= function (req, res) {
+    res.render ('create_test',{style:'create_test.css'})
 }
 
 exports.companyDashboard = function (req, res) {
@@ -84,5 +106,6 @@ exports.createTest = async (req, res) => {
 }
 
 exports.addQuestion = async (req, res) => {
-    res.render ('')
+    data.tid = req.params.tid
+    res.render ('add_question', {style:'add_question.css', data})
 }

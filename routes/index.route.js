@@ -21,5 +21,9 @@ router.get("/createtest", indexController.createTest)
 
 router.get("/addquestion/:tid", indexController.addQuestion)
 
+router.get("/resetPassword", indexController.resetPassword)
+
+router.get("/veriflyEmail", indexController.verifyEmail)
 
 module.exports = router;
+
