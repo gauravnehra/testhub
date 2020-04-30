@@ -6,12 +6,24 @@ body{
 	background-size: cover;
 }
 
-.row-border{
+/* .row-border{
     border: 2px solid yellow;
 }
 
 .col-border{
     border: 2px solid red;
+} */
+
+p {
+     /* display: table-cell; */
+    /* vertical-align: middle; */
+    height: fit-content !important;
+    word-wrap: break-word ;
+  }
+
+.test{
+    font-size: 20px;
+    font-weight: 10px;
 }
 
 .question{
@@ -19,8 +31,41 @@ body{
     background-color: black;
     color: white;
     opacity: .8;
+    
+}
+
+.my-row{
+    padding: 10px;
 }
 
 a{
     color: white;
+}
+
+a:hover{
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+.btn-dark{
+    
+    font-size: 16px;
+    border-radius: 5px;
+    padding: 7px 14px;
+    border:1px solid #daf1ff ;
+}
+
+.btn-dark:hover{
+    
+    border: 1px solid #daf1ff;
+}
+
+input{
+    color: black;
+    background-color: white;
+    width: 300px;
+    height:50x;
+    border: unset;
+    border-radius: 8px;
+    margin-bottom: 10px;
 }
