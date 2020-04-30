@@ -1,12 +1,13 @@
 <body>
     <div class="container " style="max-width: 90%;">
+        <div id="error"></div>
         <div class="row row-border test" style="margin-top: 10px;">
             <div class="col-2 col-border">
                 Test Name:
             </div>
             <div class="col-2 col-border">
                 {{!-- Test name using HBS--}}
-              <input id="testName" type="text" value="  {{data.editTest.testName}}">
+              <input id="testName" type="text" value="  {{data.editTest.testName}}" oninput="hideError()">
             </div>
         </div>
         <div class="row row-border test">
@@ -15,7 +16,7 @@
             </div>
             <div class="col-2 col-border">
                 {{!-- Test Duration using HBS --}}
-                <input type="text" id="testDuration" value="{{data.editTest.testDuration}}">
+                <input type="text" id="testDuration" value="{{data.editTest.testDuration}}" oninput="hideError()">
             </div>
         </div>
 
@@ -63,7 +64,7 @@
                     </div>
 
                     <div class="col-2 col-border">
-                        <a href="#">
+                        <a href="#" id="{{this._id}}" onclick="deleteQuestion(this)">
                             Delete
                         </a>
                     </div>
@@ -80,10 +81,16 @@
     </div>
 
     <script>
-        function addQuestion(){
+        function hideError() {
+            let div = document.getElementById("error")
+            if(div.childNodes[0]) {
+                div.classList.remove("alert", "alert-danger")
+                div.removeChild(div.childNodes[0])
+            }
+        }
 
-       
-             document.cookie = "testName=" +`{{data.editTest.testName}}`
+        function addQuestion(){
+            document.cookie = "testName=" +`{{data.editTest.testName}}`
             window.location= `/addquestion/{{data.editTest.testId}}`
         }
 
@@ -99,11 +106,13 @@
             xmlHttpRequest.onreadystatechange = function () {
                 if (this.readyState === 4) {
                     if (this.status === 200) {
+                        let p = document.createElement("p")
+                        p.innerText = JSON.parse(this.responseText).msg
+                        document.getElementById("error").classList.add("alert", "alert-success")
+                        document.getElementById("error").appendChild(p)
 
-                        console.log('here')
-                        location.reload() 
-                        console.log('reloded')
-                    }
+                        location.reload()
+                    }    
                     else {
                         let p = document.createElement("p")
                         p.innerText = JSON.parse(this.responseText).msg
@@ -114,6 +123,28 @@
             }
             
             
+        }
+
+        function deleteQuestion(element) {
+            console.log(element.id)
+            var xmlHttpRequest = new XMLHttpRequest()
+            xmlHttpRequest.open("DELETE", `/company/test/{{data.editTest.testId}}/question/${element.id}`, true)
+            xmlHttpRequest.setRequestHeader("Content-Type", "application/json")
+            xmlHttpRequest.setRequestHeader("authorization", getCookie("authorization"));
+            xmlHttpRequest.onreadystatechange = function () {
+                if (this.readyState === 4) {
+                    if (this.status === 200) {
+                        location.reload()
+                    }
+                    else {
+                        let p = document.createElement("p")
+                        p.innerText = JSON.parse(this.responseText).msg
+                        document.getElementById("error").classList.add("alert", "alert-danger")
+                        document.getElementById("error").appendChild(p)
+                    }
+                }
+            }
+            xmlHttpRequest.send()
         }
 
     </script>
