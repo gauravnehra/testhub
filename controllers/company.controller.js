@@ -307,7 +307,26 @@ exports.getTest = async (req, res) => {
   }
 
   let test = await Test.findById(req.params.tid)
-  res.status(200).send(test)
+  if(!test) {
+    // 404 : Not Found
+    return res.status(404).send({ msg: "Test not found." })
+  }
+  let responseObject = {
+    testId: test._id,
+    testName: test.name,
+    testDuration: test.duration,
+    questions: []
+  }
+
+  let questionsId = test.questions
+  if(questionsId.length > 0) {
+    for(i =0; i < questionsId.length; i++) {
+      let question = await Question.findById(questionsId[i])
+      responseObject.questions.push(question)
+    }
+  }
+  
+  res.status(200).send(responseObject)
 }
 
 exports.getAllTests = async (req, res) => {

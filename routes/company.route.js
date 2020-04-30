@@ -41,10 +41,10 @@ router.delete("/tests", auth, company_controller.deleteAllTests)
 router.post("/test/:tid/invite", auth, company_controller.inviteCandidates)
 
 // get test result with id
-router.get("/test/:tid/result", company_controller.testresult)
+router.get("/test/:tid/result", auth, company_controller.testresult)
 
 // get test with id
-router.get("/test/:tid", company_controller.getTest)
+router.get("/test/:tid", auth, company_controller.getTest)
 
 // get all tests
 router.get("/tests", auth, company_controller.getAllTests)
