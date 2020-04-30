@@ -105,7 +105,7 @@
     <script>
         function deleteTest(element) {
             var xmlHttpRequest = new XMLHttpRequest()
-            xmlHttpRequest.open("DELETE", `company/test/${element.id}`, true)
+            xmlHttpRequest.open("DELETE", `/company/test/${element.id}`, true)
             xmlHttpRequest.setRequestHeader("Content-Type", "application/json")
             xmlHttpRequest.setRequestHeader("authorization", getCookie("authorization"));
             xmlHttpRequest.onreadystatechange = function () {
