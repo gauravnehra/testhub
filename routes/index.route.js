@@ -31,5 +31,7 @@ router.get("/edittest/:tid", indexController.editTest)
 
 router.get("/editquestion", indexController.editQuestion)
 
+router.get("/alltests", indexController.viewAllTests)
+
 module.exports = router;
 

@@ -210,3 +210,54 @@ exports.companyProfile = async (req, res) => {
         })
     }
 }
+
+exports.viewAllTests = async (req, res) => {
+    var promises = []
+    var data = {}
+    if (req.cookies.authorization) {
+        var allTestPromise = new Promise((resolve, reject) => {
+            // Create options
+            const options = {
+                hostname: req.hostname,
+                port: 3000,
+                path: "/company",
+                method: "GET",
+                headers: { authorization: req.cookies.authorization }
+            }
+
+            // Make http request
+            const httpReq = http.request(options, httpRes => {
+                var buff = ""
+                httpRes.on("data", chunks => {
+                    buff += chunks
+                })
+
+                httpRes.on("end", () => {
+                    if (httpRes.statusCode === 200) {
+                        data = JSON.parse(buff)
+                        resolve()
+                    }
+                    else {
+                        reject(JSON.parse(buff))
+                    }
+
+                })
+            })
+
+            httpReq.on("error", error => {
+                reject(error)
+            })
+
+            httpReq.end()
+        })
+        promises.push(allTestPromise)
+
+        Promise.all(promises).then(() => {
+            res.render("all_tests",{data,style:'all_tests.css'})
+            
+        }).catch(error => {
+           
+            res.render("error", error)
+        })
+    }
+}
