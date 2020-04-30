@@ -99,11 +99,8 @@
             xmlHttpRequest.onreadystatechange = function () {
                 if (this.readyState === 4) {
                     if (this.status === 200) {
-
-                        console.log('here')
                         location.reload() 
-                        console.log('reloded')
-                    }
+                        }
                     else {
                         let p = document.createElement("p")
                         p.innerText = JSON.parse(this.responseText).msg
