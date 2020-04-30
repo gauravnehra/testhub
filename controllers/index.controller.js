@@ -253,7 +253,7 @@ exports.viewAllTests = async (req, res) => {
         promises.push(allTestPromise)
 
         Promise.all(promises).then(() => {
-            res.render("all_tests",{data,style:'all_tests.css'})
+            res.render("all_tests",{data,style:'all_tests.css',layout:'layout2.hbs'})
             
         }).catch(error => {
            
