@@ -124,6 +124,7 @@
 
         document.getElementById('test-name').innerText = getCookie("testName") + " - Add Question"
         document.getElementById('question-type').addEventListener('change', changeQuestionType)
+
         function changeQuestionType() {
             let qType = document.getElementById('question-type').value
             optionDiv = document.getElementsByClassName('option-div')
@@ -210,7 +211,10 @@
         }
 
         function saveTest() {
-            addQuestion();
+            let question = document.getElementById('question').value
+            if(question) {
+                addQuestion();
+            }
             alert("Test Saved")
             window.location = '/companyDashboard'
         }
