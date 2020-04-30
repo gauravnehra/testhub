@@ -1,0 +1,98 @@
+{{!-- EVERY INPUT BOX IS TO BE VALUE ATRIBUTE USING HBS --}}
+<body>
+
+    <div class="container my-container" style="max-width: 90%;">
+        <div class="row  my-row-border">
+            <h2 id="test-name"></h2>
+        </div>
+
+        <form id="form">
+        <div class="row my-row my-row-border align-items-center"
+            style="height: 35px;border-top-left-radius: 10px; border-top-right-radius: 10px;">
+            <div class="col-1.5 my-col my-col-border  ">
+                Question Type :
+            </div>
+            <div class="col-2 my-col my-col-border">
+               {{!-- Type of question using HBS --}}
+            </div>
+             <div class="col-6 my-col my-col-border text-center error-msg " >
+               <p class="error-p" id="error"></p> 
+            </div>
+           
+        </div>
+
+        <div class="row my-row my-row-border">
+            <div class="col-12 my-col my-col-color box ques">
+                <p>Question:</p>
+                <input type="text" id="question">
+            </div>
+        </div>
+
+        <div class="row my-row my-row-border option-div">
+            <div class="col-12 my-col my-col-color box">
+                <p>Option A:</p>
+                <input type="text" id="optionA">
+            </div>
+        </div>
+
+        <div class="row my-row my-row-border option-div">
+            <div class="col-12 my-col my-col-color box">
+                <p>Option B:</p>
+                <input type="text" id="optionB">
+            </div>
+        </div>
+
+        <div class="row my-row my-row-border option-div">
+            <div class="col-12 my-col my-col-color box">
+                <p>Option C:</p>
+                <input type="text" id="optionC">
+            </div>
+        </div>
+
+        <div class="row my-row my-row-border option-div">
+            <div class="col-12 my-col my-col-color box">
+                <p>Option D:</p>
+                <input type="text" id="optionD">
+            </div>
+
+
+        </div>
+
+        <div class="row my-row my-row-border option-div">
+            <div class="col-12 my-col my-col-color box">
+                <p>Correct Option:</p>
+                <input class="small-input" type="text" id="correct">
+            </div>
+
+
+        </div>
+
+        <div class="row my-row my-row-border">
+            <div class="col-12 my-col my-col-color box option-div">
+                <p>Marks:</p>
+                <input class="small-input" type="number" id="score">
+            </div>
+
+        </div>
+
+        <div class="row my-row" style="height: 20px;"></div>
+
+        <div class="row my-row my-row-border">
+            <div class="col-2 my-col my-col-border box">
+                <button  class="btn btn-success" type="button" onclick="addQuestion()">Done</button>
+
+            </div>
+           
+
+        </div>
+        </form>
+
+        <div class="row my-row my-row-border"
+            style="height: 20px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
+
+        </div>
+
+
+        <div class="row " style="height:10px;"></div>
+    </div>
+</body>

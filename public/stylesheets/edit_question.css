@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono:ital@1&display=swap');
+
+body{
+    font-family: 'Roboto', sans-serif;
+    background: url(../images/mountain.png) no-repeat center center fixed;
+	background-size: cover;
+}
+
+/* .main-row{
+    height: 400px;
+    background-color: #434e5a;
+    opacity: .8;
+    color: white;
+} */
+/* .my-container{
+  border: 1px solid green;
+}
+*/
+
+/*
+.footer-row{
+  border: 3px solid red;
+}
+
+.footer-col{
+  border: 3px solid blue;
+ } 
+
+ .footer-container{
+  border: 1px solid green;
+}
+*/
+/* .my-row-border{
+    
+    border: 2px solid red;
+}
+.my-col-border  {
+    border: 2px solid yellow;
+    
+} */
+/* .my-col{
+    background-color: #434e5a;
+    opacity: .4;
+    color: white;
+    } */
+.my-row{
+    background-color: #434e5a;
+    opacity: .8;
+    color: white;
+}
+input{
+    color: black;
+    background-color: white;
+    width: 400px;
+    height:30px;
+    border: unset;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+/* Input box of question */
+#question{
+    color: black;
+    background-color: white;
+    width: 800px;
+    height:70px;
+    border: unset;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+    
+.box{
+    margin-left: 30px;
+}
+
+.small-input{
+    color: black;
+    background-color: white;
+    width: 100px;
+    height:30px;
+    border: unset;
+    border-radius: 8px;
+
+}
+
+footer{
+    background-color: #343A40;
+    }
+
+    .btn-success{
+        background-color: #1c6288;
+        font-size: 19px;
+        border-radius: 5px;
+        width: 100px;
+        padding: 7px 14px;
+        border:1px solid #daf1ff ;
+    }
+    
+    .btn-success:hover{
+        background-color: #13445e;
+        border: 1px solid #daf1ff;
+    }
+
+    /* .error-msg{
+        
+        opacity: .5x;
+
+    } */
+
+    .error-p{
+        height: 10px;
+        font-family: 'Ubuntu Mono', monospace;
+        color: red;
+        font-size: 20px;
+        font-weight: bolder;
+
+    }
+
+    p{
+     height: 10px;   
+    }

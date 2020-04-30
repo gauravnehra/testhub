@@ -1,31 +1,61 @@
 <body>
     <div class="container " style="max-width: 90%;">
-        <div class="row row-border">
+        <div class="row row-border test" style="margin-top: 10px;">
             <div class="col-2 col-border">
                 Test Name:
             </div>
             <div class="col-2 col-border">
-                {{!-- Test name using JS --}}
+                {{!-- Test name using HBS--}}
+              <input id="testName" type="text" value="  {{data.editTest.testName}}">
             </div>
         </div>
-        <div class="row row-border">
+        <div class="row row-border test">
             <div class="col-2 col-border">
                 Test Duration:
             </div>
             <div class="col-2 col-border">
-                {{!-- Test Duration using JS --}}
+                {{!-- Test Duration using HBS --}}
+                <input type="text" id="testDuration" value="{{data.editTest.testDuration}}">
             </div>
         </div>
-        <div class="row row-border recent-tests">
+
+             <div class="row row-border" style="margin-top: 5px;">
+            <div class="col-2 col-border ">
+                <button  class="btn btn-dark" type="button" onclick="updateInfo()">Update Info</button>
+
+            </div>
+            <div class="col-2  col-border ">
+                <button  class="btn btn-dark" type="button" onclick="addQuestion()" >Add Question</button>
+
+            </div> 
+             </div>
+
+               <div class="row row-border test" style="margin-top: 20px;">
+            <div class="col-2 col-border">
+                Questions
+            </div>
+            
+        </div>
+
+        <div class="row row-border ">
             
 
-            <div id="recent-test" class="col col-border">
-                {{!-- {{#each data.recentTest.tests}} --}}
+            <div id="recent-test" class="col question col-border">
+                {{#each data.editTest.questions}}
 
-                <div class="row row-border question text-center ">
+                <div class="row row-border my-row  align-items-center">
                     <div class="col-6 col-border">
-                        {{!-- <a href="#">question using HBS</a> --}}
+                     <p>{{this.question}}</p>   
+                      
                     </div>
+
+                    <div class="col-2 col-border">
+                        <a href="#">
+                            {{this.type}}
+                        </a>
+                    </div>
+
+
                     <div class="col-2 col-border">
                         <a href="#">
                             Edit
@@ -40,9 +70,52 @@
 
                    
                 </div>
-                {{!-- {{/each}} --}}
+                {{/each}}
+
+                <div></div>
+
             </div>
         </div>
 
     </div>
+
+    <script>
+        function addQuestion(){
+
+       
+             document.cookie = "testName=" +`{{data.editTest.testName}}`
+            window.location= `/addquestion/{{data.editTest.testId}}`
+        }
+
+        function updateInfo(){
+             let name = document.getElementById("testName").value;
+            let duration = document.getElementById("testDuration").value;
+            var xmlHttpRequest = new XMLHttpRequest()
+            xmlHttpRequest.open("PUT", `/company/test/{{data.editTest.testId}}`, true)
+            xmlHttpRequest.setRequestHeader("Content-Type", "application/json")
+            xmlHttpRequest.setRequestHeader("authorization", getCookie("authorization"));
+            xmlHttpRequest.send(JSON.stringify({ testName: name, testDuration: duration }))
+            
+            xmlHttpRequest.onreadystatechange = function () {
+                if (this.readyState === 4) {
+                    if (this.status === 200) {
+
+                        console.log('here')
+                        location.reload() 
+                        console.log('reloded')
+                    }
+                    else {
+                        let p = document.createElement("p")
+                        p.innerText = JSON.parse(this.responseText).msg
+                        document.getElementById("error").classList.add("alert", "alert-danger")
+                        document.getElementById("error").appendChild(p)
+                    }
+                }
+            }
+            
+            
+        }
+
+    </script>
+
 </body>
