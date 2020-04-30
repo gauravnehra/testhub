@@ -226,6 +226,9 @@ exports.editQuestion = async (req, res) => {
 };
 
 exports.editTest = async (req, res) => {
+  if (req.body.testName == '' || req.body.testDuration == '') {
+    return res.status(400).send({ msg: "All fields are mandatory" })
+  }
   Test.findByIdAndUpdate(req.params.tid, {
     name: req.body.testName,
     duration: req.body.testDuration
@@ -325,7 +328,7 @@ exports.getTest = async (req, res) => {
       responseObject.questions.push(question)
     }
   }
-  
+
   res.status(200).send(responseObject)
 }
 
