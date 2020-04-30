@@ -6,3 +6,36 @@ body{
 	background-size: cover;
 }
 
+/* .row-border{
+    border: 2px solid yellow;
+}
+
+.col-border{
+    border: 2px solid red;
+} */
+
+.heading{
+    font-size: 20px;
+    font-weight: 10px;
+}
+
+.test{
+    margin-top: 20px;
+    background-color: black;
+    color: white;
+    opacity: .8;
+    
+}
+
+.row-test{
+    padding: 10px;
+}
+
+a{
+    color: white;
+}
+
+a:hover{
+    text-decoration: none;
+    color: white;
+}
