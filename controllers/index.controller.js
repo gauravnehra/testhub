@@ -220,7 +220,7 @@ exports.viewAllTests = async (req, res) => {
             const options = {
                 hostname: req.hostname,
                 port: 3000,
-                path: "/company",
+                path: "/company/tests",
                 method: "GET",
                 headers: { authorization: req.cookies.authorization }
             }
@@ -234,7 +234,7 @@ exports.viewAllTests = async (req, res) => {
 
                 httpRes.on("end", () => {
                     if (httpRes.statusCode === 200) {
-                        data = JSON.parse(buff)
+                        data.tests = JSON.parse(buff)
                         resolve()
                     }
                     else {
