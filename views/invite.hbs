@@ -1,0 +1,57 @@
+<body>
+    <div class="container my-container">
+        <div class="row row-border">
+            <div class="col col-border ">
+                <h2>Invite Candidates</h2>
+            </div>
+        </div>
+
+         <div class="row row-border my-row ">
+            <div class="col-1.5 col-border">
+            <h5>Add Email Id</h5>
+            </div>
+         </div>  
+
+        {{!-- ADD CANDIDATE  --}}
+        <div class="row row-border my-row text-center align-items-center">
+            <div class="col-1.5 col-border txt">
+                Email Id :
+            </div>
+            <div class="col-3 col-border">
+                <input type="email" placeholder="Enter Candidate Email Id">
+            </div>
+            <div class="col-1 col-border">
+                {{!-- ADD ICON --}}
+              <a href=""> <i class="fas fa-plus-square fa-2x" style="color: white ;"></i></a> 
+            </div>
+        </div>
+
+        <div class="row row-border my-row ">
+            <div class="col-1.5 col-border">
+            <h5>Added Email Id's</h5>
+            </div>
+         </div>
+
+        {{!-- ADDED CANDIDATE SAMPLE --}}
+            <div class="row row-border my-row text-center align-items-center">
+            <div class="col-1.5 col-border txt">
+                Email Id :
+            </div>
+            <div class="col-3 col-border">
+                <input type="email" value="divyanshpurohit105@gmail.com">
+            </div>
+            <div class="col-1 col-border">
+                {{!-- DELETE ICON  --}}
+                <a href=""><i class="fas fa-times fa-2x" style="color: white;"></i></a>
+            </div>
+        </div>
+
+        {{!-- SEND INVITE BUTTON --}}
+             <div class="row row-border my-row  align-items-center">
+            <div class="col-2 col-border">
+                  <button  class="btn btn-success" type="button" onclick="" >Send Invite</button>
+            </div>
+            </div>
+
+    </div>
+</body>

@@ -268,3 +268,7 @@ exports.viewAllTests = async (req, res) => {
         })
     }
 }
+
+exports.invite = async (req, res) => {
+    res.render ('invite',{style:'invite.css',layout:'layout2.hbs'})
+}

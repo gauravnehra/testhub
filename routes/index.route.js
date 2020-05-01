@@ -33,5 +33,6 @@ router.get("/editquestion/:tid/:qid/:question/:type/:optionA/:optionB/:optionC/:
 
 router.get("/alltests", indexController.viewAllTests)
 
+router.get("/invite", indexController.invite)
 module.exports = router;
 
