@@ -58,7 +58,7 @@
 
 
                     <div class="col-2 col-border">
-                        <a href="/editquestion/{{data.editTest.testName}}/{{this._id}}">
+                        <a href="#" id="{{this._id}}/{{this.question}}/{{this.type}}/{{this.optionA}}/{{this.optionB}}/{{this.optionC}}/{{this.optionD}}/{{this.correct}}/{{this.score}}" onclick="editQuestion(this)">
                             Edit
                         </a>
                     </div>
@@ -145,6 +145,11 @@
                 }
             }
             xmlHttpRequest.send()
+        }
+
+        function editQuestion(element) {
+            element.href = `/editquestion/{{data.editTest.testId}}/` + element.id 
+            console.log(link)
         }
 
     </script>

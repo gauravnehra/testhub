@@ -13,7 +13,10 @@
                 Question Type :
             </div>
             <div class="col-2 my-col my-col-border">
-               {{!-- Type of question using HBS --}}
+                <select name="question-type" id="question-type" value="{{data.type}}">
+                    <option value="MCQ">MCQ</option>
+                    <option value="notMCQ">notMCQ</option>
+                </select>
             </div>
              <div class="col-6 my-col my-col-border text-center error-msg " >
                <p class="error-p" id="error"></p> 
@@ -24,35 +27,35 @@
         <div class="row my-row my-row-border">
             <div class="col-12 my-col my-col-color box ques">
                 <p>Question:</p>
-                <input type="text" id="question">
+                <input type="text" id="question" value="{{data.question}}">
             </div>
         </div>
 
         <div class="row my-row my-row-border option-div">
             <div class="col-12 my-col my-col-color box">
                 <p>Option A:</p>
-                <input type="text" id="optionA">
+                <input type="text" id="optionA" value="{{data.optionA}}">
             </div>
         </div>
 
         <div class="row my-row my-row-border option-div">
             <div class="col-12 my-col my-col-color box">
                 <p>Option B:</p>
-                <input type="text" id="optionB">
+                <input type="text" id="optionB" value="{{data.optionB}}">
             </div>
         </div>
 
         <div class="row my-row my-row-border option-div">
             <div class="col-12 my-col my-col-color box">
                 <p>Option C:</p>
-                <input type="text" id="optionC">
+                <input type="text" id="optionC" value="{{data.optionC}}">
             </div>
         </div>
 
         <div class="row my-row my-row-border option-div">
             <div class="col-12 my-col my-col-color box">
                 <p>Option D:</p>
-                <input type="text" id="optionD">
+                <input type="text" id="optionD" value="{{data.optionD}}">
             </div>
 
 
@@ -61,7 +64,7 @@
         <div class="row my-row my-row-border option-div">
             <div class="col-12 my-col my-col-color box">
                 <p>Correct Option:</p>
-                <input class="small-input" type="text" id="correct">
+                <input class="small-input" type="text" id="correct" value="{{data.correct}}">
             </div>
 
 
@@ -70,7 +73,7 @@
         <div class="row my-row my-row-border">
             <div class="col-12 my-col my-col-color box option-div">
                 <p>Marks:</p>
-                <input class="small-input" type="number" id="score">
+                <input class="small-input" type="number" id="score" value="{{data.score}}">
             </div>
 
         </div>
@@ -79,7 +82,7 @@
 
         <div class="row my-row my-row-border">
             <div class="col-2 my-col my-col-border box">
-                <button  class="btn btn-success" type="button" onclick="addQuestion()">Done</button>
+                <button  class="btn btn-success" type="button" onclick="editQuestion()">Done</button>
 
             </div>
            
@@ -95,4 +98,77 @@
 
         <div class="row " style="height:10px;"></div>
     </div>
+
+    <script>
+        changeQuestionType()
+        document.getElementById('question-type').addEventListener('change', changeQuestionType)
+
+        function changeQuestionType() {
+            let qType = document.getElementById('question-type').value
+            optionDiv = document.getElementsByClassName('option-div')
+            if(qType == 'MCQ') {
+                for(i = 0; i < optionDiv.length; i++) {
+                    optionDiv[i].style.display = "block"
+                }
+            }
+            else if(qType == 'notMCQ') {
+                for(i = 0; i < optionDiv.length; i++) {
+                    optionDiv[i].style.display = "none"
+                }
+            }
+        }
+
+        function editQuestion() {
+            let tid = `{{data.tid}}`
+            let qType = document.getElementById('question-type').value
+            if(qType == 'MCQ') {
+                let question = document.getElementById('question').value
+                let optionA = document.getElementById('optionA').value
+                let optionB = document.getElementById('optionB').value
+                let optionC = document.getElementById('optionC').value
+                let optionD = document.getElementById('optionD').value
+                let correct = document.getElementById('correct').value
+                let score = document.getElementById('score').value
+                
+                var xmlHttpRequest = new XMLHttpRequest()
+                xmlHttpRequest.open("PUT", `/company/test/{{data.tid}}/question/{{data.qid}}`, true)
+                xmlHttpRequest.setRequestHeader("Content-Type", "application/json")
+                xmlHttpRequest.setRequestHeader("authorization", getCookie("authorization"));
+                xmlHttpRequest.onreadystatechange = function () {
+                    if (this.readyState === 4) {
+                        if (this.status === 200) {
+                            document.getElementById("error").innerText = JSON.parse(this.responseText).msg
+                            window.location = `/edittest/{{data.tid}}`
+                        }
+                        else {
+                            document.getElementById("error").innerText = JSON.parse(this.responseText).msg
+                        }
+                    }
+                }
+            
+                xmlHttpRequest.send(JSON.stringify({ question: question, optionA: optionA, optionB: optionB, optionC: optionC, optionD: optionD, correct: correct, score: score, type: qType }))
+            }
+            else if(qType == 'notMCQ') {
+                let question = document.getElementById('question').value
+                
+                var xmlHttpRequest = new XMLHttpRequest()
+                xmlHttpRequest.open("PUT", `/company/test/{{data.tid}}/question/{{data.qid}}`, true)
+                xmlHttpRequest.setRequestHeader("Content-Type", "application/json")
+                xmlHttpRequest.setRequestHeader("authorization", getCookie("authorization"));
+                xmlHttpRequest.onreadystatechange = function () {
+                    if (this.readyState === 4) {
+                        if (this.status === 200) {
+                            document.getElementById("error").innerText = JSON.parse(this.responseText).msg
+                            window.location = `/edittest/{{data.tid}}`
+                        }
+                        else {
+                            document.getElementById("error").innerText = JSON.parse(this.responseText).msg
+                        }
+                    }
+                }
+            
+                xmlHttpRequest.send(JSON.stringify({ question: question, type: qType }))
+            }
+        }
+    </script>
 </body>

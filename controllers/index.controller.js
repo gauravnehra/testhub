@@ -133,12 +133,8 @@ exports.editTest = async (req, res) => {
             httpReq.end()
         })
         promises.push(editTestPromise)
-        console.log('this is edit test data')
-        console.log(data)
 
-        Promise.all(promises).then(() => {
-          console.log(data)
-        
+        Promise.all(promises).then(() => {        
           res.render ('edit_test',{style:'edit_test.css',layout:'layout2.hbs',data})
             
         }).catch(error => {
@@ -158,13 +154,18 @@ exports.editTest = async (req, res) => {
 }
 
 exports.editQuestion = async (req, res) => {
-
     let data = {}
     data.tid = req.params.tid
-    dada.qid = req.params.qid    
+    data.qid = req.params.qid   
+    data.question = req.params.question
+    data.type = req.params.type
+    data.optionA = req.params.optionA 
+    data.optionB = req.params.optionB
+    data.optionC = req.params.optionC 
+    data.optionD = req.params.optionD 
+    data.correct = req.params.correct 
+    data.score = req.params.score 
     res.render ('edit_question',{style:'edit_question.css',layout:'layout2.hbs',data})
-   
-   
 }
 
 exports.companyProfile = async (req, res) => {
