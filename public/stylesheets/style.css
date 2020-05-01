@@ -8,10 +8,11 @@ a {
   color: #00B7FF;
 } */
 
- body{
+ html,body{
  /* background-color:whitesmoke;  */
  background: url(../images/mountain.png) no-repeat center center fixed;
  background-size: cover;
+  height: 100%;
 }
 
 
@@ -22,12 +23,12 @@ a {
 }
 
 /* STRUCTURE */
-/* .my-container{
-  border: 1px solid green;
- 
+ .my-container{
+  /* border: 1px solid green; */
+ min-height: 100%;
   
 }
-
+/*
 .my-row{
   border: 3px solid red;
 }
@@ -62,7 +63,7 @@ a {
 
 /* FOOTER */
 
-.footer{
+footer{
 background-color: #343A40 !important;
 }
 
