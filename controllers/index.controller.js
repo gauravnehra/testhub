@@ -158,7 +158,13 @@ exports.editTest = async (req, res) => {
 }
 
 exports.editQuestion = async (req, res) => {
-    res.render ('edit_question',{style:'edit_question.css',layout:'layout2.hbs'})
+
+    let data = {}
+    data.tid = req.params.tid
+    dada.qid = req.params.qid    
+    res.render ('edit_question',{style:'edit_question.css',layout:'layout2.hbs',data})
+   
+   
 }
 
 exports.companyProfile = async (req, res) => {
