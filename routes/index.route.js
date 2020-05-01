@@ -29,7 +29,7 @@ router.get("/veriflyemail", indexController.verifyEmail)
 
 router.get("/edittest/:tid", indexController.editTest)
 
-router.get("/editquestion", indexController.editQuestion)
+router.get("/editquestion/:tid/:qid", indexController.editQuestion)
 
 router.get("/alltests", indexController.viewAllTests)
 
