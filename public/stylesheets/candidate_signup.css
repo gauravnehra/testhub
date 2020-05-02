@@ -65,6 +65,14 @@ content: '\f023';
 }
 
 .form-group:nth-of-type(6)::before{
+    content: none;
+}
+
+.form-group:nth-of-type(7)::before{
+    content: '\f073';
+}
+
+.form-group:nth-of-type(8)::before{
     content: '\f091'
 }
 .form-input button{
