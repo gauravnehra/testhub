@@ -19,7 +19,7 @@
             </div>
             <div class="col-1 col-border">
                 {{!-- ADD ICON --}}
-                <i class="fas fa-plus-square fa-2x" onclick="add()" style="color: white; cursor: pointer;"></i> 
+                <i class="fas fa-plus-square fa-2x" onclick="addElement()" style="color: white; cursor: pointer;"></i> 
             </div>
         </div>
 
@@ -36,33 +36,36 @@
         {{!-- SEND INVITE BUTTON --}}
              <div class="row row-border my-row  align-items-center">
             <div class="col-2 col-border">
-                  <button  class="btn btn-success" type="button" onclick="" >Send Invite</button>
+                  <button  class="btn btn-success" type="button" onclick="sendInvite()" >Send Invite</button>
             </div>
             </div>
 
     </div>
     <script>
         let candidates = []
-        function add() {
+        function addElement() {
             candidates.push(document.getElementById('email').value);
             console.log(candidates)
+            document.getElementById('email').value = ''
             disp();
         };
 
-        //function delete(index) {
-          //  console.log("delete" + index)
-        //};
+        function deleteElement(index) {
+            console.log("delete" + index)
+            candidates.splice(index, 1)
+            disp()
+        };
 
         function disp() {
             let str = ''
             for(i = 0; i <  candidates.length; i++) {
-                str += '<div class="row row-border my-row text-center align-items-center"><div class="col-3 col-border" id="list"><input type="email" value="' + candidates[i] + '" readonly></div><div class="col-1 col-border"><i class="fas fa-times fa-2x" onclick="delete(' + candidates.indexOf(candidates[i]) + ')" style="color: white; cursor: pointer;"></i></div></div>';
+                str += '<div class="row row-border my-row text-center align-items-center"><div class="col-3 col-border" id="list"><input type="email" value="' + candidates[i] + '" readonly></div><div class="col-1 col-border"><i class="fas fa-times fa-2x" onclick="deleteElement(' + candidates.indexOf(candidates[i]) + ')" style="color: white; cursor: pointer;"></i></div></div>';
             }
             document.getElementById('list').innerHTML = str;
         };
 
-        function delete() {
-            console.log("dellete")
+        function sendInvite() {
+            
         }
     </script>
 </body>
