@@ -13,7 +13,7 @@ exports.signinPage = function (req, res)  {
   }
   
 exports.signupPage = function (req, res) {
-    res.render ('company_signup',{style:'company_signup.css'})
+    res.render ('signup',{style:'signup.css'})
 }
 
 exports.resetPassword = function (req, res) {
