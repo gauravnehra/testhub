@@ -1,0 +1,144 @@
+<body>
+    <div class="container my-container" style="max-width: 90%;">
+        <div id="main">
+
+            <div class="row row-border">
+                <div class="col col-border">
+                    <h1 id="heading">Instructions</h1>
+                </div>
+            </div>
+            <div id="white">
+
+
+                <div class="row row-border">
+                    <div class="col col-border">
+
+                        <pre> 1. You can attempt the test only once. 
+
+ 2. Make sure you have a good internet connection. 
+
+ 3. If you are taking the exam late in the day, it is recommended that you reboot your
+   computer before  beginning to free up memory resources from other programs on your 
+   computer.
+
+ 4. Never click the “Back” button on the browser. This will take you out of the test and
+   prevent TestHub from tracking your selected answers. 
+
+ 5. Click the “Submit” button to submit your exam.
+  </pre>
+                    </div>
+                </div>
+                <div class="row row-border text-center justify-content-center">
+                    <div class="col-2 col-border">
+                         <button type="button" onclick="back()" class="btn btn-danger">Back</button>
+                    </div>
+                    <div class="col-2 col-border">
+                         <button type="button" onclick="start()" class="btn btn-success">Start </button>
+                    </div>
+                </div>
+            </div>
+
+            
+            {{!-- WHITE CLOSING --}}
+        </div>
+<div class="row row-border" style="height: 2vh;"></div>
+        </div>
+    </div>
+    <footer class="footer mt-auto py-3    ">
+        <div class="container" style="width: 100%;">
+            <div class="row text-light text-center footer-row align-items-center" style="height: 70px;">
+                <div class="col-4 footer-col ">
+                    Social Media and updates
+                </div>
+                <div class="col-4 footer-col">
+                    Copyright @ 2020 Testhub.com
+                </div>
+                <div class="col-4 footer-col">
+                    TestHub
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function back() {
+            window.location = '/candidatedashboard'
+        }
+
+        function start(){
+            
+            let white = document.getElementById("white")
+            let heading = document.getElementById("heading")
+            heading.innerText='Test Name'
+            white.innerHTML=`<div class="row row-border">
+                    <div class="col-8 col-border">
+                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos tempora in porro dolores
+                            recusandae. Nihil id sunt obcaecati dolorem optio quaerat accusamus accusantium iusto ipsum
+                            totam tenetur, possimus debitis qui. Lorem ipsum dolor sit amet consectetur adipisicing
+                            elit. Eius aspernatur dignissimos tempore atque inventore expedita explicabo qui cupiditate!
+                            Ab accusamus magni, dolore debitis atque cupiditate recusandae eos nostrum alias rerum?
+                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Provident iusto fuga ducimus dicta
+                            quibusdam soluta, dolor labore alias in placeat possimus tempora odio! Omnis, minus quidem.
+                            Officiis ipsam perferendis at? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum
+                            totam ratione veniam odit quo debitis necessitatibus deleniti. Nulla cumque voluptatum illo
+                            assumenda quos, suscipit doloribus distinctio ad ducimus perferendis maxime. Lorem ipsum
+                            dolor sit amet consectetur, adipisicing elit. Consequuntur saepe debitis quam voluptatem
+                            numquam dolores, quidem doloremque provident praesentium quos ullam ipsam eveniet qui sequi
+                            architecto animi voluptates, libero eligendi?</p>
+                    </div>
+                </div>
+                <div class="row row-border" style="margin-top: 2vh;">
+                    <div class="col-8 col-border">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="option" id="A" value="A">
+                            <label class="form-check-label" for="A">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid architecto nam culpa
+                                eum accusamus nulla vel, vero autem sequi veniam quibusdam tempora enim tenetur
+                                asperiores eaque animi velit, voluptatum corporis.
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="option" id="B" value="B">
+                            <label class="form-check-label" for="B">
+                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Libero vero, rerum fugit a
+                                suscipit minus corporis, recusandae alias, nulla facilis nisi deserunt dolorem neque.
+                                Autem, repellat ab. Alias, rerum sapiente.
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="option" id="C" value="C">
+                            <label class="form-check-label" for="C">
+                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ex accusamus rerum doloribus
+                                at. Maiores, dolorum dolorem enim deleniti facilis, earum porro neque voluptatibus
+                                dolores libero voluptatem ab. Expedita, voluptas. Doloremque!
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="option" id="D" value="D">
+                            <label class="form-check-label" for="D">
+                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Excepturi, recusandae pariatur
+                                ipsa adipisci vero delectus qui harum repudiandae necessitatibus, facilis porro dolorem
+                                ut aliquam nostrum ullam dicta sit veniam? Ex.
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-border" style="margin-top: 2vh;">
+                    <div class="col-2 col-border">
+                           <button type="button" onclick="" class="btn btn-danger">Prev</button>
+                    </div>
+                    <div class="col-2 col-border">
+                           <button type="button" onclick="" class="btn btn-danger">Next</button>
+                    </div>
+                    <div class="col-2 col-border">
+                           <button type="button" onclick="" class="btn btn-success">Submit</button>
+                    </div>
+                </div>
+
+            </div>
+            
+<div class="row row-border" style="height: 2vh;"></div>
+ `
+        }
+    </script>
+</body>

@@ -326,3 +326,7 @@ exports.candidateDashboard = async (req, res) => {
 
     
 }
+
+exports.attemptTest = async (req, res) => {
+    res.render ('attempt_test',{style:'attempt_test.css'})
+}

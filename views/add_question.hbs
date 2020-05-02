@@ -112,6 +112,8 @@
     <script>
         // calling this to make sure correct form is loaded on page refresh
         changeQuestionType()
+        console.log(document.cookie)
+        console.log(getCookie("testName"))
 
         document.getElementById('test-name').innerText = getCookie("testName") + " - Add Question"
         document.getElementById('question-type').addEventListener('change', changeQuestionType)
