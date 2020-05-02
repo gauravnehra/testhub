@@ -1,6 +1,6 @@
 <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark" style=" height:40px">
-        <a href="#" class="navbar-brand">TestHub</a>
+        <a href="/companydashboard" class="navbar-brand">TestHub</a>
         <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -9,7 +9,7 @@
             <ul class="navbar-nav ml-auto">
                 {{!-- ul can have a class mr-auto-->shifts links to the left --}}
                 <li class="nav-item">
-                    <a href="#" onclick="profile()" class="nav-link" id="username">{{data.recentTest.userName}}</a>
+                    <a href="/companyprofile"  class="nav-link" id="username">{{data.recentTest.userName}}</a>
                 </li>
                 <li class="nav-item">
                     <a href="#" onclick="signOut()" class="nav-link">Logout</a>

@@ -11,18 +11,9 @@ body,html{
     min-height: 100%;
 }
 
-
 .heading{
     margin-top: 15px;
 }
-
-/* .row-border{
-    border: 2px solid yellow;
-}
-
-.col-border{
-    border: 2px solid white;
-} */
 
 a{
     color:white;
@@ -70,3 +61,11 @@ footer{
         
 
     }
+
+/* .row-border{
+    border: 2px solid yellow;
+}
+
+.col-border{
+    border: 2px solid white;
+} */

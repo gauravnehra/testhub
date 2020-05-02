@@ -209,7 +209,7 @@ exports.companyProfile = async (req, res) => {
         })
         promises.push(profilePromise)
         Promise.all(promises).then(() => {
-            res.render("company_profile",{data,style:'company_profile.css'})
+            res.render("company_profile",{data,style:'company_profile.css',layout:'layout2.hbs'})
             
         }).catch(error => {
            
@@ -271,4 +271,8 @@ exports.viewAllTests = async (req, res) => {
 
 exports.invite = async (req, res) => {
     res.render ('invite',{style:'invite.css',layout:'layout2.hbs'})
+}
+
+exports.candidateDashboard = async (req, res) => {
+    res.render ('candidate_dashboard',{style:'candidate_dashboard.css'})
 }

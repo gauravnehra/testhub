@@ -40,6 +40,7 @@
         }
 
         function signIn() {
+            
             let uType = document.getElementById("user-type").value;
             if (uType == 'business') {
                 var email = document.getElementById("email").value
@@ -50,7 +51,7 @@
                         if (this.status === 200) {
                             document.cookie = "authorization=" + this.getResponseHeader("authorization")
                             console.log("signin success")
-                            window.location = "/companyDashboard"
+                            window.location = "/companydashboard"
                         }
                         else {
                             console.log('error')
@@ -75,7 +76,7 @@
                         if (this.status === 200) {
                             document.cookie = "authorization=" + this.getResponseHeader("authorization")
                             console.log("signin success")
-                            window.location = "/candidateDashboard"
+                            window.location = "/candidatedashboard"
                         }
                         else {
                             console.log('error')
