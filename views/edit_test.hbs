@@ -95,7 +95,7 @@
         }
 
         function updateInfo(){
-             let name = document.getElementById("testName").value;
+            let name = document.getElementById("testName").value;
             let duration = document.getElementById("testDuration").value;
             var xmlHttpRequest = new XMLHttpRequest()
             xmlHttpRequest.open("PUT", `/company/test/{{data.editTest.testId}}`, true)

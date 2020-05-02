@@ -27,35 +27,35 @@
         <div class="row my-row my-row-border">
             <div class="col-12 my-col my-col-color box ques">
                 <p>Question:</p>
-                <input type="text" id="question" value="{{data.question}}">
+                <input type="text" id="question" value="{{data.question}}" oninput="hideError()">
             </div>
         </div>
 
         <div class="row my-row my-row-border option-div">
             <div class="col-12 my-col my-col-color box">
                 <p>Option A:</p>
-                <input type="text" id="optionA" value="{{data.optionA}}">
+                <input type="text" id="optionA" value="{{data.optionA}}" oninput="hideError()">
             </div>
         </div>
 
         <div class="row my-row my-row-border option-div">
             <div class="col-12 my-col my-col-color box">
                 <p>Option B:</p>
-                <input type="text" id="optionB" value="{{data.optionB}}">
+                <input type="text" id="optionB" value="{{data.optionB}}" oninput="hideError()">
             </div>
         </div>
 
         <div class="row my-row my-row-border option-div">
             <div class="col-12 my-col my-col-color box">
                 <p>Option C:</p>
-                <input type="text" id="optionC" value="{{data.optionC}}">
+                <input type="text" id="optionC" value="{{data.optionC}}" oninput="hideError()">
             </div>
         </div>
 
         <div class="row my-row my-row-border option-div">
             <div class="col-12 my-col my-col-color box">
                 <p>Option D:</p>
-                <input type="text" id="optionD" value="{{data.optionD}}">
+                <input type="text" id="optionD" value="{{data.optionD}}" oninput="hideError()">
             </div>
 
 
@@ -64,7 +64,7 @@
         <div class="row my-row my-row-border option-div">
             <div class="col-12 my-col my-col-color box">
                 <p>Correct Option:</p>
-                <select name="correct-option" id="correct" value="{{data.correct}}">
+                <select name="correct-option" id="correct">
                     <option value="A">A</option>
                     <option value="B">B</option>
                     <option value="C">C</option>
@@ -78,7 +78,7 @@
         <div class="row my-row my-row-border">
             <div class="col-12 my-col my-col-color box option-div">
                 <p>Marks:</p>
-                <input class="small-input" type="number" id="score" value="{{data.score}}">
+                <input class="small-input" type="number" id="score" value="{{data.score}}" oninput="hideError()">
             </div>
 
         </div>
@@ -87,7 +87,7 @@
 
         <div class="row my-row my-row-border">
             <div class="col-2 my-col my-col-border box">
-                <button  class="btn btn-success" type="button" onclick="editQuestion()">Done</button>
+                <button  class="btn btn-success" type="button" onclick="validateEdit()">Done</button>
 
             </div>
            
@@ -178,5 +178,14 @@
                 xmlHttpRequest.send(JSON.stringify({ question: question, type: qType }))
             }
         }
+
+        function hideError() {
+            let div = document.getElementById("error")
+            if (div.childNodes[0]) {
+                div.classList.remove("alert", "alert-danger")
+                div.innerHTML = ''
+            }
+        }
     </script>
+    <script src="/javascripts/question_validations.js"></script>
 </body>

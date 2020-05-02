@@ -17,7 +17,7 @@
                             <input id="duration" type="text" oninput="hideError()" class="form-control" placeholder="Enter Test Duration">
                         </div>
 
-                        <button class="btn btn-success" type="button" onclick="createTest()">Create Test</button>
+                        <button class="btn btn-success" type="button" onclick="validate()">Create Test</button>
                     </form>
                 </div>
             </div>
@@ -58,4 +58,5 @@
             xmlHttpRequest.send(JSON.stringify({ testName: name, testDuration: duration }))
         }
     </script>
+    <script src="/javascripts/create_test_validations.js"></script>
 </body>
