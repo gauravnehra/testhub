@@ -270,5 +270,7 @@ exports.viewAllTests = async (req, res) => {
 }
 
 exports.invite = async (req, res) => {
-    res.render ('invite',{style:'invite.css',layout:'layout2.hbs'})
+    let data = {}
+    data.tid = req.params.tid
+    res.render ('invite',{data, style:'invite.css',layout:'layout2.hbs'})
 }

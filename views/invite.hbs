@@ -8,7 +8,8 @@
 
          <div class="row row-border my-row ">
             <div class="col-1.5 col-border">
-            <h5>Add Email Id</h5>
+                <div id="error"></div>
+                <h5>Add Email Id</h5>
             </div>
          </div>  
 
@@ -45,13 +46,11 @@
         let candidates = []
         function addElement() {
             candidates.push(document.getElementById('email').value);
-            console.log(candidates)
             document.getElementById('email').value = ''
             disp();
         };
 
         function deleteElement(index) {
-            console.log("delete" + index)
             candidates.splice(index, 1)
             disp()
         };
@@ -65,7 +64,27 @@
         };
 
         function sendInvite() {
-            
+            var xmlHttpRequest = new XMLHttpRequest()
+            xmlHttpRequest.open("POST", `/company/test/{{data.tid}}/invite`, true)
+            xmlHttpRequest.setRequestHeader("Content-Type", "application/json")
+            xmlHttpRequest.setRequestHeader("authorization", getCookie("authorization"));
+            xmlHttpRequest.onreadystatechange = function () {
+                if (this.readyState === 4) {
+                    if (this.status === 200) {
+                        let p = document.createElement("p")
+                        p.innerText = JSON.parse(this.responseText).msg + ". Public link for test is " + JSON.parse(this.responseText).linkForTest
+                        document.getElementById("error").classList.add("alert", "alert-success")
+                        document.getElementById("error").appendChild(p)
+                    }
+                    else {
+                        let p = document.createElement("p")
+                        p.innerText = JSON.parse(this.responseText).msg
+                        document.getElementById("error").classList.add("alert", "alert-danger")
+                        document.getElementById("error").appendChild(p)
+                    }
+                }
+            }
+            xmlHttpRequest.send(JSON.stringify({ candidates: candidates }))
         }
     </script>
 </body>
