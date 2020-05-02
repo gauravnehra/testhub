@@ -1,0 +1,106 @@
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark" style=" height:40px">
+        <a href="#" class="navbar-brand">TestHub</a>
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarMenu">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="signIn" class="nav-link">Signin</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Features</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container my-container" style="max-width: 90%;">
+
+
+        <div class="row black" style="height: 60px;"></div>
+
+        <div class="row row-border my-row">
+
+            <div class="col col-border">
+
+                <div class="row row-border">
+                    <div class="col col-border">
+                        <h1>Join as Business</h1>
+                    </div>
+                </div>
+                <div class="row row-border" style="margin-top: 10px;">
+                    <div class="col-6 col-border">
+                        <p> Create and conducut tests to recruit new people
+                            for your business</p>
+                    </div>
+                    <div class="col-6 col-border text-center">
+                        <button class="btn btn-lg btn-dark" onclick="companySignUp()">
+                            SignUp
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row black" style="height: 100px;"></div>
+
+        <div class="row row-border my-row">
+
+            <div class="col col-border">
+
+                <div class="row row-border">
+                    <div class="col col-border">
+                        <h1>Join as Candidate</h1>
+                    </div>
+                </div>
+                <div class="row row-border" style="margin-top: 10px;">
+                    <div class="col-6 col-border">
+                        <p> Improve your skills by practicing
+                            and taking tests</p>
+                    </div>
+                    <div class="col-6 col-border text-center">
+                        <button class="btn btn-lg btn-dark" onclick="candidateSignUp()">
+                            SignUp
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <footer>
+        <div class="container" style="width: 100%;">
+            <div class="row text-light text-center footer-row align-items-center" style="height: 70px;">
+                <div class="col-4 footer-col ">
+                    Social Media and updates
+                </div>
+                <div class="col-4 footer-col">
+                    Copyright @ 2020 Testhub.com
+                </div>
+                <div class="col-4 footer-col">
+                    TestHub
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function signIn() {
+            console.log('signIn of index.hbss')
+            window.location = "/signin"
+        }
+        function companySignUp() {
+            window.location = "/companySignup"
+        }
+        function candidateSignUp() {
+            window.location = "/candidateSignup"
+        }
+    </script>
+</body>

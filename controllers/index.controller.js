@@ -1,8 +1,8 @@
 const http = require("http")
 
 exports.homePage = function (req,res)  {
-    res.render ('index'
-   , {style:'style.css'}
+    res.render ('index2'
+   , {style:'style2.css'}
     )
 }
 
