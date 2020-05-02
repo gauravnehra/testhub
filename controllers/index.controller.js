@@ -1,8 +1,8 @@
 const http = require("http")
 
 exports.homePage = function (req,res)  {
-    res.render ('index'
-   , {style:'style.css'}
+    res.render ('index2'
+   , {style:'style2.css'}
     )
 }
 
@@ -267,4 +267,8 @@ exports.viewAllTests = async (req, res) => {
             res.render("error", error)
         })
     }
+}
+
+exports.invite = async (req, res) => {
+    res.render ('invite',{style:'invite.css',layout:'layout2.hbs'})
 }
