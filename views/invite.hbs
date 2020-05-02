@@ -6,46 +6,54 @@
             </div>
         </div>
 
-         <div class="row row-border my-row ">
+        <div class="row row-border my-row ">
             <div class="col-1.5 col-border">
                 <div id="error"></div>
                 <h5>Add Email Id</h5>
             </div>
-         </div>  
+        </div>
 
         {{!-- ADD CANDIDATE  --}}
         <div class="row row-border my-row text-center align-items-center">
             <div class="col-3 col-border">
-                <input type="email" placeholder="Enter Candidate Email Id" id="email">
+                <input type="email" placeholder="Enter Candidate Email Id" id="email" oninput="hideError()">
             </div>
             <div class="col-1 col-border">
                 {{!-- ADD ICON --}}
-                <i class="fas fa-plus-square fa-2x" onclick="addElement()" style="color: white; cursor: pointer;"></i> 
+                <i class="fas fa-plus-square fa-2x" onclick="addElement()" style="color: white; cursor: pointer;"></i>
             </div>
         </div>
 
         <div class="row row-border my-row ">
             <div class="col-1.5 col-border">
-            <h5>Candidates to by invited</h5>
+                <h5>Candidates to by invited</h5>
             </div>
-         </div>
+        </div>
 
         {{!-- ADDED CANDIDATE SAMPLE --}}
         <div id="list"></div>
-        
+
 
         {{!-- SEND INVITE BUTTON --}}
-             <div class="row row-border my-row  align-items-center">
+        <div class="row row-border my-row  align-items-center">
             <div class="col-2 col-border">
-                  <button  class="btn btn-success" type="button" onclick="sendInvite()" >Send Invite</button>
+                <button class="btn btn-success" type="button" onclick="sendInvite()">Send Invite</button>
             </div>
-            </div>
+        </div>
 
     </div>
     <script>
         let candidates = []
         function addElement() {
+            if (document.getElementById('email').value == '') {
+                let p = document.createElement("p")
+                p.innerText = "Enter an email"
+                document.getElementById("error").classList.add("alert", "alert-danger")
+                document.getElementById("error").appendChild(p)
+                return
+            }
             candidates.push(document.getElementById('email').value);
+            console.log(candidates)
             document.getElementById('email').value = ''
             disp();
         };
@@ -57,7 +65,7 @@
 
         function disp() {
             let str = ''
-            for(i = 0; i <  candidates.length; i++) {
+            for (i = 0; i < candidates.length; i++) {
                 str += '<div class="row row-border my-row text-center align-items-center"><div class="col-3 col-border" id="list"><input type="email" value="' + candidates[i] + '" readonly></div><div class="col-1 col-border"><i class="fas fa-times fa-2x" onclick="deleteElement(' + candidates.indexOf(candidates[i]) + ')" style="color: white; cursor: pointer;"></i></div></div>';
             }
             document.getElementById('list').innerHTML = str;
@@ -85,6 +93,14 @@
                 }
             }
             xmlHttpRequest.send(JSON.stringify({ candidates: candidates }))
+        }
+
+        function hideError() {
+            let div = document.getElementById("error")
+            if (div.childNodes[0]) {
+                div.classList.remove("alert", "alert-danger")
+                div.removeChild(div.childNodes[0])
+            }
         }
     </script>
 </body>
