@@ -1,4 +1,5 @@
 <body>
+
     <div class="modal-dialog text-center">'
         <div class="col-12 main-section">
             <div class="modal-content">
@@ -12,7 +13,7 @@
                         </select>
                     </div>
                     <form id="form">
-                        
+
                     </form>
                 </div>
             </div>
@@ -20,8 +21,24 @@
     </div>
 
     <script>
-        let companyForm = '<div class="form-group"><input id="name" type="text" class="form-control" placeholder="Enter Company Name*" oninput="hideError()"></div><div class="form-group"><input id="domain" type="text" class="form-control" placeholder="Enter Domain" oninput="hideError()"></div><div class="form-group"><input id="email" type="email" class="form-control" placeholder="Enter Email*" oninput="hideError()"></div><div class="form-group"><input id="password" type="password" class="form-control" placeholder="Enter Password*" oninput="hideError()"></div><div class="form-group"><input id="location" type="text" class="form-control" placeholder="Enter City*" oninput="hideError()"></div><button onclick="signUp()" type="button" class="btn btn-success">SignUp</button>'
-        let candidateForm = '<div class="form-group"><input id="first_name" type="text" class="form-control" placeholder="Enter First Name" oninput="hideError()"></div><div class="form-group"><input id="last_name" type="text" class="form-control" placeholder="Enter Last Name" oninput="hideError()"></div><div class="form-group"><input id="email" type="email" class="form-control" placeholder="Enter Email" oninput="hideError()"></div><div class="form-group"><input id="password" type="password" class="form-control" placeholder="Enter password" oninput="hideError()"></div><div class="form-group"><input id="location" type="text" class="form-control" placeholder="Enter Location" oninput="hideError()"></div><div class="form-group"><select class="form-control " id="gender"><option value="M">Male</option><option value="F">Female</option></select></div><div class="form-group"><input id="age" type="number" class="form-control" placeholder="Enter age" oninput="hideError()"></div><button onclick="signUp()" type="button" class="btn btn-success">SignUp</button>'
+        let companyForm = '<div class="form-group"><input id="name" type="text" class="form-control" placeholder="Enter Company Name*" oninput="hideError()"></div><div class="form-group"><input id="domain" type="text" class="form-control" placeholder="Enter Domain" oninput="hideError()"></div><div class="form-group"><input id="email" type="email" class="form-control" placeholder="Enter Email*" oninput="hideError()"></div><div class="form-group"><input id="password" type="password" class="form-control" placeholder="Enter Password*" oninput="hideError()"></div><div class="form-group"><input id="location" type="text" class="form-control" placeholder="Enter Location*" oninput="hideError()"></div><button onclick="signUp()" type="button" class="btn btn-success">SignUp</button>'
+        let candidateForm = ` <div class="form-group-2"><input id="first_name" type="text" class="form-control" placeholder="Enter First Name"
+            oninput="hideError()"></div>
+    <div class="form-group-2"><input id="last_name" type="text" class="form-control" placeholder="Enter Last Name"
+            oninput="hideError()"></div>
+    <div class="form-group-2"><input id="email" type="email" class="form-control" placeholder="Enter Email"
+            oninput="hideError()"></div>
+    <div class="form-group-2"><input id="password" type="password" class="form-control" placeholder="Enter password"
+            oninput="hideError()"></div>
+    <div class="form-group-2"><input id="location" type="text" class="form-control" placeholder="Enter Location"
+            oninput="hideError()"></div>
+    <div class="form-group-2"><select class="form-control " id="gender">
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+        </select></div>
+    <div class="form-group-2"><input id="age" type="number" class="form-control" placeholder="Enter age"
+            oninput="hideError()"></div><button onclick="signUp()" type="button" class="btn btn-success">SignUp</button>
+</body>`
 
         document.getElementById('user-type').addEventListener('change', changeUserForm)
         changeUserForm()
@@ -74,7 +91,7 @@
                 let gender = document.getElementById('gender').value
                 let age = document.getElementById('age').value
                 let location = document.getElementById('location').value
-                
+
                 var xmlHttpRequest = new XMLHttpRequest()
                 xmlHttpRequest.open("POST", "/candidate/signup", true)
                 xmlHttpRequest.setRequestHeader("Content-Type", "application/json")
