@@ -97,5 +97,13 @@
                 xmlHttpRequest.send(JSON.stringify({ name: name, email: email, password: password, location: location, gender: gender, age: age }))
             }
         }
+
+        function hideError() {
+            let div = document.getElementById("error")
+            if (div.childNodes[0]) {
+                div.classList.remove("alert", "alert-danger")
+                div.removeChild(div.childNodes[0])
+            }
+        }
     </script>
 </body>
