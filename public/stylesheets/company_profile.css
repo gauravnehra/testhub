@@ -1,21 +1,18 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
-body{
+html,body{
     font-family: 'Roboto', sans-serif;
     background: url(../images/mountain.png) no-repeat center center fixed;
     background-size: cover;
     /* height: 100%; */
     margin-bottom:30px;
-
+    height: 100%;
 }
 
-html{
-    /* height: 100%; */
+.my-container{
+    min-height: 100%;
 }
-footer{
-    /* margin-top: 30px !important; */
-    background-color: #343A40;
-}
+
 
 .back{
     height: 450px;

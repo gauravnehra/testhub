@@ -17,6 +17,8 @@ router.get("/candidatesignup", indexController.candidateSignupPage)
 
 router.get("/companydashboard",indexController.companyDashboard)
 
+router.get("/candidatedashboard",indexController.candidateDashboard)
+
 router.get("/companyprofile", indexController.companyProfile)
 
 router.get("/createtest", indexController.createTest)
