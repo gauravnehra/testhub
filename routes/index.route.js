@@ -11,9 +11,7 @@ router.get("/", indexController.homePage)
 
 router.get("/signin", indexController.signinPage)
 
-router.get("/companysignup", indexController.companySignupPage)
-
-router.get("/candidatesignup", indexController.candidateSignupPage)
+router.get("/signup", indexController.signupPage)
 
 router.get("/companydashboard",indexController.companyDashboard)
 

@@ -5,7 +5,13 @@
 
                 <div class="col-sm-12 form-input">
                     <div id="error"></div>
-                    <form>
+                    <div class="">
+                        <select class="form-control" id="user-type">
+                            <option value="business">Business</option>
+                            <option value="candidate">Candidate</option>
+                        </select>
+                    </div>
+                    <form id="form">
                         <div class="form-group">
                             <input id="name" type="text" class="form-control" placeholder="Enter Company Name*">
                         </div>
@@ -28,34 +34,83 @@
         </div>
     </div>
 
-<script>
-     function signUp() {
-            console.log("entered")
-            let name = document.getElementById('name').value
-            let domain = document.getElementById('domain').value
-            let email = document.getElementById("email").value
-            let password = document.getElementById("password").value
-            let location = document.getElementById('location').value
-            var xmlHttpRequest = new XMLHttpRequest()
-            xmlHttpRequest.open("POST", "/company/signup", true)
-            xmlHttpRequest.setRequestHeader("Content-Type", "application/json")
-            xmlHttpRequest.onreadystatechange = function () {
-                if (this.readyState === 4) {
-                    if (this.status === 200) {
-                        document.cookie = "authorization=" + this.getResponseHeader("authorization")
-                        console.log("signup success")
-                        window.location = "/companyDashboard"
-                    }
-                    else {
-                        console.log('error')
-                        let p = document.createElement("p")
-                        p.innerText = JSON.parse(this.responseText).msg
-                        document.getElementById("error").classList.add("alert", "alert-danger")
-                        document.getElementById("error").appendChild(p)
+    <script>
+        let companyForm = '<div class="form-group"><input id="name" type="text" class="form-control" placeholder="Enter Company Name*" oninput="hideError()"></div><div class="form-group"><input id="domain" type="text" class="form-control" placeholder="Enter Domain" oninput="hideError()"></div><div class="form-group"><input id="email" type="email" class="form-control" placeholder="Enter Email*" oninput="hideError()"></div><div class="form-group"><input id="password" type="password" class="form-control" placeholder="Enter Password*" oninput="hideError()"></div><div class="form-group"><input id="location" type="text" class="form-control" placeholder="Enter Location*" oninput="hideError()"></div><button onclick="signUp()" type="button" class="btn btn-success">SignUp</button>'
+        let candidateForm = '<div class="form-group"><input id="first_name" type="text" class="form-control" placeholder="Enter First Name" oninput="hideError()"></div><div class="form-group"><input id="last_name" type="text" class="form-control" placeholder="Enter Last Name" oninput="hideError()"></div><div class="form-group"><input id="email" type="email" class="form-control" placeholder="Enter Email" oninput="hideError()"></div><div class="form-group"><input id="password" type="password" class="form-control" placeholder="Enter password" oninput="hideError()"></div><div class="form-group"><input id="location" type="text" class="form-control" placeholder="Enter Location" oninput="hideError()"></div><div class="form-group"><select class="form-control " id="gender"><option value="M">Male</option><option value="F">Female</option></select></div><div class="form-group"><input id="age" type="number" class="form-control" placeholder="Enter age" oninput="hideError()"></div><button onclick="signUp()" type="button" class="btn btn-success">SignUp</button>'
+
+        document.getElementById('user-type').addEventListener('change', changeUserForm)
+        changeUserForm()
+
+        function changeUserForm() {
+            let uType = document.getElementById('user-type').value
+            if (uType == 'business') {
+                document.getElementById('form').innerHTML = companyForm
+            }
+            else if (uType == 'candidate') {
+                document.getElementById('form').innerHTML = candidateForm
+            }
+        }
+
+        function signUp() {
+            let uType = document.getElementById('user-type').value
+            if (uType == 'business') {
+                let name = document.getElementById('name').value
+                let domain = document.getElementById('domain').value
+                let email = document.getElementById("email").value
+                let password = document.getElementById("password").value
+                let location = document.getElementById('location').value
+                var xmlHttpRequest = new XMLHttpRequest()
+                xmlHttpRequest.open("POST", "/company/signup", true)
+                xmlHttpRequest.setRequestHeader("Content-Type", "application/json")
+                xmlHttpRequest.onreadystatechange = function () {
+                    if (this.readyState === 4) {
+                        if (this.status === 200) {
+                            document.cookie = "authorization=" + this.getResponseHeader("authorization")
+                            console.log("signup success")
+                            window.location = "/companyDashboard"
+                        }
+                        else {
+                            console.log('error')
+                            let p = document.createElement("p")
+                            p.innerText = JSON.parse(this.responseText).msg
+                            document.getElementById("error").classList.add("alert", "alert-danger")
+                            document.getElementById("error").appendChild(p)
+                        }
                     }
                 }
+                xmlHttpRequest.send(JSON.stringify({ name: name, email: email, password: password, location: location, domain: domain }))
             }
-            xmlHttpRequest.send(JSON.stringify({ name: name, email: email, password: password, location: location, domain: domain }))
+            else if (uType == 'candidate') {
+                let firstName = document.getElementById('first_name').value
+                let lastName = document.getElementById('last_name').value
+                let name = firstName + " " + lastName
+                let email = document.getElementById("email").value
+                let password = document.getElementById("password").value
+                let gender = document.getElementById('gender').value
+                let age = document.getElementById('age').value
+                let location = document.getElementById('location').value
+                
+                var xmlHttpRequest = new XMLHttpRequest()
+                xmlHttpRequest.open("POST", "/candidate/signup", true)
+                xmlHttpRequest.setRequestHeader("Content-Type", "application/json")
+                xmlHttpRequest.onreadystatechange = function () {
+                    if (this.readyState === 4) {
+                        if (this.status === 200) {
+                            document.cookie = "authorization=" + this.getResponseHeader("authorization")
+                            console.log("signup success")
+                            window.location = "/candidateDashboard"
+                        }
+                        else {
+                            console.log('error')
+                            let p = document.createElement("p")
+                            p.innerText = JSON.parse(this.responseText).msg
+                            document.getElementById("error").classList.add("alert", "alert-danger")
+                            document.getElementById("error").appendChild(p)
+                        }
+                    }
+                }
+                xmlHttpRequest.send(JSON.stringify({ name: name, email: email, password: password, location: location, gender: gender, age: age }))
+            }
         }
-</script>
+    </script>
 </body>

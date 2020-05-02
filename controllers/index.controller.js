@@ -12,12 +12,8 @@ exports.signinPage = function (req, res)  {
     res.render ('signin',{style:'signin.css'})
   }
   
-exports.companySignupPage = function (req, res) {
+exports.signupPage = function (req, res) {
     res.render ('company_signup',{style:'company_signup.css'})
-}
-
-exports.candidateSignupPage = function (req, res) {
-    res.render ('candidate_signup',{style:'candidate_signup.css'})
 }
 
 exports.resetPassword = function (req, res) {
