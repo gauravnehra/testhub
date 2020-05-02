@@ -11,9 +11,9 @@
                         <div id="error"></div>
                         <div class="form-group">
                             <select class="form-control" id="user-type">
-                                <option value="Candidate">Candidate</option>
-                                <option value="Business">Business</option>
-                                </select>
+                                <option value="business">Business</option>
+                                <option value="candidate">Candidate</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <input id="email" type="email" oninput="hideError()" class="form-control"
@@ -40,30 +40,58 @@
         }
 
         function signIn() {
-            var email = document.getElementById("email").value
-            var password = document.getElementById("password").value
-            var xmlHttpRequest = new XMLHttpRequest()
-            xmlHttpRequest.onreadystatechange = function () {
-                if (this.readyState === 4) {
-                    if (this.status === 200) {
-                        document.cookie = "authorization=" + this.getResponseHeader("authorization")
-                        console.log("signin success")
-                        window.location = "/companyDashboard"
-                    }
-                    else {
-                        console.log('error')
-                        let p = document.createElement("p")
-                        p.innerText = JSON.parse(this.responseText).msg
-                        document.getElementById("error").classList.add("alert", "alert-danger")
-                        document.getElementById("error").appendChild(p)
+            let uType = document.getElementById("user-type").value;
+            if (uType == 'business') {
+                var email = document.getElementById("email").value
+                var password = document.getElementById("password").value
+                var xmlHttpRequest = new XMLHttpRequest()
+                xmlHttpRequest.onreadystatechange = function () {
+                    if (this.readyState === 4) {
+                        if (this.status === 200) {
+                            document.cookie = "authorization=" + this.getResponseHeader("authorization")
+                            console.log("signin success")
+                            window.location = "/companyDashboard"
+                        }
+                        else {
+                            console.log('error')
+                            let p = document.createElement("p")
+                            p.innerText = JSON.parse(this.responseText).msg
+                            document.getElementById("error").classList.add("alert", "alert-danger")
+                            document.getElementById("error").appendChild(p)
+                        }
                     }
                 }
+                xmlHttpRequest.open("POST", "/company/signin", true)
+                console.log("Request Made");
+                xmlHttpRequest.setRequestHeader("Content-Type", "application/json")
+                xmlHttpRequest.send(JSON.stringify({ email: email, password: password }))
             }
-            xmlHttpRequest.open("POST", "/company/signin", true)
-            console.log("Request Made");
-            xmlHttpRequest.setRequestHeader("Content-Type", "application/json")
-            xmlHttpRequest.send(JSON.stringify({ email: email, password: password }))
+            else if (uType = 'candidate') {
+                var email = document.getElementById("email").value
+                var password = document.getElementById("password").value
+                var xmlHttpRequest = new XMLHttpRequest()
+                xmlHttpRequest.onreadystatechange = function () {
+                    if (this.readyState === 4) {
+                        if (this.status === 200) {
+                            document.cookie = "authorization=" + this.getResponseHeader("authorization")
+                            console.log("signin success")
+                            window.location = "/candidateDashboard"
+                        }
+                        else {
+                            console.log('error')
+                            let p = document.createElement("p")
+                            p.innerText = JSON.parse(this.responseText).msg
+                            document.getElementById("error").classList.add("alert", "alert-danger")
+                            document.getElementById("error").appendChild(p)
+                        }
+                    }
+                }
+                xmlHttpRequest.open("POST", "/candidate/signin", true)
+                console.log("Request Made");
+                xmlHttpRequest.setRequestHeader("Content-Type", "application/json")
+                xmlHttpRequest.send(JSON.stringify({ email: email, password: password }))
+            }
         }
-       
+
     </script>
 </body>
