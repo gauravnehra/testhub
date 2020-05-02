@@ -76,8 +76,25 @@ exports.signoutall = async (req, res) => {
   res.status(200).send({ msg: "Signout all success" })
 };
 
-exports.dashboard = function (req, res) {
-    //TODO
+exports.dashboard = async (req, res)=> {
+    // check if user exists
+  let candidate = await Candidate.findById(req.token.userId)
+  if(!candidate) {
+    // 404 : Not Found
+    return res.status(404).send({ msg: "Account does not exist." })
+  }
+
+  let responseObject = {
+    userName: "",
+    tests: []
+  }
+  
+  responseObject.userName = candidate.name
+  for(i=0;i<candidate.assignedtests.length;i++){
+    responseObject.tests[i]= await Test.findById(candidate.assignedtests[i] )
+  }
+
+  res.status(200).send(responseObject)
 };
 
 exports.resetPassword = async (req, res) => {
