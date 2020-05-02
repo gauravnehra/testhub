@@ -52,10 +52,19 @@
                 document.getElementById("error").appendChild(p)
                 return
             }
-            candidates.push(document.getElementById('email').value);
-            console.log(candidates)
-            document.getElementById('email').value = ''
-            disp();
+            if(candidates.indexOf(document.getElementById('email').value) < 0) {
+                candidates.push(document.getElementById('email').value);
+                console.log(candidates)
+                document.getElementById('email').value = ''
+                disp();
+            }
+            else {
+                let p = document.createElement("p")
+                p.innerText = "You already entered this email"
+                document.getElementById("error").classList.add("alert", "alert-danger")
+                document.getElementById("error").appendChild(p)
+                return
+            }
         };
 
         function deleteElement(index) {
