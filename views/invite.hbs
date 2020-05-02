@@ -52,7 +52,7 @@
                 document.getElementById("error").appendChild(p)
                 return
             }
-            if(candidates.indexOf(document.getElementById('email').value) < 0) {
+            if (candidates.indexOf(document.getElementById('email').value) < 0) {
                 candidates.push(document.getElementById('email').value);
                 console.log(candidates)
                 document.getElementById('email').value = ''
@@ -81,6 +81,13 @@
         };
 
         function sendInvite() {
+            if (candidates.length == 0) {
+                let p = document.createElement("p")
+                p.innerText = "Please add email ids of candidates."
+                document.getElementById("error").classList.add("alert", "alert-danger")
+                document.getElementById("error").appendChild(p)
+                return
+            }
             var xmlHttpRequest = new XMLHttpRequest()
             xmlHttpRequest.open("POST", `/company/test/{{data.tid}}/invite`, true)
             xmlHttpRequest.setRequestHeader("Content-Type", "application/json")
