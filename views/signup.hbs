@@ -119,7 +119,7 @@
             let div = document.getElementById("error")
             if (div.childNodes[0]) {
                 div.classList.remove("alert", "alert-danger")
-                div.removeChild(div.childNodes[0])
+                div.innerHTML = ''
             }
         }
     </script>
