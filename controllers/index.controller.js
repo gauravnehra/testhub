@@ -272,5 +272,57 @@ exports.invite = async (req, res) => {
 }
 
 exports.candidateDashboard = async (req, res) => {
-    res.render ('candidate_dashboard',{style:'candidate_dashboard.css'})
+
+
+    var promises = []
+    var data = {}
+    if (req.cookies.authorization) {
+        var assignedTestPromise = new Promise((resolve, reject) => {
+            // Create options
+            const options = {
+                hostname: req.hostname,
+                port: 3000,
+                path: "/candidate",
+                method: "GET",
+                headers: { authorization: req.cookies.authorization }
+            }
+
+            // Make http request
+            const httpReq = http.request(options, httpRes => {
+                var buff = ""
+                httpRes.on("data", chunks => {
+                    buff += chunks
+                })
+
+                httpRes.on("end", () => {
+                    if (httpRes.statusCode === 200) {
+                        data.assignedTest = JSON.parse(buff)
+                        resolve()
+                    }
+                    else {
+                        reject(JSON.parse(buff))
+                    }
+
+                })
+            })
+
+            httpReq.on("error", error => {
+                reject(error)
+            })
+
+            httpReq.end()
+        })
+        promises.push(assignedTestPromise)
+       
+        Promise.all(promises).then(() => {
+           
+            res.render ('candidate_dashboard',{style:'candidate_dashboard.css',data})
+            
+        }).catch(error => {
+           
+            res.render("error", error)
+        })
+    }
+
+    
 }
