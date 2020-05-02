@@ -31,7 +31,7 @@
                         <div class="form-group">
                             <input id="skills" type="text" class="form-control" placeholder="Enter Skills">
                         </div>
-                        <button onclick="signUp()" class="btn btn-success">SignUp</button>
+                        <button onclick="signUp()" type="button" class="btn btn-success">SignUp</button>
                     </form>
                 </div>
             </div>
@@ -42,8 +42,11 @@
         function signUp() {
             let firstName = document.getElementById('first_name').value
             let lastName = document.getElementById('last_name').value
+            let name = firstName+" "+lastName
             let email = document.getElementById("email").value
             let password = document.getElementById("password").value
+            let gender = document.getElementById('gender').value
+            let age = document.getElementById('age').value
             let location = document.getElementById('location').value
             let skills = document.getElementById('skills').value
 
@@ -55,7 +58,7 @@
                     if (this.status === 200) {
                         document.cookie = "authorization=" + this.getResponseHeader("authorization")
                         console.log("signup success")
-                        window.location = "/companyDashboard"
+                        window.location = "/candidateDashboard"
                     }
                     else {
                         console.log('error')
@@ -66,7 +69,7 @@
                     }
                 }
             }
-            xmlHttpRequest.send(JSON.stringify({ name: name, email: email, password: password, location: location, domain: domain }))
+            xmlHttpRequest.send(JSON.stringify({ name: name, email: email, password: password, location: location, gender:gender, age:age ,skills:skills }))
         }
     </script>
 
