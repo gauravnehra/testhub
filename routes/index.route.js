@@ -39,6 +39,8 @@ router.get("/alltests", indexController.viewAllTests)
 
 router.get("/invite/:tid", indexController.invite)
 
+router.get("/viewresults/:tname", indexController.viewResults)
+
 router.get("/attempttest/:tid", indexController.attemptTest)
 
 module.exports = router;

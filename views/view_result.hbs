@@ -1,0 +1,36 @@
+<body>
+    <div class="container my-container">
+        <div class="row row-border">
+            <div class="col col-border">
+                <h1>
+                    {{data.testName}}-Results
+                </h1>
+            </div>
+        </div>
+
+        
+        <div class="row row-border results">
+
+
+            <div  class="col col-border">
+                {{#each data.results}} 
+
+                <div class="row row-border row-recent  text-center ">
+                    <div class="col-2 col-border">
+                        {{this.name}}
+                    </div>
+                    <div class="col-1 col-border"></div>
+
+                    <div class="col-2 col-border">
+                        <a href="">
+                            Score:{{this.maxmarks}}/{{this.score}}
+                        </a>
+                    </div>
+
+                  
+                      </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</body>

@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+body,html{
+    font-family: 'Roboto', sans-serif;
+    background: url(../images/mountain.png) no-repeat center center fixed;
+    background-size: cover;
+    height: 100%;
+}
+
+.my-container{
+    min-height: 100%;
+}
+
+.results{
+    color: white;
+    background-color: black;
+    opacity: .8;
+    margin-top: 3px;
+}
+
+/* .row-border{
+    border: 2px solid yellow;
+}
+
+.col-border{
+    border: 2px solid white;
+} */

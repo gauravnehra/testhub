@@ -436,3 +436,9 @@ exports.candidateProfile = async (req, res) => {
     
     
   }
+
+  exports.viewResults = async (req, res) => {
+      data={}
+      data.testName=req.params.tname
+    res.render ('view_result',{style:'view_result.css',layout:'layout2.hbs',data})
+}
