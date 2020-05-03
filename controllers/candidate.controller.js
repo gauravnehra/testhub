@@ -280,3 +280,14 @@ function sendVerifyMail(toId, toEmail) {
     }
   });
 }
+
+exports.profile = async (req, res) => {
+  // check if user exists
+  let candidate = await Candidate.findById(req.token.userId)
+  if(!candidate) {
+    // 404 : Not Found
+    return res.status(404).send({ msg: "Account does not exist." })
+  }
+
+  res.status(200).send({ user: candidate })
+}
