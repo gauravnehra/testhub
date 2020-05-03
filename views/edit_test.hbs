@@ -89,8 +89,14 @@
             }
         }
 
+         let testName=`{{data.editTest.testName}}`
+            document.cookie = "testName=" +testName
+
+            console.log(document.cookie)
+
         function addQuestion(){
-            document.cookie = "testName=" +`{{data.editTest.testName}}`
+           
+
             window.location= `/addquestion/{{data.editTest.testId}}`
         }
 

@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono:ital@1&display=swap');
+
+html,body{
+    font-family: 'Roboto', sans-serif;
+    background: url(../images/mountain.png) no-repeat center center fixed;
+    background-size: cover;
+    height: 100%;
+}
+
+.my-container{
+    /* border: 1px solid green; */
+    min-height: 100%;
+  }
+
+#white{
+    background-color: white;
+    color: black;
+    height: fit-content;
+
+}
+
+h1{
+    font-size: 8vh;
+    font-weight: bold;
+    letter-spacing: 1vh;
+}
+
+pre{
+    
+    letter-spacing: .5vh;
+    font-family: 'Roboto', sans-serif;
+    font-size: 3.5vh;
+    
+}
+
+#main{
+    margin-top: 4vh;
+}
+
+.btn-success{
+    
+    font-size: 19px;
+    border-radius: 5px;
+    width: 10vw;
+    padding: 7px 14px;
+    border:1px solid #daf1ff ;
+}
+
+.btn-danger{
+    
+    font-size: 19px;
+    border-radius: 5px;
+    padding: 7px 14px;
+    width: 10vw;
+    border:1px solid #daf1ff ;
+}
+
+footer{
+    background-color: #343A40;
+    margin-top: 3vh;
+}
+
+
+/* .row-border{
+     border: 2px solid red;
+}
+.col-border  {
+    border: 2px solid yellow;
+} */
