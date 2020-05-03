@@ -21,6 +21,9 @@ router.put("/verify/:id", candidate_controller.verifyAccount)
 // attempt test with id
 router.get("/test/:tid", auth, candidate_controller.attemptTest)
 
+// get question with id
+router.get("/test/:tid/question/:qid", auth, candidate_controller.getQuestion)
+
 // save question response
 router.post("/test/:tid/question/:qid", auth, candidate_controller.saveResponse)
 

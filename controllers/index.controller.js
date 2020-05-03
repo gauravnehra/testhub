@@ -371,7 +371,7 @@ exports.attemptTest = async (req, res) => {
        
         Promise.all(promises).then(() => {
            console.log(data)
-            res.render ('attempt_test',{style:'attempt_test.css'})
+            res.render ('attempt_test',{style:'attempt_test.css', data})
             
         }).catch(error => {
            

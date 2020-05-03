@@ -30,19 +30,19 @@
                 </div>
                 <div class="row row-border text-center justify-content-center">
                     <div class="col-2 col-border">
-                         <button type="button" onclick="back()" class="btn btn-danger">Back</button>
+                        <button type="button" onclick="back()" class="btn btn-danger">Back</button>
                     </div>
                     <div class="col-2 col-border">
-                         <button type="button" onclick="start()" class="btn btn-success">Start </button>
+                        <button type="button" onclick="start()" class="btn btn-success">Start </button>
                     </div>
                 </div>
             </div>
 
-            
+
             {{!-- WHITE CLOSING --}}
         </div>
-<div class="row row-border" style="height: 2vh;"></div>
-        </div>
+        <div class="row row-border" style="height: 2vh;"></div>
+    </div>
     </div>
     <footer class="footer mt-auto py-3    ">
         <div class="container" style="width: 100%;">
@@ -61,30 +61,258 @@
     </footer>
 
     <script>
+        let currentQuestion
+        let questionIds = []
+        {{#each data.test.questions}}
+            questionIds.push(`{{this}}`)
+        {{/each}}
+        console.log(questionIds)
+
         function back() {
             window.location = '/candidatedashboard'
         }
 
-        function start(){
-            var currentQuestion = 0;
+        function start() {
+            currentQuestion = 0;
             let white = document.getElementById("white")
             let heading = document.getElementById("heading")
-            heading.innerText='Test Name'
-            white.innerHTML=`<div class="row row-border">
+            heading.innerText = 'Test Name'
+            
+            getQuestion()
+        }
+
+        function nextQuestion() {
+            if(currentQuestion == questionIds.length - 1) {
+                let p = document.createElement("p")
+                p.innerText = "End of quesitons"
+                document.getElementById("error").classList.add("alert", "alert-danger")
+                document.getElementById("error").appendChild(p)
+                setTimeout(hideError, 2000)
+                return
+            }
+            let qid = questionIds[currentQuestion]
+            console.log(qid)
+            let userAnswer
+            if(document.getElementById('question').name == 'MCQ') {
+                let option = document.getElementsByName('option')
+                for(i = 0; i < option.length; i++) {
+                    if(option[i].checked) {
+                        userAnswer = option[i].value
+                    }
+                }
+            }
+            else if(document.getElementById('question').name == 'notMCQ') {
+                userAnswer = document.getElementById('subjective-answer').value
+            }
+            console.log(userAnswer)
+            
+            var xmlHttpRequest = new XMLHttpRequest()
+            xmlHttpRequest.open("POST", `/candidate/test/{{data.test._id}}/question/${qid}`, true)
+            xmlHttpRequest.setRequestHeader("Content-Type", "application/json")
+            xmlHttpRequest.setRequestHeader("authorization", getCookie("authorization"));
+            xmlHttpRequest.onreadystatechange = function () {
+                if (this.readyState === 4) {
+                    if (this.status === 200) {
+                        console.log("success")
+                        currentQuestion++
+                        getQuestion()
+                    }
+                    else {
+                        //document.getElementById("error").innerText = JSON.parse(this.responseText).msg
+                        console.log("error")
+                    }
+                }
+            }
+
+            xmlHttpRequest.send(JSON.stringify({userResponse: userAnswer}))
+        }
+
+        function previousQuestion() {
+            if(currentQuestion == 0) {
+                let p = document.createElement("p")
+                p.innerText = "End of quesitons"
+                document.getElementById("error").classList.add("alert", "alert-danger")
+                document.getElementById("error").appendChild(p)
+                setTimeout(hideError, 2000)
+                return
+            }
+            let qid = questionIds[currentQuestion]
+            console.log(qid)
+            let userAnswer
+            if(document.getElementById('question').name == 'MCQ') {
+                let option = document.getElementsByName('option')
+                for(i = 0; i < option.length; i++) {
+                    if(option[i].checked) {
+                        userAnswer = option[i].value
+                    }
+                }
+            }
+            else if(document.getElementById('question').name == 'notMCQ') {
+                userAnswer = document.getElementById('subjective-answer').value
+            }
+            console.log(userAnswer)
+
+            var xmlHttpRequest = new XMLHttpRequest()
+            xmlHttpRequest.open("POST", `/candidate/test/{{data.test._id}}/question/${qid}`, true)
+            xmlHttpRequest.setRequestHeader("Content-Type", "application/json")
+            xmlHttpRequest.setRequestHeader("authorization", getCookie("authorization"));
+            xmlHttpRequest.onreadystatechange = function () {
+                if (this.readyState === 4) {
+                    if (this.status === 200) {
+                        console.log("success")
+                        currentQuestion--
+                        getQuestion()
+                    }
+                    else {
+                        //document.getElementById("error").innerText = JSON.parse(this.responseText).msg
+                        console.log("error")
+                    }
+                }
+            }
+
+            xmlHttpRequest.send(JSON.stringify({userResponse: userAnswer}))
+        }
+
+        // first save response for current quesiton and then call the submit test request
+        function submitTest() {
+            let qid = questionIds[currentQuestion]
+            console.log(qid)
+            let userAnswer
+            if(document.getElementById('question').name == 'MCQ') {
+                let option = document.getElementsByName('option')
+                for(i = 0; i < option.length; i++) {
+                    if(option[i].checked) {
+                        userAnswer = option[i].value
+                    }
+                }
+            }
+            else if(document.getElementById('question').name == 'notMCQ') {
+                userAnswer = document.getElementById('subjective-answer').value
+            }
+            console.log(userAnswer)
+
+            var xmlHttpRequest = new XMLHttpRequest()
+            xmlHttpRequest.open("POST", `/candidate/test/{{data.test._id}}/question/${qid}`, true)
+            xmlHttpRequest.setRequestHeader("Content-Type", "application/json")
+            xmlHttpRequest.setRequestHeader("authorization", getCookie("authorization"));
+            xmlHttpRequest.onreadystatechange = function () {
+                if (this.readyState === 4) {
+                    if (this.status === 200) {
+                        console.log("success")
+                        getQuestion()
+                        submitTestRequest()
+                    }
+                    else {
+                        //document.getElementById("error").innerText = JSON.parse(this.responseText).msg
+                        console.log("error")
+                    }
+                }
+            }
+
+            xmlHttpRequest.send(JSON.stringify({userResponse: userAnswer}))
+        }
+
+        function submitTestRequest() {
+            var xmlHttpRequest = new XMLHttpRequest()
+            xmlHttpRequest.open("POST", `/candidate/test/{{data.test._id}}/submit`, true)
+            xmlHttpRequest.setRequestHeader("Content-Type", "application/json")
+            xmlHttpRequest.setRequestHeader("authorization", getCookie("authorization"));
+            xmlHttpRequest.onreadystatechange = function () {
+                if (this.readyState === 4) {
+                    if (this.status === 200) {
+                        console.log("success")
+                        alert("Test Submitted")
+                        window.location = "/candidatedashboard"
+                    }
+                    else {
+                        //document.getElementById("error").innerText = JSON.parse(this.responseText).msg
+                        console.log("error")
+                    }
+                }
+            }
+
+            xmlHttpRequest.send()
+        }
+
+        function getQuestion() {
+            let qid = questionIds[currentQuestion]
+            console.log(qid)
+            var xmlHttpRequest = new XMLHttpRequest()
+            xmlHttpRequest.open("GET", `/candidate/test/{{data.test._id}}/question/${qid}`, true)
+            xmlHttpRequest.setRequestHeader("Content-Type", "application/json")
+            xmlHttpRequest.setRequestHeader("authorization", getCookie("authorization"));
+            xmlHttpRequest.onreadystatechange = function () {
+                if (this.readyState === 4) {
+                    if (this.status === 200) {
+                        let qType = JSON.parse(this.responseText).type
+                        if(qType == 'MCQ') {
+                            createMcqDiv()
+                            document.getElementById('question').innerText = JSON.parse(this.responseText).question
+                            document.getElementById('question').name = "MCQ"
+                            document.getElementById('optionA').innerText = JSON.parse(this.responseText).optionA
+                            document.getElementById('optionB').innerText = JSON.parse(this.responseText).optionB
+                            document.getElementById('optionC').innerText = JSON.parse(this.responseText).optionC
+                            document.getElementById('optionD').innerText = JSON.parse(this.responseText).optionD
+                            let userResponse = ''
+                            userResponse = JSON.parse(this.responseText).userResponse
+                            if(userResponse == 'A') {
+                                document.getElementById('A').checked = true
+                            }
+                            else if(userResponse == 'B') {
+                                document.getElementById('B').checked = true
+                            }   
+                            else if(userResponse == 'C') {
+                                document.getElementById('C').checked = true
+                            }
+                            else if(userResponse == 'D') {
+                                document.getElementById('D').checked = true
+                            }
+                            else if(userResponse == '') {
+                                document.getElementById('A').checked = false
+                                document.getElementById('B').checked = false
+                                document.getElementById('C').checked = false
+                                document.getElementById('D').checked = false
+                            }
+                        }
+                        else if(qType == 'notMCQ') {
+                            createSubjectiveDiv()
+                            document.getElementById('question').innerText = JSON.parse(this.responseText).question
+                            document.getElementById('question').name = "notMCQ"
+                            let userResponse = ''
+                            userResponse = JSON.parse(this.responseText).userResponse
+                            if(userResponse == undefined) {
+                                document.getElementById('subjective-answer').innerText = ''
+                            }
+                            else {
+                                document.getElementById('subjective-answer').innerText = userResponse
+                            }
+                        }
+
+                        
+                    }
+                    else {
+                        //document.getElementById("error").innerText = JSON.parse(this.responseText).msg
+                        console.log("error")
+                    }
+                }
+            }
+
+            xmlHttpRequest.send()
+        }
+
+        function hideError() {
+            let div = document.getElementById("error")
+            if (div.childNodes[0]) {
+                div.classList.remove("alert", "alert-danger")
+                div.innerHTML = ''
+            }
+        }
+
+        function createMcqDiv() {
+            white.innerHTML = `<div class="row row-border">
                     <div class="col-8 col-border">
-                        <p id="question">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos tempora in porro dolores
-                            recusandae. Nihil id sunt obcaecati dolorem optio quaerat accusamus accusantium iusto ipsum
-                            totam tenetur, possimus debitis qui. Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Eius aspernatur dignissimos tempore atque inventore expedita explicabo qui cupiditate!
-                            Ab accusamus magni, dolore debitis atque cupiditate recusandae eos nostrum alias rerum?
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Provident iusto fuga ducimus dicta
-                            quibusdam soluta, dolor labore alias in placeat possimus tempora odio! Omnis, minus quidem.
-                            Officiis ipsam perferendis at? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum
-                            totam ratione veniam odit quo debitis necessitatibus deleniti. Nulla cumque voluptatum illo
-                            assumenda quos, suscipit doloribus distinctio ad ducimus perferendis maxime. Lorem ipsum
-                            dolor sit amet consectetur, adipisicing elit. Consequuntur saepe debitis quam voluptatem
-                            numquam dolores, quidem doloremque provident praesentium quos ullam ipsam eveniet qui sequi
-                            architecto animi voluptates, libero eligendi?</p>
+                        <div id="error"></div>
+                        <p id="question"></p>
                     </div>
                 </div>
                 <div class="row row-border" style="margin-top: 2vh;">
@@ -122,9 +350,35 @@
                 <div class="row row-border" style="height: 2vh;"></div>
             `
         }
-
-        function nextQuestion() {
-
+        function createSubjectiveDiv() {
+            white.innerHTML = `<div class="row row-border">
+                    <div class="col-8 col-border">
+                        <div id="error"></div>
+                        <p id="question"></p>
+                    </div>
+                </div>
+                <div class="row row-border" style="margin-top: 2vh;">
+                    <div class="col-8 col-border">
+                        <div class="form-check">
+                            <textarea id="subjective-answer" rows="4" cols="50">
+                            </textarea>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="row row-border" style="margin-top: 2vh;">
+                    <div class="col-2 col-border">
+                           <button type="button" onclick="previousQuestion()" class="btn btn-danger">Prev</button>
+                    </div>
+                    <div class="col-2 col-border">
+                           <button type="button" onclick="nextQuestion()" class="btn btn-danger">Next</button>
+                    </div>
+                    <div class="col-2 col-border">
+                           <button type="button" onclick="submitTest()" class="btn btn-success">Submit</button>
+                    </div>
+                    </div>
+                </div>
+                <div class="row row-border" style="height: 2vh;"></div>
+            `
         }
     </script>
 </body>

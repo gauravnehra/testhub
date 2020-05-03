@@ -196,6 +196,23 @@ exports.attemptTest = async (req, res) => {
   })
 };
 
+exports.getQuestion = async (req, res) => {
+  let userQuestion = {}
+  let question = await Question.findById(req.params.qid)
+  if(question) {
+    userQuestion.question = question.question
+    userQuestion.type = question.type
+    userQuestion.optionA = question.optionA
+    userQuestion.optionB = question.optionB
+    userQuestion.optionC = question.optionC
+    userQuestion.optionD = question.optionD
+    let answer = await Answer.findOne({ candidate: req.token.userId, test: req.params.tid })
+    userQuestion.userResponse = answer.answers.get(question._id.toString())
+
+    return res.status(200).send(userQuestion)
+  }
+}
+
 exports.saveResponse = async (req, res) => {
   let answer = await Answer.findOne({ candidate: req.token.userId, test: req.params.tid })
   if(!answer) {
