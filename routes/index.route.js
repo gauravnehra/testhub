@@ -27,6 +27,8 @@ router.get("/addquestion/:tid", indexController.addQuestion)
 
 router.get("/companyresetpassword", indexController.companyResetPassword)
 
+router.get("/candidateresetpassword", indexController.candidateResetPassword)
+
 router.get("/veriflyemail", indexController.verifyEmail)
 
 router.get("/edittest/:tid", indexController.editTest)

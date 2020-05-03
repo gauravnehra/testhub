@@ -20,6 +20,10 @@ exports.companyResetPassword = function (req, res) {
     res.render ('company_reset_password',{style:'reset_password.css'})
 }
 
+exports.candidateResetPassword = function (req, res) {
+    res.render ('candidate_reset_password',{style:'reset_password.css'})
+}
+
 exports.verifyEmail = function (req, res) {
     res.render ('verify_email',{style:'signin.css'})
 }
