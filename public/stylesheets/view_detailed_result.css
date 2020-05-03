@@ -11,12 +11,18 @@ body,html{
     min-height: 100%;
 }
 
+.box{
+    padding: 3vh;
+    border-bottom: 2px solid white;
+}
+
 .black{
 
    
     background-color: black;
     color: white;
     opacity: .8;
+
 }
 
 
