@@ -90,8 +90,9 @@ exports.dashboard = async (req, res)=> {
   }
   
   responseObject.userName = candidate.name
-  for(i=0;i<candidate.assignedtests.length;i++){
-    responseObject.tests[i]= await Test.findById(candidate.assignedtests[i] )
+  for(i = candidate.assignedtests.length - 1; i >= 0; i--) {
+    let test = await Test.findById(candidate.assignedtests[i])
+    responseObject.tests.push(test)
   }
 
   res.status(200).send(responseObject)
