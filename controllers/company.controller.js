@@ -296,18 +296,19 @@ exports.testresult = async (req, res) => {
     return res.status(404).send({ msg: "Test Not Found in DB" })
   }
   
-  let answers = await Answer.find({ test: req.params.tid }).sort('result')
-
+  let answers = await Answer.find({ test: req.params.tid }).sort('-result')
+  console.log(answers)
   let responseObject = {
     responses: []
   }
-  let answer = {}
   for(i = 0; i < answers.length; i++) {
+    let answer = {}
     answer.answer = answers[i]
     let candidate = await Candidate.findById(answers[i].candidate).select('name')
     answer.candidateName = candidate.name
     responseObject.responses.push(answer)
   }
+
   res.status(200).send(responseObject)
 };
 
@@ -364,7 +365,7 @@ function sendVerifyMail(toId, toEmail) {
     }
   });
 
-  let link = "localhost:3000/company/verify/" + toId;
+  let link = "localhost:3000/company/verifypage/" + toId;
   let mailOptions = {
     to : toEmail,
     subject : process.env.EMAIL_SUB,
