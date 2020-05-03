@@ -247,7 +247,7 @@
                         let qType = JSON.parse(this.responseText).type
                         if(qType == 'MCQ') {
                             createMcqDiv()
-                            document.getElementById('question').innerText = JSON.parse(this.responseText).question
+                            document.getElementById('question').innerText = `${currentQuestion + 1}. ` + JSON.parse(this.responseText).question
                             document.getElementById('question').name = "MCQ"
                             document.getElementById('optionA').innerText = JSON.parse(this.responseText).optionA
                             document.getElementById('optionB').innerText = JSON.parse(this.responseText).optionB
