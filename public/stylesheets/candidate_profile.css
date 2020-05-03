@@ -58,3 +58,33 @@ color: whitesmoke;
     
 }
 
+.my-col
+{
+    margin-left: 2vw;
+    background-color: white;
+    color: black;
+    font-size: 3vh;
+
+}
+
+.btn-success{
+    background-color: #1c6288;
+    font-size: 19px;
+    border-radius: 5px;
+    padding: 7px 14px;
+    border:1px solid #daf1ff ;
+}
+
+.btn-success:hover{
+    background-color: #13445e;
+    border: 1px solid #daf1ff;
+}
+
+/* 
+.row-border{
+    border: 2px solid yellow;
+}
+
+.col-border{
+    border: 2px solid red;
+} */

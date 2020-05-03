@@ -19,8 +19,8 @@
                 </div>
                 <div class="form-group row " style="margin-bottom: 0;">
                     <div class="col">
-                        <p>Password :<input id="password" type="password" class="form-control " placeholder=" Password" readonly
-                                value="{{data.user.password}}">
+                        <p>Password :<input id="password" type="password" class="form-control " placeholder=" Password"
+                                readonly value="{{data.user.password}}">
                     </div>
                     <div style="margin-top: 35px;" class="col">
                         <a href="/candidateresetpassword">Reset Password</a></p>
@@ -31,7 +31,7 @@
                             value="{{data.user.location}}"></p>
                 </div>
 
-                 <div class="form-group">
+                <div class="form-group">
                     <p>Gender :<input id="gender" type="text" class="form-control " placeholder="Gender"
                             value="{{data.user.gender}}"></p>
                 </div>
@@ -39,7 +39,62 @@
                     <p>Age :<input id="age" type="text" class="form-control " placeholder="Age"
                             value="{{data.user.age}}"></p>
                 </div>
-         </form>
+                <div class="form-group">
+                    <p>Skills: </p>
+                    <div class="row row-border">
+
+                        <div class="col col-border">
+                            {{#each data.user.skills}}
+                            <div class="row row-border">
+
+                                <div class="col-5 col-border my-col">
+                                    {{this}}
+                                </div>
+
+                            </div>
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="row row-border my-row " style="margin-left: 1vw;">
+                <div class="col-1.5 col-border">
+                    <div id="error"></div>
+                    <h5>Add Skill</h5>
+                </div>
+            </div>
+
+            
+            <div class="row row-border text-center align-items-center">
+                <div class="col-3 col-border">
+                    <input type="text" placeholder="Enter Skill" id="skill" oninput="hideError()">
+                </div>
+                <div class="col-1 col-border">
+            
+                    <i class="fas fa-plus-square fa-2x" onclick="addElement()"
+                        style="color: white; cursor: pointer;"></i>
+                </div>
+            </div>
+
+            <div class="row row-border  " style="margin-left: 1vw;">
+                <div class="col-1.5 col-border">
+                    <h5>Added Skills</h5>
+                </div>
+            </div>
+
+            {{!-- ADDED CANDIDATE SAMPLE --}}
+            <div id="list"></div>
+
+
+            <div class="row row-border" style="margin-left: 1vw;">
+                <div class="col-2">
+                    <button type="button" onclick="validate()" class="btn btn-success">Add Skills</button>
+                </div>
+                <div class="col-2">
+                    <button type="button" onclick="validate()" class="btn btn-success">Update</button>
+                </div>
+            </div>
         </div>
         <div class="row" style="height: 20px;">
             <div class="col"></div>
