@@ -18,6 +18,15 @@ body,html{
     margin-top: 3px;
 }
 
+
+a{
+    color: white;
+}
+
+a:hover{
+    color: white;
+    text-decoration: none;
+}
 /* .row-border{
     border: 2px solid yellow;
 }

@@ -12,6 +12,7 @@ function validate() {
         // valid question
         if (question == "") {
             printError("Please enter question");
+            return
         }
         else {
             questionErr = false;
@@ -20,6 +21,7 @@ function validate() {
         // valid options
         if (optionA == "" || optionB == "" || optionC == "" || optionD == "") {
             printError("Please enter all options");
+            return
         }
         else {
             optionErr = false;
@@ -47,6 +49,7 @@ function validate() {
         // valid question
         if (question == "") {
             printError("Please enter question");
+            return
         }
         else {
             questionErr = false;
@@ -62,10 +65,7 @@ function validate() {
 }
 
 function printError(msg) {
-    let p = document.createElement("p")
-    p.innerText = msg
-    document.getElementById("error").classList.add("alert", "alert-danger")
-    document.getElementById("error").appendChild(p)
+    document.getElementById('error').innerText = msg
 }
 
 function validateEdit() {
