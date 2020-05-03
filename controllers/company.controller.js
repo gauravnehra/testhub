@@ -308,7 +308,7 @@ exports.testresult = async (req, res) => {
     answer.candidateName = candidate.name
     responseObject.responses.push(answer)
   }
-  
+
   res.status(200).send(responseObject)
 };
 
