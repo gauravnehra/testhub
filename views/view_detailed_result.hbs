@@ -7,7 +7,7 @@
         <div class="row row-border black">
             <div class="col col-border">
 
-                {{#each data.answer}}
+                {{#each data.questions}}
                 {{!-- QUESTION --}}
                 <div class="row row-border">
                     Question
@@ -15,53 +15,58 @@
 
                 <div class="row row-border ">
                     <div class="col-8 col-border">
-                        <p>{{this.question}}</p>
+                        <p>{{this.ques.question}}</p>
                     </div>
                 </div>
                 {{!-- OPTIONS --}}
+                {{#if this.ques.optionA}}
                 <div class="row row-border">
                     <div class="col-1 col-border">
-                        Option 1
+                        Option A
                     </div>
                     <div class="col-7 col-border">
-                        {{this.option1}}
+                        {{this.ques.optionA}}
                     </div>
                 </div>
 
                 <div class="row row-border">
                     <div class="col-1 col-border">
-                        Option 2
+                        Option B
                     </div>
                     <div class="col-7 col-border">
-                        {{this.option2}}
+                        {{this.ques.optionB}}
                     </div>
                 </div>
 
                 <div class="row row-border">
                     <div class="col-1 col-border">
-                        Option 3
+                        Option C
                     </div>
                     <div class="col-7 col-border">
-                        {{this.option3}}
+                        {{this.ques.optionC}}
                     </div>
                 </div>
 
                 <div class="row row-border">
                     <div class="col-1 col-border">
-                        Option 4
+                        Option D
                     </div>
                     <div class="col-7 col-border">
-                        {{this.option4}}
+                        {{this.ques.optionD}}
                     </div>
                 </div>
+                
                 {{!-- RIGHT ANS --}}
                     <div class="row row-border">
-                        {{this.correctoption}}
+                        Correct Option: {{this.ques.correct}}
                     </div>
+                
+                {{/if}}
                 {{!-- ANS SELECTED BY USER     --}}
                 <div class="row row-border">
-                    {{this.userans}}
+                    User Response: {{this.userResponse}}
                 </div>
+                {{/each}}
             </div>
         </div>
 

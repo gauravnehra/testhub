@@ -43,6 +43,9 @@ router.post("/test/:tid/invite", auth, company_controller.inviteCandidates)
 // get test result with id
 router.get("/test/:tid/result", auth, company_controller.testresult)
 
+// get detailes result
+router.get("/test/:aid/detail", auth, company_controller.detailedResult)
+
 // get test with id
 router.get("/test/:tid", auth, company_controller.getTest)
 

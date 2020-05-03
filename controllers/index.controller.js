@@ -27,13 +27,13 @@ exports.candidateResetPassword = function (req, res) {
 exports.verifyEmailCompany = function (req, res) {
     data = {}
     data.id = req.params.id
-    res.render('verify_email_company', { style: 'signin.css' , data})
+    res.render('verify_email_company', { style: 'signin.css', data })
 }
 
 exports.verifyEmailCandidate = function (req, res) {
     data = {}
     data.id = req.params.id
-    res.render('verify_email_candidate', { style: 'signin.css' , data})
+    res.render('verify_email_candidate', { style: 'signin.css', data })
 }
 
 exports.companyDashboard = function (req, res) {
@@ -496,4 +496,55 @@ exports.viewResults = async (req, res) => {
             res.render("error", error)
         })
     }
-} 
+}
+
+exports.viewDetailedResult = function (req, res) {
+    data = {}
+    let aid = req.params.aid
+    var promises = []
+    if (req.cookies.authorization) {
+        var detailPromise = new Promise((resolve, reject) => {
+            // Create options
+            const options = {
+                hostname: req.hostname,
+                port: 3000,
+                path: `/company/test/${aid}/detail`,
+                method: "GET",
+                headers: { authorization: req.cookies.authorization }
+            }
+
+            // Make http request
+            const httpReq = http.request(options, httpRes => {
+                var buff = ""
+                httpRes.on("data", chunks => {
+                    buff += chunks
+                })
+
+                httpRes.on("end", () => {
+                    if (httpRes.statusCode === 200) {
+                        data = JSON.parse(buff)
+                        resolve()
+                    }
+                    else {
+                        reject(JSON.parse(buff))
+                    }
+
+                })
+            })
+
+            httpReq.on("error", error => {
+                reject(error)
+            })
+
+            httpReq.end()
+        })
+        promises.push(detailPromise)
+        Promise.all(promises).then(() => {
+            res.render('view_detailed_result', { style: 'view_detailed_result.css', layout: 'layout2.hbs', data })
+
+        }).catch(error => {
+
+            res.render("error", error)
+        })
+    }
+}

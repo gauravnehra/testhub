@@ -29,9 +29,9 @@ router.get("/companyresetpassword", indexController.companyResetPassword)
 
 router.get("/candidateresetpassword", indexController.candidateResetPassword)
 
-router.get("/company/verifypage/:id", indexController.verifyEmailCompany)
+router.get("/companyverifypage/:id", indexController.verifyEmailCompany)
 
-router.get("/candidate/verifypage/:id", indexController.verifyEmailCandidate)
+router.get("/candidateverifypage/:id", indexController.verifyEmailCandidate)
 
 router.get("/edittest/:tid", indexController.editTest)
 
@@ -42,6 +42,8 @@ router.get("/alltests", indexController.viewAllTests)
 router.get("/invite/:tid", indexController.invite)
 
 router.get("/viewresults/:tname/:tid", indexController.viewResults)
+
+router.get("/viewdetailedresult/:aid", indexController.viewDetailedResult)
 
 router.get("/attempttest/:tid", indexController.attemptTest)
 
