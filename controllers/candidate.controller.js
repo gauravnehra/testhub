@@ -167,6 +167,13 @@ exports.attemptTest = async (req, res) => {
   let answer = await Answer.findOne({ candidate: req.token.userId, test: req.params.tid })
   let test = await Test.findById(req.params.tid)
   let candidate = await Candidate.findById(req.token.userId)
+  if(answer) {
+    if(answer.submitted) {
+      // 409 : Conflict
+      return res.status(409).send({ msg: "Sorry, you already submitted the test."})
+    }
+    return res.status(200).send({ msg: "You were in the middle of taking your test.", test: test })
+  }
   if(test.invitedCandidates.indexOf(candidate.email.toString()) < 0) {
     // 403 : Forbidden
     return res.status(403).send({ msg: "You are not authorized to take this test." })
@@ -174,13 +181,6 @@ exports.attemptTest = async (req, res) => {
   if(!test) {
     // 404 : Not Found
     return res.status(404).send({ msg: "Sorry, could not find test." })
-  }
-  if(answer) {
-    if(answer.submitted) {
-      // 409 : Conflict
-      return res.status(409).send({ msg: "Sorry, you already submitted the test."})
-    }
-    return res.status(200).send({ msg: "You were in the middle of taking your test.", test: test })
   }
 
   // create new answer document

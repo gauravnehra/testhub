@@ -298,7 +298,17 @@ exports.testresult = async (req, res) => {
   
   let answers = await Answer.find({ test: req.params.tid }).sort('result')
 
-  res.status(200).send(answers)
+  let responseObject = {
+    responses: []
+  }
+  let answer = {}
+  for(i = 0; i < answers.length; i++) {
+    answer.answer = answers[i]
+    let candidate = await Candidate.findById(answers[i].candidate).select('name')
+    answer.candidateName = candidate.name
+    responseObject.responses.push(answer)
+  }
+  res.status(200).send(responseObject)
 };
 
 exports.getTest = async (req, res) => {
