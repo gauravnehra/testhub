@@ -23,7 +23,7 @@ router.get("/createtest", indexController.createTest)
 
 router.get("/addquestion/:tid", indexController.addQuestion)
 
-router.get("/resetpassword", indexController.resetPassword)
+router.get("/companyresetpassword", indexController.companyResetPassword)
 
 router.get("/veriflyemail", indexController.verifyEmail)
 

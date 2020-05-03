@@ -16,8 +16,8 @@ exports.signupPage = function (req, res) {
     res.render ('signup',{style:'signup.css'})
 }
 
-exports.resetPassword = function (req, res) {
-    res.render ('reset_password',{style:'reset_password.css'})
+exports.companyResetPassword = function (req, res) {
+    res.render ('company_reset_password',{style:'reset_password.css'})
 }
 
 exports.verifyEmail = function (req, res) {
