@@ -66,13 +66,13 @@
         }
 
         function start(){
-            
+            var currentQuestion = 0;
             let white = document.getElementById("white")
             let heading = document.getElementById("heading")
             heading.innerText='Test Name'
             white.innerHTML=`<div class="row row-border">
                     <div class="col-8 col-border">
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos tempora in porro dolores
+                        <p id="question">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos tempora in porro dolores
                             recusandae. Nihil id sunt obcaecati dolorem optio quaerat accusamus accusantium iusto ipsum
                             totam tenetur, possimus debitis qui. Lorem ipsum dolor sit amet consectetur adipisicing
                             elit. Eius aspernatur dignissimos tempore atque inventore expedita explicabo qui cupiditate!
@@ -91,54 +91,40 @@
                     <div class="col-8 col-border">
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="option" id="A" value="A">
-                            <label class="form-check-label" for="A">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid architecto nam culpa
-                                eum accusamus nulla vel, vero autem sequi veniam quibusdam tempora enim tenetur
-                                asperiores eaque animi velit, voluptatum corporis.
-                            </label>
+                            <p id="optionA">Option A</p>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="option" id="B" value="B">
-                            <label class="form-check-label" for="B">
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Libero vero, rerum fugit a
-                                suscipit minus corporis, recusandae alias, nulla facilis nisi deserunt dolorem neque.
-                                Autem, repellat ab. Alias, rerum sapiente.
-                            </label>
+                            <p id="optionB">Option B</p>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="option" id="C" value="C">
-                            <label class="form-check-label" for="C">
-                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ex accusamus rerum doloribus
-                                at. Maiores, dolorum dolorem enim deleniti facilis, earum porro neque voluptatibus
-                                dolores libero voluptatem ab. Expedita, voluptas. Doloremque!
-                            </label>
+                            <p id="optionC">Option C</p>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="option" id="D" value="D">
-                            <label class="form-check-label" for="D">
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Excepturi, recusandae pariatur
-                                ipsa adipisci vero delectus qui harum repudiandae necessitatibus, facilis porro dolorem
-                                ut aliquam nostrum ullam dicta sit veniam? Ex.
-                            </label>
+                            <p id="optionD">Option D</p>
                         </div>
                     </div>
+                    </div>
+                    <div class="row row-border" style="margin-top: 2vh;">
+                    <div class="col-2 col-border">
+                           <button type="button" onclick="previousQuestion()" class="btn btn-danger">Prev</button>
+                    </div>
+                    <div class="col-2 col-border">
+                           <button type="button" onclick="nextQuestion()" class="btn btn-danger">Next</button>
+                    </div>
+                    <div class="col-2 col-border">
+                           <button type="button" onclick="submitTest()" class="btn btn-success">Submit</button>
+                    </div>
+                    </div>
                 </div>
-                <div class="row row-border" style="margin-top: 2vh;">
-                    <div class="col-2 col-border">
-                           <button type="button" onclick="" class="btn btn-danger">Prev</button>
-                    </div>
-                    <div class="col-2 col-border">
-                           <button type="button" onclick="" class="btn btn-danger">Next</button>
-                    </div>
-                    <div class="col-2 col-border">
-                           <button type="button" onclick="" class="btn btn-success">Submit</button>
-                    </div>
-                </div>
+                <div class="row row-border" style="height: 2vh;"></div>
+            `
+        }
 
-            </div>
-            
-<div class="row row-border" style="height: 2vh;"></div>
- `
+        function nextQuestion() {
+
         }
     </script>
 </body>

@@ -328,5 +328,54 @@ exports.candidateDashboard = async (req, res) => {
 }
 
 exports.attemptTest = async (req, res) => {
-    res.render ('attempt_test',{style:'attempt_test.css'})
+    let tid=req.params.tid
+    var promises = []
+    var data = {}
+    if (req.cookies.authorization) {
+        var attemptTestPromise = new Promise((resolve, reject) => {
+            // Create options
+            const options = {
+                hostname: req.hostname,
+                port: 3000,
+                path: `/candidate/test/${tid}`,
+                method: "GET",
+                headers: { authorization: req.cookies.authorization }
+            }
+
+            // Make http request
+            const httpReq = http.request(options, httpRes => {
+                var buff = ""
+                httpRes.on("data", chunks => {
+                    buff += chunks
+                })
+
+                httpRes.on("end", () => {
+                    if (httpRes.statusCode === 200) {
+                        data = JSON.parse(buff)
+                        resolve()
+                    }
+                    else {
+                        reject(JSON.parse(buff))
+                    }
+
+                })
+            })
+
+            httpReq.on("error", error => {
+                reject(error)
+            })
+
+            httpReq.end()
+        })
+        promises.push(attemptTestPromise)
+       
+        Promise.all(promises).then(() => {
+           console.log(data)
+            res.render ('attempt_test',{style:'attempt_test.css'})
+            
+        }).catch(error => {
+           
+            res.render("error", error)
+        })
+    }
 }
