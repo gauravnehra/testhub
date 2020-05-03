@@ -379,3 +379,9 @@ exports.attemptTest = async (req, res) => {
         })
     }
 }
+
+exports.candidateProfile = async (req, res) => {
+    
+    
+     res.render ('candidate_profile',{ style:'candidate_profile.css',layout:'layout2.hbs'})
+  }
