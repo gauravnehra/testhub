@@ -39,7 +39,7 @@ router.get("/alltests", indexController.viewAllTests)
 
 router.get("/invite/:tid", indexController.invite)
 
-router.get("/viewresults/:tname", indexController.viewResults)
+router.get("/viewresults/:tname/:tid", indexController.viewResults)
 
 router.get("/attempttest/:tid", indexController.attemptTest)
 
