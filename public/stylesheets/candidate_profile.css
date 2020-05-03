@@ -34,7 +34,17 @@ html,body{
     font-size: 3vh;
     letter-spacing: .2vw;
     
-    width:400px;
+    width:32vw;
+}
+
+.form-group select{
+    height: 6vh;
+    border-radius: 1vh;
+    border: 0px;
+    font-size: 3vh;
+    letter-spacing: .2vw;
+    
+    width:32vw;
 }
 
 p{
@@ -47,6 +57,8 @@ p{
     margin-left: 20px;
     
 }
+
+
 
 a{
 color: white;
