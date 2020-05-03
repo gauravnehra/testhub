@@ -1,0 +1,70 @@
+<body>
+    <div class="container my-container " style="max-width: 90%;">
+        <div class="row row-border ">
+            <h1>Detailed Result</h1>
+        </div>
+
+        <div class="row row-border black">
+            <div class="col col-border">
+
+                {{#each data.questions}}
+                {{!-- QUESTION --}}
+                <div class="row row-border">
+                    Question
+                </div>
+
+                <div class="row row-border ">
+                    <div class="col-8 col-border">
+                        <p>{{this.ques.question}}</p>
+                    </div>
+                </div>
+                {{!-- OPTIONS --}}
+                {{#if this.ques.optionA}}
+                <div class="row row-border">
+                    <div class="col-1 col-border">
+                        Option A
+                    </div>
+                    <div class="col-7 col-border">
+                        {{this.ques.optionA}}
+                    </div>
+                </div>
+
+                <div class="row row-border">
+                    <div class="col-1 col-border">
+                        Option B
+                    </div>
+                    <div class="col-7 col-border">
+                        {{this.ques.optionB}}
+                    </div>
+                </div>
+
+                <div class="row row-border">
+                    <div class="col-1 col-border">
+                        Option C
+                    </div>
+                    <div class="col-7 col-border">
+                        {{this.ques.optionC}}
+                    </div>
+                </div>
+
+                <div class="row row-border">
+                    <div class="col-1 col-border">
+                        Option D
+                    </div>
+                    <div class="col-7 col-border">
+                        {{this.ques.optionD}}
+                    </div>
+                </div>
+                
+                {{!-- RIGHT ANS --}}
+                    <div class="row row-border">
+                        Correct Option: {{this.ques.correct}}
+                    </div>
+                
+                {{/if}}
+                {{/each}}
+            </div>
+        </div>
+
+    </div>
+</body>

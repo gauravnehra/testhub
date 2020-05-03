@@ -47,5 +47,7 @@ router.get("/viewdetailedresult/:aid", indexController.viewDetailedResult)
 
 router.get("/attempttest/:tid", indexController.attemptTest)
 
+router.get("/viewtest/:tid", indexController.viewTest)
+
 module.exports = router;
 

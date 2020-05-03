@@ -508,7 +508,7 @@ exports.viewDetailedResult = function (req, res) {
             const options = {
                 hostname: req.hostname,
                 port: 3000,
-                path: `/company/test/${aid}/detail`,
+                path: `/company/test/${aid}/resultdetail`,
                 method: "GET",
                 headers: { authorization: req.cookies.authorization }
             }
@@ -541,6 +541,57 @@ exports.viewDetailedResult = function (req, res) {
         promises.push(detailPromise)
         Promise.all(promises).then(() => {
             res.render('view_detailed_result', { style: 'view_detailed_result.css', layout: 'layout2.hbs', data })
+
+        }).catch(error => {
+
+            res.render("error", error)
+        })
+    }
+}
+
+exports.viewTest = function (req, res) {
+    data = {}
+    let tid = req.params.tid
+    var promises = []
+    if (req.cookies.authorization) {
+        var viewTestPromise = new Promise((resolve, reject) => {
+            // Create options
+            const options = {
+                hostname: req.hostname,
+                port: 3000,
+                path: `/company/test/${tid}/testdetail`,
+                method: "GET",
+                headers: { authorization: req.cookies.authorization }
+            }
+
+            // Make http request
+            const httpReq = http.request(options, httpRes => {
+                var buff = ""
+                httpRes.on("data", chunks => {
+                    buff += chunks
+                })
+
+                httpRes.on("end", () => {
+                    if (httpRes.statusCode === 200) {
+                        data = JSON.parse(buff)
+                        resolve()
+                    }
+                    else {
+                        reject(JSON.parse(buff))
+                    }
+
+                })
+            })
+
+            httpReq.on("error", error => {
+                reject(error)
+            })
+
+            httpReq.end()
+        })
+        promises.push(viewTestPromise)
+        Promise.all(promises).then(() => {
+            res.render('view_detailed_test', { style: 'view_detailed_test.css', layout: 'layout2.hbs', data })
 
         }).catch(error => {
 
