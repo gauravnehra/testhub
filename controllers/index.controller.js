@@ -24,8 +24,16 @@ exports.candidateResetPassword = function (req, res) {
     res.render('candidate_reset_password', { style: 'reset_password.css' })
 }
 
-exports.verifyEmail = function (req, res) {
-    res.render('verify_email', { style: 'signin.css' })
+exports.verifyEmailCompany = function (req, res) {
+    data = {}
+    data.id = req.params.id
+    res.render('verify_email_company', { style: 'signin.css' , data})
+}
+
+exports.verifyEmailCandidate = function (req, res) {
+    data = {}
+    data.id = req.params.id
+    res.render('verify_email_candidate', { style: 'signin.css' , data})
 }
 
 exports.companyDashboard = function (req, res) {

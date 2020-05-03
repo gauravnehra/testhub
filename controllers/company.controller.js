@@ -365,7 +365,7 @@ function sendVerifyMail(toId, toEmail) {
     }
   });
 
-  let link = "localhost:3000/company/verify/" + toId;
+  let link = "localhost:3000/company/verifypage/" + toId;
   let mailOptions = {
     to : toEmail,
     subject : process.env.EMAIL_SUB,
