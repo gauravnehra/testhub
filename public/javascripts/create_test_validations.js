@@ -1,4 +1,3 @@
-
 function validate() {
     let name = document.getElementById("test_name").value;
     let duration = document.getElementById("duration").value;

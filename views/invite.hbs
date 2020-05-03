@@ -20,7 +20,7 @@
             </div>
             <div class="col-1 col-border">
                 {{!-- ADD ICON --}}
-                <i class="fas fa-plus-square fa-2x" onclick="addElement()" style="color: white; cursor: pointer;"></i>
+                <i class="fas fa-plus-square fa-2x" onclick="validate()" style="color: white; cursor: pointer;"></i>
             </div>
         </div>
 
@@ -54,7 +54,6 @@
             }
             if (candidates.indexOf(document.getElementById('email').value) < 0) {
                 candidates.push(document.getElementById('email').value);
-                console.log(candidates)
                 document.getElementById('email').value = ''
                 disp();
             }
@@ -117,6 +116,38 @@
                 div.classList.remove("alert", "alert-danger")
                 div.removeChild(div.childNodes[0])
             }
+        }
+
+        function validate() {
+            let email = document.getElementById("email").value;
+            let emailErr = true
+
+            // valid email
+            if (email == "") {
+                printError("Please enter your email address");
+            }
+            else {
+                var regex = /^\S+@\S+\.\S+$/;
+                if (regex.test(email) === false) {
+                    printError("Please enter a valid email address");
+                } else {
+                    emailErr = false;
+                }
+            }
+
+            if ((emailErr) == true) {
+                return false;
+            }
+            else {
+                addElement()
+            }
+        }
+
+        function printError(msg) {
+            let p = document.createElement("p")
+            p.innerText = msg
+            document.getElementById("error").classList.add("alert", "alert-danger")
+            document.getElementById("error").appendChild(p)
         }
     </script>
 </body>

@@ -6,15 +6,16 @@
         </div>
         <div class="back">
             <form>
+                <div id="error"></div>
                 <div class="form-group">
                     <p> Name : <input id="candidate_name" type="text" class="form-control " placeholder="Name"
-                            value="{{data.user.name}}"></p>
+                            value="{{data.user.name}}" oninput="hideError()"></p>
 
                 </div>
 
                 <div class="form-group">
                     <p>Email Id : <input id="email" type="email" class="form-control " placeholder=" Email"
-                            value="{{data.user.email}}">
+                            readonly value="{{data.user.email}}">
                     </p>
                 </div>
                 <div class="form-group row " style="margin-bottom: 0;">
@@ -28,18 +29,20 @@
                 </div>
                 <div class="form-group">
                     <p>Location :<input id="location" type="text" class="form-control " placeholder=" Location"
-                            value="{{data.user.location}}"></p>
+                            value="{{data.user.location}}" oninput="hideError()"></p>
                 </div>
 
                 <div class="form-group">
-                    <p>Gender :<input id="gender" type="text" class="form-control " placeholder="Gender"
-                            value="{{data.user.gender}}"></p>
+                    <p>Gender :<select class="form-control " id="gender">
+                                    <option value="M">Male</option>
+                                    <option value="F">Female</option>
+                                 </select></p>
                 </div>
                 <div class="form-group">
                     <p>Age :<input id="age" type="text" class="form-control " placeholder="Age"
-                            value="{{data.user.age}}"></p>
+                            value="{{data.user.age}}" oninput="hideError()"></p>
                 </div>
-                <div class="form-group">
+                {{!-- <div class="form-group">
                     <p>Skills: </p>
                     <div class="row row-border">
 
@@ -48,15 +51,23 @@
                             <div class="row row-border">
 
                                 <div class="col-5 col-border my-col">
-                                    {{this}}
+                                    <span class="skills">{{this}}</span>
                                 </div>
 
                             </div>
                             {{/each}}
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </form>
+
+            <div class="row row-border  " style="margin-left: 1vw;">
+                <div class="col-1.5 col-border">
+                    <h5>Added Skills</h5>
+                </div>
+            </div>
+
+            <div id="list"></div>
 
             <div class="row row-border my-row " style="margin-left: 1vw;">
                 <div class="col-1.5 col-border">
@@ -77,20 +88,7 @@
                 </div>
             </div>
 
-            <div class="row row-border  " style="margin-left: 1vw;">
-                <div class="col-1.5 col-border">
-                    <h5>Added Skills</h5>
-                </div>
-            </div>
-
-            {{!-- ADDED CANDIDATE SAMPLE --}}
-            <div id="list"></div>
-
-
             <div class="row row-border" style="margin-left: 1vw;">
-                <div class="col-2">
-                    <button type="button" onclick="validate()" class="btn btn-success">Add Skills</button>
-                </div>
                 <div class="col-2">
                     <button type="button" onclick="validate()" class="btn btn-success">Update</button>
                 </div>
@@ -100,4 +98,87 @@
             <div class="col"></div>
         </div>
     </div>
+
+    <script>
+        document.getElementById('gender').value = `{{data.user.gender}}`
+
+        function hideError() {
+            let div = document.getElementById("error")
+            if (div.childNodes[0]) {
+                div.classList.remove("alert", "alert-danger")
+                div.innerHTML = ''
+            }
+        }
+
+        let skills = []
+        // filling array with already filled array
+        {{#each data.user.skills}}
+            skills.push(`{{this}}`)
+        {{/each}}
+        // displaying existing skills
+        disp()
+
+        function addElement() {
+            if (document.getElementById('skill').value == '') {
+                let p = document.createElement("p")
+                p.innerText = "Enter an skill"
+                document.getElementById("error").classList.add("alert", "alert-danger")
+                document.getElementById("error").appendChild(p)
+                return
+            }
+            if (skills.indexOf(document.getElementById('skill').value) < 0) {
+                skills.push(document.getElementById('skill').value);
+                document.getElementById('skill').value = ''
+                disp();
+            }
+            else {
+                let p = document.createElement("p")
+                p.innerText = "You already entered this skill"
+                document.getElementById("error").classList.add("alert", "alert-danger")
+                document.getElementById("error").appendChild(p)
+                return
+            }
+        };
+
+        function deleteElement(index) {
+            skills.splice(index, 1)
+            disp()
+        };
+
+        function disp() {
+            let str = ''
+            for (i = 0; i < skills.length; i++) {
+                str += '<div class="row row-border my-row text-center align-items-center"><div class="col-3 col-border" id="list"><input type="email" value="' + skills[i] + '" readonly></div><div class="col-1 col-border"><i class="fas fa-times fa-2x" onclick="deleteElement(' + skills.indexOf(skills[i]) + ')" style="color: white; cursor: pointer;"></i></div></div>';
+            }
+            document.getElementById('list').innerHTML = str;
+        };
+
+        function update() {
+            let name = document.getElementById('candidate_name').value
+            let gender = document.getElementById('gender').value
+            let age = document.getElementById('age').value
+            let location = document.getElementById('location').value
+
+                var xmlHttpRequest = new XMLHttpRequest()
+                xmlHttpRequest.open("PUT", "/candidate/profile", true)
+                xmlHttpRequest.setRequestHeader("Content-Type", "application/json")
+                xmlHttpRequest.setRequestHeader("authorization", getCookie("authorization"));
+                xmlHttpRequest.onreadystatechange = function () {
+                    if (this.readyState === 4) {
+                        if (this.status === 200) {
+                            console.log("success")
+                            window.location.reload();                      }
+                        else {
+                            console.log('error')
+                            let p = document.createElement("p")
+                            p.innerText = JSON.parse(this.responseText).msg
+                            document.getElementById("error").classList.add("alert", "alert-danger")
+                            document.getElementById("error").appendChild(p)
+                        }
+                    }
+                }
+                xmlHttpRequest.send(JSON.stringify({ name: name, location: location, gender: gender, age: age, skills: skills }))
+        }
+    </script>
+    <script src="/javascripts/update_profile_validations.js"></script>
 </body>
