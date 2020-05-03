@@ -1,11 +1,10 @@
-
 <head>
     <link rel="stylesheet" href="">
 </head>
 
 <body>
 
-    
+
     <nav class="navbar navbar-expand-md navbar-dark bg-dark" style=" height:40px">
         <a href="/candidatedashboard" class="navbar-brand">TestHub</a>
         <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarMenu">
@@ -16,7 +15,7 @@
             <ul class="navbar-nav ml-auto">
                 {{!-- ul can have a class mr-auto-->shifts links to the left --}}
                 <li class="nav-item">
-                    <a href="/companyprofile" class="nav-link" id="username">{{data.assignedTest.userName}}</a>
+                    <a href="/candidateprofile" class="nav-link" id="username">{{data.assignedTest.userName}}</a>
                 </li>
                 <li class="nav-item">
                     <a href="#" onclick="signOut()" class="nav-link">Logout</a>
@@ -34,7 +33,7 @@
             <div class="col-2 col-border">
                 <a href=""><button class="btn btn-custom">Practice Test</button></a>
             </div>
-            
+
         </div>
 
         <div class="row row-border my-row align-items-center">
@@ -45,7 +44,7 @@
         </div>
 
         <div class="row row-border recent-tests">
-          
+
 
             <div id="recent-test" class="col col-border">
                 {{#each data.assignedTest.tests}}
@@ -54,7 +53,7 @@
                     <div class="col-2 col-border">
                         {{this.name}}
                     </div>
-                   <div class="col-1 col-border"></div>
+                    <div class="col-1 col-border"></div>
 
                     <div class="col-2 col-border">
                         <a href="/attempttest/{{this._id}}">
@@ -65,11 +64,11 @@
                     <div class="col-1 col-border"></div>
 
                     <div class="col-2 col-border">
-                        <a href="#" id="{{this._id}}" >
-                           View Info 
+                        <a href="#" id="{{this._id}}">
+                            View Info
                         </a>
                     </div>
-                   
+
                 </div>
                 {{/each}}
             </div>
@@ -91,5 +90,26 @@
             </div>
         </div>
     </footer>
+    <script>
+        function signOut() {
+            var xmlHttpRequest = new XMLHttpRequest()
+            xmlHttpRequest.open("POST", "/candidate/signout", true)
+            xmlHttpRequest.setRequestHeader("Content-Type", "application/json")
+            xmlHttpRequest.setRequestHeader("authorization", getCookie("authorization"));
+            xmlHttpRequest.onreadystatechange = function () {
+                if (this.readyState === 4) {
+                    if (this.status === 200) {
+                        document.cookie = "authorization=; expires=Thu, 01 Jan 1970 00:00:00 UTC"
 
+                        window.location = "/"
+                    }
+                    else {
+                        console.log('error')
+                        //document.getElementById("error").innerText = JSON.parse(this.responseText).message
+                    }
+                }
+            }
+            xmlHttpRequest.send()
+        }
+    </script>
 </body>

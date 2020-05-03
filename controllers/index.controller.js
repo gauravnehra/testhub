@@ -379,3 +379,56 @@ exports.attemptTest = async (req, res) => {
         })
     }
 }
+
+exports.candidateProfile = async (req, res) => {
+    var promises = []
+    var data = {}
+    if (req.cookies.authorization) {
+        var profilePromise = new Promise((resolve, reject) => {
+            // Create options
+            const options = {
+                hostname: req.hostname,
+                port: 3000,
+                path: "/candidate/profile",
+                method: "GET",
+                headers: { authorization: req.cookies.authorization }
+            }
+
+            // Make http request
+            const httpReq = http.request(options, httpRes => {
+                var buff = ""
+                httpRes.on("data", chunks => {
+                    buff += chunks
+                })
+
+                httpRes.on("end", () => {
+                    if (httpRes.statusCode === 200) {
+                        data = JSON.parse(buff)
+                        resolve()
+                    }
+                    else {
+                        reject(JSON.parse(buff))
+                    }
+
+                })
+            })
+
+            httpReq.on("error", error => {
+                reject(error)
+            })
+
+            httpReq.end()
+        })
+        promises.push(profilePromise)
+        Promise.all(promises).then(() => {
+            
+            res.render ('candidate_profile',{ style:'candidate_profile.css',layout:'layout3.hbs',data})
+            
+        }).catch(error => {
+           
+            res.render("error", error)
+        })
+    }
+    
+    
+  }

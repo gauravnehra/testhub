@@ -35,4 +35,6 @@ router.put("/profile", auth, candidate_controller.updateProfile)
 
 router.get("/", auth,candidate_controller.dashboard)
 
+router.get("/profile", auth, candidate_controller.profile)
+
 module.exports = router  // /home/x/Data/testhub/routes/candidate.route.js
