@@ -30,6 +30,7 @@ function validate() {
         // valid score
         if (score < 1) {
             printError("Please enter valid score")
+            return
         }
         else {
             scoreErr = false
@@ -82,6 +83,7 @@ function validateEdit() {
         // valid question
         if (question == "") {
             printError("Please enter question");
+            return
         }
         else {
             questionErr = false;
@@ -90,6 +92,7 @@ function validateEdit() {
         // valid options
         if (optionA == "" || optionB == "" || optionC == "" || optionD == "") {
             printError("Please enter all options");
+            return
         }
         else {
             optionErr = false;
@@ -98,6 +101,7 @@ function validateEdit() {
         // valid score
         if(score < 1) {
             printError("Please enter valid score")
+            return
         }
         else {
             scoreErr = false
@@ -117,6 +121,7 @@ function validateEdit() {
         // valid question
         if (question == "") {
             printError("Please enter question");
+            return
         }
         else {
             questionErr = false;

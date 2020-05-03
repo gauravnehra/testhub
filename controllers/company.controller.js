@@ -356,6 +356,64 @@ exports.getAllTests = async (req, res) => {
   res.status(200).send(tests)
 };
 
+exports.detailedResult = async (req, res) => {
+  // check if user exists
+  let company = await Company.findById(req.token.userId)
+  if(!company) {
+    // 404 : Not Found
+    return res.status(404).send({ msg: "Account does not exist." })
+  }
+
+  // check if answer exists
+  let answer = await Answer.findById(req.params.aid)
+  if(!answer) {
+    // 404 : Not Found
+    return res.status(404).send({ msg: "Answer does not exist." })
+  }
+
+  let test = await Test.findById(answer.test)
+  if(!test) {
+    // 404 : Not Found
+    return res.status(404).send({ msg: "Test does not exist." })
+  }
+  responseObject = {
+    questions: []
+  }
+  for(i = 0; i < test.questions.length; i++) {
+    let question = {}
+    question.ques = await Question.findById(test.questions[i])
+    question.userResponse = answer.answers.get(test.questions[i].toString())
+    responseObject.questions.push(question)
+  }
+
+  res.status(200).send(responseObject)
+}
+
+exports.getTestDetails = async (req, res) => {
+  // check if user exists
+  let company = await Company.findById(req.token.userId)
+  if(!company) {
+    // 404 : Not Found
+    return res.status(404).send({ msg: "Account does not exist." })
+  }
+
+  let test = await Test.findById(req.params.tid)
+  if(!test) {
+    // 404 : Not Found
+    return res.status(404).send({ msg: "Test does not exist." })
+  }
+  responseObject = {
+    questions: []
+  }
+  for(i = 0; i < test.questions.length; i++) {
+    let question = {}
+    question.ques = await Question.findById(test.questions[i])
+    responseObject.questions.push(question)
+  }
+
+  res.status(200).send(responseObject)
+}
+
 function sendVerifyMail(toId, toEmail) {
   let smtpTransport = nodemailer.createTransport({
     service: "Gmail",
@@ -365,7 +423,7 @@ function sendVerifyMail(toId, toEmail) {
     }
   });
 
-  let link = "localhost:3000/company/verifypage/" + toId;
+  let link = "localhost:3000/companyverifypage/" + toId;
   let mailOptions = {
     to : toEmail,
     subject : process.env.EMAIL_SUB,

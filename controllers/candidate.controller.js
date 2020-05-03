@@ -282,7 +282,7 @@ function sendVerifyMail(toId, toEmail) {
     }
   });
 
-  let link = "localhost:3000/candidate/verifypage/" + toId;
+  let link = "localhost:3000/candidateverifypage/" + toId;
   let mailOptions = {
     to : toEmail,
     subject : process.env.EMAIL_SUB,
