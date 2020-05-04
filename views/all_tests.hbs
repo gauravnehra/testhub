@@ -12,10 +12,10 @@
 
                 <div class="row row-border  row-test justify-content-between text-center  ">
                     <div class="col-2 col-border">
-                        {{this.name}}
+                      <a href="/viewtest/{{this._id}}">{{this.name}}</a>  
                     </div>
                     <div class="col-2 col-border">
-                        <a href="/invite">
+                        <a href="/invite/{{this._id}}">
                             Invite
                         </a>
                     </div>
@@ -33,7 +33,7 @@
                     </div>
 
                     <div class="col-2 col-border">
-                        <a href="#">
+                        <a href="/viewresults/{{this.name}}/{{this._id}}">
                             View Result
                         </a>
                     </div>

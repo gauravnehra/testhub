@@ -25,6 +25,10 @@ body,html{
 
 }
 
+p{
+    height: fit-content !important;
+    word-wrap: break-word ;
+}
 
 
 /* .row-border{
