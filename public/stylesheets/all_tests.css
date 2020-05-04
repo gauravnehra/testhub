@@ -1,9 +1,14 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
-body{
+body,html{
     font-family: 'Roboto', sans-serif;
     background: url(../images/mountain.png) no-repeat center center fixed;
-	background-size: cover;
+    background-size: cover;
+    height: 100%;
+}
+
+.my-container{
+    min-height: 100%;
 }
 
 /* .row-border{
