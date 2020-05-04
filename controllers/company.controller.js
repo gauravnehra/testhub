@@ -449,7 +449,7 @@ function sendInviteMail(toEmail, by, tid) {
     }
   });
 
-  let link = "http://18.221.203.121:3000/candidate/test/" + tid
+  let link = "http://18.221.203.121:3000/attempttest/" + tid
   let mailOptions = {
     to : toEmail,
     subject : "testhub - Test Invite",
