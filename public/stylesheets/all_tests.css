@@ -11,14 +11,6 @@ body,html{
     min-height: 100%;
 }
 
-/* .row-border{
-    border: 2px solid yellow;
-}
-
-.col-border{
-    border: 2px solid red;
-} */
-
 .heading{
     font-size: 20px;
     font-weight: 10px;
@@ -33,7 +25,18 @@ body,html{
 }
 
 .row-test{
-    padding: 10px;
+    padding-bottom: 2vh;
+    padding-top: 2vh;
+    border-bottom: 1px solid white;
+}
+
+.row-test:hover{
+    background-color: white;
+    color: black;
+}
+
+.row-test:hover a{
+    color: black;
 }
 
 a{
@@ -42,5 +45,13 @@ a{
 
 a:hover{
     text-decoration: none;
-    color: white;
+   
 }
+
+/* .row-border{
+    border: 2px solid yellow;
+}
+
+.col-border{
+    border: 2px solid red;
+} */

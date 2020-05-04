@@ -16,14 +16,6 @@ body,html{
     margin-top: 15px;
 }
 
-/* .row-border{
-    border: 2px solid yellow;
-}
-
-.col-border{
-    border: 2px solid white;
-} */
-
 a{
     color:white;
       font-size: 15px;
@@ -31,7 +23,7 @@ a{
 
 a:hover{
     text-decoration: none;
-    color: #13445e;
+    
 }
 
 .row-recent{
@@ -63,10 +55,36 @@ footer{
     }
 
 .recent-tests{
-        color: white;
+        
         background-color: black;
         opacity: .8;
         margin-top: 3px;
-        
-
+       
     }
+
+    .row-recent{
+        border-bottom: 1px solid white;
+        padding-bottom: 2vh;
+        padding-top: 2vh;
+        margin-bottom: 0;
+        margin-top: 0;
+    }
+   
+
+.row-recent:hover{
+    color: black;
+    background-color: white;
+}
+
+.row-recent:hover a{
+    color: black;
+    
+}
+
+/* .row-border{
+    border: 2px solid yellow;
+}
+
+.col-border{
+    border: 2px solid white;
+} */

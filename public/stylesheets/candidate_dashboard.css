@@ -26,9 +26,22 @@ a:hover{
 }
 
 .row-recent{
-    margin-bottom: 25px;
-    margin-top: 5px;
+    border-bottom: 1px solid white;
+    padding-bottom: 2vh;
+    padding-top: 2vh;
 }
+
+.row-recent:hover{
+    color: black;
+    background-color: white;
+}
+
+.row-recent:hover a{
+    color: black;
+    
+}
+
+
 .btn-custom{
 background: none;
 border: none;

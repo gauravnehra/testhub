@@ -32,6 +32,10 @@ p {
     font-weight: 10px;
 }
 
+.edit-row{
+    margin-bottom: 2vh;
+}
+
 .question{
     margin-top: 20px;
     background-color: black;
@@ -41,7 +45,19 @@ p {
 }
 
 .my-row{
-    padding: 10px;
+    border-bottom: 1px solid white;
+    padding-bottom: 2vh;
+    padding-top: 2vh;
+}
+
+.my-row:hover{
+    color: black;
+    background-color: white;
+}
+
+.my-row:hover a{
+    color: black;
+    
 }
 
 a{

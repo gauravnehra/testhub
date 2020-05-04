@@ -18,6 +18,21 @@ body,html{
     margin-top: 3px;
 }
 
+.row-result{
+    border-bottom: 1px solid white;
+    padding-bottom: 2vh;
+    padding-top: 2vh;
+}
+
+.row-result:hover{
+    color: black;
+    background-color: white;
+}
+
+.row-result:hover a{
+    color: black;
+    
+}
 
 a{
     color: white;
