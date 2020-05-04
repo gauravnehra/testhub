@@ -24,6 +24,10 @@ body,html{
     opacity: .8;
 }
 
+p{
+    height: fit-content !important;
+    word-wrap: break-word ;
+}
 
 
 /* .row-border{

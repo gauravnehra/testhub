@@ -34,6 +34,11 @@ pre{
     
 }
 
+p{
+    height: fit-content !important;
+    word-wrap: break-word ;
+}
+
 #main{
     margin-top: 4vh;
 }
