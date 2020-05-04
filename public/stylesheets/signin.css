@@ -12,6 +12,12 @@ body {
     padding: 0;
 }
 
+a{
+    color: white;
+}
+a:hover{
+    color: white;
+}
 .modal-content{
     background-color: #434e5a;
     opacity: .8;
@@ -54,9 +60,8 @@ body {
 .form-group:nth-of-type(3)::before{
     content: '\f1fa';
 }
-
-.form-group:last-of-type::before{
-content: '\f023';
+.form-group:nth-of-type(4)::before{
+    content: '\f023'; 
 }
 
     

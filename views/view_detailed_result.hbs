@@ -9,15 +9,12 @@
 
                 {{#each data.questions}}
                 {{!-- QUESTION --}}
+               <div class="box">
                 <div class="row row-border">
-                    Question
+                    Question: {{this.ques.question}}
                 </div>
 
-                <div class="row row-border ">
-                    <div class="col-8 col-border">
-                        <p>{{this.ques.question}}</p>
-                    </div>
-                </div>
+                
                 {{!-- OPTIONS --}}
                 {{#if this.ques.optionA}}
                 <div class="row row-border">
@@ -66,6 +63,8 @@
                 <div class="row row-border">
                     User Response: {{this.userResponse}}
                 </div>
+                </div>
+                
                 {{/each}}
             </div>
         </div>
