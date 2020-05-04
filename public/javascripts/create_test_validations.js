@@ -8,13 +8,7 @@ function validate() {
         printError("Please enter test name");
     }
     else {
-        var regex = /^[a-zA-Z0-9 ]*$/;
-        if (regex.test(name) === false) {
-            printError("Please enter a valid test name");
-        }
-        else {
-            nameErr = false;
-        }
+        nameErr = false;
     }
 
     // valid test duration
