@@ -270,6 +270,18 @@ exports.inviteCandidates = async (req, res) => {
     return res.status(404).send({ msg: "Test Not Found in DB" })
   }
   let candidatesEmail = req.body.candidates
+
+  // check if any candidate was previously invited
+  let rejectedEmails = []
+  for(i = 0; i < candidatesEmail.length; i++) {
+    if(test.invitedCandidates.indexOf(candidatesEmail[i]) >= 0) {
+      rejectedEmails.push(candidatesEmail[i])
+    }
+  }
+  if(rejectedEmails.length > 0) {
+    return res.status(409).send({ msg: "Some emails already invited", emails: rejectedEmails })
+  }
+
   // add entry in existing candidate profiles for assigned test
   for(i = 0; i < candidatesEmail.length; i++) {
     let candidate = await Candidate.findOne({ email: candidatesEmail[i] })

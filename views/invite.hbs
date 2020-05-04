@@ -45,6 +45,7 @@
     <script>
         let candidates = []
         function addElement() {
+            hideError()
             if (document.getElementById('email').value == '') {
                 let p = document.createElement("p")
                 p.innerText = "Enter an email"
@@ -67,6 +68,7 @@
         };
 
         function deleteElement(index) {
+            hideError()
             candidates.splice(index, 1)
             disp()
         };
@@ -101,7 +103,7 @@
                     }
                     else {
                         let p = document.createElement("p")
-                        p.innerText = JSON.parse(this.responseText).msg
+                        p.innerText = JSON.parse(this.responseText).msg + ". " + JSON.parse(this.responseText).emails
                         document.getElementById("error").classList.add("alert", "alert-danger")
                         document.getElementById("error").appendChild(p)
                     }
