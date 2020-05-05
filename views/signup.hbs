@@ -106,7 +106,12 @@
                     if (this.readyState === 4) {
                         if (this.status === 200) {
                             document.cookie = "authorization=" + this.getResponseHeader("authorization")
-                            window.location = "/candidateDashboard"
+                            {{#if data.redirectToTest}}
+                                let tid = `{{data.redirectToTest}}`
+                                window.location = "/attempttest/" + tid
+                            {{else}}
+                                window.location = "/candidateDashboard"
+                            {{/if}}
                         }
                         else {
                             let p = document.createElement("p")

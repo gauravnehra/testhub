@@ -379,6 +379,12 @@ exports.attemptTest = async (req, res) => {
             res.render("error", error)
         })
     }
+    else {
+        let data = {}
+        let tid = req.params.tid
+        data.redirectToTest = tid
+        res.render('signup', { style: 'signup.css', data })
+    }
 }
 
 exports.candidateProfile = async (req, res) => {

@@ -167,6 +167,10 @@ exports.attemptTest = async (req, res) => {
   let answer = await Answer.findOne({ candidate: req.token.userId, test: req.params.tid })
   let test = await Test.findById(req.params.tid)
   let candidate = await Candidate.findById(req.token.userId)
+  if(!candidate) {
+    // 404 : Not Found
+    return res.status(404).send({ msg: "User Not Found."})
+  }
   if(answer) {
     if(answer.submitted) {
       // 409 : Conflict
