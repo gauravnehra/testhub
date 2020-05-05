@@ -1,4 +1,4 @@
-const http = require ('http')
+const http = require('http')
 const bcrypt = require('bcrypt')
 const salt = bcrypt.genSaltSync(10)
 const nodemailer = require('nodemailer')
@@ -14,9 +14,9 @@ require('dotenv').config()
 exports.signup = async (req, res) => {
   // check if account exists
   let company = await Company.findOne({ email: req.body.email })
-  if(company) {
+  if (company) {
     // 409 : Conflict
-    return res.status(409).send({ msg: "User already exists with same email id."})
+    return res.status(409).send({ msg: "User already exists with same email id." })
   }
 
   // create new user(company), hash the password
@@ -29,8 +29,8 @@ exports.signup = async (req, res) => {
   })
 
   // saving user in DB
-  company.save( async (err) => {
-    if(err) res.status(500).send({ msg: "Some error occured", err: err})
+  company.save(async (err) => {
+    if (err) res.status(500).send({ msg: "Some error occured", err: err })
     else {
       let token = new Token({ userId: company._id })
       await token.save()
@@ -44,13 +44,13 @@ exports.signup = async (req, res) => {
 exports.signin = async (req, res) => {
   // check if account exists with this email
   let company = await Company.findOne({ email: req.body.email })
-  if(!company) {
+  if (!company) {
     // 404 : Not Found
     return res.status(404).send({ msg: "Account does not exist." })
   }
 
   // check credentials
-  if(!bcrypt.compareSync(req.body.password, company.password)) {
+  if (!bcrypt.compareSync(req.body.password, company.password)) {
     // 403 : Forbidden
     return res.status(403).send({ msg: "Invalid Password." })
   }
@@ -63,7 +63,7 @@ exports.signin = async (req, res) => {
 exports.signout = async (req, res) => {
   // delete from token from DB
   token = await Token.findByIdAndDelete(req.token._id)
-  
+
   res.status(200).send({ msg: "Signout success" })
 };
 
@@ -77,7 +77,7 @@ exports.signoutall = async (req, res) => {
 exports.dashboard = async (req, res) => {
   // check if user exists
   let company = await Company.findById(req.token.userId)
-  if(!company) {
+  if (!company) {
     // 404 : Not Found
     return res.status(404).send({ msg: "Account does not exist." })
   }
@@ -94,7 +94,7 @@ exports.dashboard = async (req, res) => {
 exports.profile = async (req, res) => {
   // check if user exists
   let company = await Company.findById(req.token.userId)
-  if(!company) {
+  if (!company) {
     // 404 : Not Found
     return res.status(404).send({ msg: "Account does not exist." })
   }
@@ -105,19 +105,19 @@ exports.profile = async (req, res) => {
 exports.resetPassword = async (req, res) => {
   // check if user exists
   let company = await Company.findById(req.token.userId)
-  if(!company) {
+  if (!company) {
     // 404 : Not Found
     return res.status(404).send({ msg: "Account does not exist." })
   }
 
   // check credentials
-  if(bcrypt.compareSync(req.body.password, company.password)) {
+  if (bcrypt.compareSync(req.body.password, company.password)) {
     Company.findByIdAndUpdate(req.token.userId, { password: bcrypt.hashSync(req.body.newpassword, salt) }, { "new": true }, (err, company) => {
-      if(err) res.status(500).send({ msg: "Some error occured", err: err})
+      if (err) res.status(500).send({ msg: "Some error occured", err: err })
       res.send({ msg: "Password successfully changed", user: company })
     })
   }
-  else if(!bcrypt.compareSync(req.body.password, company.password)) {
+  else if (!bcrypt.compareSync(req.body.password, company.password)) {
     // 403 : Forbidden
     return res.status(403).send({ msg: "Invalid Password." })
   }
@@ -127,34 +127,34 @@ exports.resetPassword = async (req, res) => {
 exports.verifyAccount = async (req, res) => {
   let company = await Company.findOne({ email: req.body.email })
   // check if user exists
-  if(!company) {
+  if (!company) {
     // 404 : Not Found
     return res.status(404).send({ msg: "Account does not exist." })
   }
-  
-  if(company._id != req.params.id) {
+
+  if (company._id != req.params.id) {
     // 421 : Misdirected Request
     return res.status(421).send({ msg: "Wrong URL" })
   }
 
   // check password and verify account
-  if(bcrypt.compareSync(req.body.password, company.password)) {
+  if (bcrypt.compareSync(req.body.password, company.password)) {
     Company.findByIdAndUpdate(req.params.id, { isVerified: true }, (err, company) => {
-      if(err) res.status(500).send({ msg: "Some error occured", err: err})
+      if (err) res.status(500).send({ msg: "Some error occured", err: err })
       res.send({ msg: "Account verified", user: company })
     })
   }
-  else if(!bcrypt.compareSync(req.body.password, company.password)) {
+  else if (!bcrypt.compareSync(req.body.password, company.password)) {
     // 403 : Forbidden
     return res.status(403).send({ msg: "Invalid Password." })
   }
-  
+
 };
 
 exports.createTest = async (req, res) => {
   // check if user account is verified or not
   let company = await Company.findById(req.token.userId)
-  if(!(company.isVerified)) {
+  if (!(company.isVerified)) {
     // 403 : Forbidden
     return res.status(403).send({ msg: "You need to verify your account before you can create tests." })
   }
@@ -166,8 +166,8 @@ exports.createTest = async (req, res) => {
     duration: req.body.testDuration
   })
 
-  test.save( async (err) => {
-    if(err) res.status(500).send({ msg: "Some error occured", err: err})
+  test.save(async (err) => {
+    if (err) res.status(500).send({ msg: "Some error occured", err: err })
     else {
       await Company.findByIdAndUpdate(req.token.userId, { $push: { createdtests: test._id } })
       res.status(200).send({ test: test })
@@ -188,8 +188,8 @@ exports.addQuestion = async (req, res) => {
     correct: req.body.correct
   })
   // save question in DB and add entry in test
-  question.save( async (err) => {
-    if(err) res.status(500).send({ msg: "Some error occured", err: err})
+  question.save(async (err) => {
+    if (err) res.status(500).send({ msg: "Some error occured", err: err })
     else {
       await Test.findByIdAndUpdate(req.params.tid, { $push: { questions: question._id } })
       res.status(200).send({ msg: "Question added to test successfully." })
@@ -199,7 +199,7 @@ exports.addQuestion = async (req, res) => {
 
 exports.deleteQuestion = async (req, res) => {
   Question.findByIdAndDelete(req.params.qid, async (err) => {
-    if(err) res.status(500).send({ msg: "Some error occured", err: err})
+    if (err) res.status(500).send({ msg: "Some error occured", err: err })
     else {
       await Test.findByIdAndUpdate(req.params.tid, { $pullAll: { questions: [req.params.qid] } })
       res.status(200).send({ msg: "Question deleted successfully." })
@@ -218,11 +218,11 @@ exports.editQuestion = async (req, res) => {
     optionD: req.body.optionD,
     correct: req.body.correct
   },
-  { new: true },
-  (err, question) => {
-    if(err) res.status(500).send({ msg: "Some error occured", err: err})
-    res.send({ msg: "Question updated successfully", question: question })
-  })
+    { new: true },
+    (err, question) => {
+      if (err) res.status(500).send({ msg: "Some error occured", err: err })
+      res.send({ msg: "Question updated successfully", question: question })
+    })
 };
 
 exports.editTest = async (req, res) => {
@@ -233,16 +233,16 @@ exports.editTest = async (req, res) => {
     name: req.body.testName,
     duration: req.body.testDuration
   },
-  { new: true },
-  (err, test) => {
-    if(err) res.status(500).send({ msg: "Some error occured", err: err})
-    res.send({ msg: "Test updated successfully", test: test })
-  })
+    { new: true },
+    (err, test) => {
+      if (err) res.status(500).send({ msg: "Some error occured", err: err })
+      res.send({ msg: "Test updated successfully", test: test })
+    })
 };
 
 exports.deleteTest = async (req, res) => {
   Test.findByIdAndDelete(req.params.tid, async (err) => {
-    if(err) res.status(500).send({ msg: "Some error occured", err: err})
+    if (err) res.status(500).send({ msg: "Some error occured", err: err })
     else {
       await Company.findByIdAndUpdate(req.token.userId, { $pullAll: { createdtests: [req.params.tid] } })
       res.status(200).send({ msg: "Test deleted successfully." })
@@ -254,11 +254,11 @@ exports.deleteAllTests = async (req, res) => {
   let company = await Company.findById(req.token.userId)
   let tests = company.createdtests
 
-  for(i = 0; i < tests.length; i++) {
+  for (i = 0; i < tests.length; i++) {
     await Test.findByIdAndDelete(tests[i])
   }
-  Company.findByIdAndUpdate(req.token.userId, { $set: { createdtests: [] } }, function(err){
-    if(err) res.status(500).send({ msg: "Some error occured", err: err})
+  Company.findByIdAndUpdate(req.token.userId, { $set: { createdtests: [] } }, function (err) {
+    if (err) res.status(500).send({ msg: "Some error occured", err: err })
     else res.status(200).send({ msg: "All tests deleted successfully." })
   })
 };
@@ -266,26 +266,26 @@ exports.deleteAllTests = async (req, res) => {
 exports.inviteCandidates = async (req, res) => {
   let test = await Test.findById(req.params.tid)
   // check if test exists
-  if(!test) {
+  if (!test) {
     return res.status(404).send({ msg: "Test Not Found in DB" })
   }
   let candidatesEmail = req.body.candidates
 
   // check if any candidate was previously invited
   let rejectedEmails = []
-  for(i = 0; i < candidatesEmail.length; i++) {
-    if(test.invitedCandidates.indexOf(candidatesEmail[i]) >= 0) {
+  for (i = 0; i < candidatesEmail.length; i++) {
+    if (test.invitedCandidates.indexOf(candidatesEmail[i]) >= 0) {
       rejectedEmails.push(candidatesEmail[i])
     }
   }
-  if(rejectedEmails.length > 0) {
+  if (rejectedEmails.length > 0) {
     return res.status(409).send({ msg: "Some emails already invited", emails: rejectedEmails })
   }
 
   // add entry in existing candidate profiles for assigned test
-  for(i = 0; i < candidatesEmail.length; i++) {
+  for (i = 0; i < candidatesEmail.length; i++) {
     let candidate = await Candidate.findOne({ email: candidatesEmail[i] })
-    if(candidate) {
+    if (candidate) {
       candidate.assignedtests.push(req.params.tid)
       await candidate.save()
     }
@@ -304,21 +304,23 @@ exports.inviteCandidates = async (req, res) => {
 exports.testresult = async (req, res) => {
   let test = await Test.findById(req.params.tid)
   // check if test exists
-  if(!test) {
+  if (!test) {
     return res.status(404).send({ msg: "Test Not Found in DB" })
   }
-  
+
   let answers = await Answer.find({ test: req.params.tid }).sort('-result')
   console.log(answers)
   let responseObject = {
     responses: []
   }
-  for(i = 0; i < answers.length; i++) {
+  for (i = 0; i < answers.length; i++) {
     let answer = {}
     answer.answer = answers[i]
     let candidate = await Candidate.findById(answers[i].candidate).select('name')
-    answer.candidateName = candidate.name
-    responseObject.responses.push(answer)
+    if (candidate) {
+      answer.candidateName = candidate.name
+      responseObject.responses.push(answer)
+    }
   }
 
   res.status(200).send(responseObject)
@@ -327,13 +329,13 @@ exports.testresult = async (req, res) => {
 exports.getTest = async (req, res) => {
   // check if user exists
   let company = await Company.findById(req.token.userId)
-  if(!company) {
+  if (!company) {
     // 404 : Not Found
     return res.status(404).send({ msg: "Account does not exist." })
   }
 
   let test = await Test.findById(req.params.tid)
-  if(!test) {
+  if (!test) {
     // 404 : Not Found
     return res.status(404).send({ msg: "Test not found." })
   }
@@ -345,8 +347,8 @@ exports.getTest = async (req, res) => {
   }
 
   let questionsId = test.questions
-  if(questionsId.length > 0) {
-    for(i =0; i < questionsId.length; i++) {
+  if (questionsId.length > 0) {
+    for (i = 0; i < questionsId.length; i++) {
       let question = await Question.findById(questionsId[i])
       responseObject.questions.push(question)
     }
@@ -358,7 +360,7 @@ exports.getTest = async (req, res) => {
 exports.getAllTests = async (req, res) => {
   // check if user exists
   let company = await Company.findById(req.token.userId)
-  if(!company) {
+  if (!company) {
     // 404 : Not Found
     return res.status(404).send({ msg: "Account does not exist." })
   }
@@ -371,27 +373,27 @@ exports.getAllTests = async (req, res) => {
 exports.detailedResult = async (req, res) => {
   // check if user exists
   let company = await Company.findById(req.token.userId)
-  if(!company) {
+  if (!company) {
     // 404 : Not Found
     return res.status(404).send({ msg: "Account does not exist." })
   }
 
   // check if answer exists
   let answer = await Answer.findById(req.params.aid)
-  if(!answer) {
+  if (!answer) {
     // 404 : Not Found
     return res.status(404).send({ msg: "Answer does not exist." })
   }
 
   let test = await Test.findById(answer.test)
-  if(!test) {
+  if (!test) {
     // 404 : Not Found
     return res.status(404).send({ msg: "Test does not exist." })
   }
   responseObject = {
     questions: []
   }
-  for(i = 0; i < test.questions.length; i++) {
+  for (i = 0; i < test.questions.length; i++) {
     let question = {}
     question.ques = await Question.findById(test.questions[i])
     question.userResponse = answer.answers.get(test.questions[i].toString())
@@ -404,20 +406,20 @@ exports.detailedResult = async (req, res) => {
 exports.getTestDetails = async (req, res) => {
   // check if user exists
   let company = await Company.findById(req.token.userId)
-  if(!company) {
+  if (!company) {
     // 404 : Not Found
     return res.status(404).send({ msg: "Account does not exist." })
   }
 
   let test = await Test.findById(req.params.tid)
-  if(!test) {
+  if (!test) {
     // 404 : Not Found
     return res.status(404).send({ msg: "Test does not exist." })
   }
   responseObject = {
     questions: []
   }
-  for(i = 0; i < test.questions.length; i++) {
+  for (i = 0; i < test.questions.length; i++) {
     let question = {}
     question.ques = await Question.findById(test.questions[i])
     responseObject.questions.push(question)
@@ -437,13 +439,13 @@ function sendVerifyMail(toId, toEmail) {
 
   let link = "http://18.221.203.121:3000/companyverifypage/" + toId;
   let mailOptions = {
-    to : toEmail,
-    subject : process.env.EMAIL_SUB,
-    html : process.env.EMAIL_MSG + " " + link
+    to: toEmail,
+    subject: process.env.EMAIL_SUB,
+    html: process.env.EMAIL_MSG + " " + link
   }
 
-  smtpTransport.sendMail(mailOptions, function(err, msg){
-    if(err) {
+  smtpTransport.sendMail(mailOptions, function (err, msg) {
+    if (err) {
       console.log(err);
     }
     else {
@@ -463,13 +465,13 @@ function sendInviteMail(toEmail, by, tid) {
 
   let link = "http://18.221.203.121:3000/attempttest/" + tid
   let mailOptions = {
-    to : toEmail,
-    subject : "testhub - Test Invite",
-    html : "You have been invited to a test by " + by + " on TestHub. To attempt the test you can either login and take test from dashboard or if you don't have a account on TestHub then, signup and open the following link in your browser afterwards. " + link
+    to: toEmail,
+    subject: "testhub - Test Invite",
+    html: "You have been invited to a test by " + by + " on TestHub. To attempt the test you can either login and take test from dashboard or if you don't have a account on TestHub then, signup and open the following link in your browser afterwards. " + link
   }
 
-  smtpTransport.sendMail(mailOptions, function(err, msg){
-    if(err) {
+  smtpTransport.sendMail(mailOptions, function (err, msg) {
+    if (err) {
       console.log(err);
     }
     else {
