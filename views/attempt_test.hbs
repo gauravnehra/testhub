@@ -66,7 +66,6 @@
         {{#each data.test.questions}}
             questionIds.push(`{{this}}`)
         {{/each}}
-        console.log(questionIds)
 
         function back() {
             window.location = '/candidatedashboard'
@@ -91,7 +90,6 @@
                 return
             }
             let qid = questionIds[currentQuestion]
-            console.log(qid)
             let userAnswer
             if(document.getElementById('question').name == 'MCQ') {
                 let option = document.getElementsByName('option')
@@ -104,7 +102,6 @@
             else if(document.getElementById('question').name == 'notMCQ') {
                 userAnswer = document.getElementById('subjective-answer').value
             }
-            console.log(userAnswer)
             
             var xmlHttpRequest = new XMLHttpRequest()
             xmlHttpRequest.open("POST", `/candidate/test/{{data.test._id}}/question/${qid}`, true)
@@ -113,7 +110,6 @@
             xmlHttpRequest.onreadystatechange = function () {
                 if (this.readyState === 4) {
                     if (this.status === 200) {
-                        console.log("success")
                         currentQuestion++
                         getQuestion()
                     }
@@ -137,7 +133,6 @@
                 return
             }
             let qid = questionIds[currentQuestion]
-            console.log(qid)
             let userAnswer
             if(document.getElementById('question').name == 'MCQ') {
                 let option = document.getElementsByName('option')
@@ -150,7 +145,6 @@
             else if(document.getElementById('question').name == 'notMCQ') {
                 userAnswer = document.getElementById('subjective-answer').value
             }
-            console.log(userAnswer)
 
             var xmlHttpRequest = new XMLHttpRequest()
             xmlHttpRequest.open("POST", `/candidate/test/{{data.test._id}}/question/${qid}`, true)
@@ -159,7 +153,6 @@
             xmlHttpRequest.onreadystatechange = function () {
                 if (this.readyState === 4) {
                     if (this.status === 200) {
-                        console.log("success")
                         currentQuestion--
                         getQuestion()
                     }
@@ -176,7 +169,6 @@
         // first save response for current quesiton and then call the submit test request
         function submitTest() {
             let qid = questionIds[currentQuestion]
-            console.log(qid)
             let userAnswer
             if(document.getElementById('question').name == 'MCQ') {
                 let option = document.getElementsByName('option')
@@ -189,7 +181,6 @@
             else if(document.getElementById('question').name == 'notMCQ') {
                 userAnswer = document.getElementById('subjective-answer').value
             }
-            console.log(userAnswer)
 
             var xmlHttpRequest = new XMLHttpRequest()
             xmlHttpRequest.open("POST", `/candidate/test/{{data.test._id}}/question/${qid}`, true)
@@ -198,7 +189,6 @@
             xmlHttpRequest.onreadystatechange = function () {
                 if (this.readyState === 4) {
                     if (this.status === 200) {
-                        console.log("success")
                         getQuestion()
                         submitTestRequest()
                     }
@@ -220,7 +210,6 @@
             xmlHttpRequest.onreadystatechange = function () {
                 if (this.readyState === 4) {
                     if (this.status === 200) {
-                        console.log("success")
                         alert("Test Submitted")
                         window.location = "/candidatedashboard"
                     }
@@ -236,7 +225,6 @@
 
         function getQuestion() {
             let qid = questionIds[currentQuestion]
-            console.log(qid)
             var xmlHttpRequest = new XMLHttpRequest()
             xmlHttpRequest.open("GET", `/candidate/test/{{data.test._id}}/question/${qid}`, true)
             xmlHttpRequest.setRequestHeader("Content-Type", "application/json")

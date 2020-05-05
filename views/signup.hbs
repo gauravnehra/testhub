@@ -77,11 +77,9 @@
                     if (this.readyState === 4) {
                         if (this.status === 200) {
                             document.cookie = "authorization=" + this.getResponseHeader("authorization")
-                            console.log("signup success")
                             window.location = "/companyDashboard"
                         }
                         else {
-                            console.log('error')
                             let p = document.createElement("p")
                             p.innerText = JSON.parse(this.responseText).msg
                             document.getElementById("error").classList.add("alert", "alert-danger")
@@ -108,11 +106,9 @@
                     if (this.readyState === 4) {
                         if (this.status === 200) {
                             document.cookie = "authorization=" + this.getResponseHeader("authorization")
-                            console.log("signup success")
                             window.location = "/candidateDashboard"
                         }
                         else {
-                            console.log('error')
                             let p = document.createElement("p")
                             p.innerText = JSON.parse(this.responseText).msg
                             document.getElementById("error").classList.add("alert", "alert-danger")

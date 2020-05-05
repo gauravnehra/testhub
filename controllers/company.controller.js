@@ -309,7 +309,7 @@ exports.testresult = async (req, res) => {
   }
 
   let answers = await Answer.find({ test: req.params.tid }).sort('-result')
-  console.log(answers)
+  
   let responseObject = {
     responses: []
   }

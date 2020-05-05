@@ -150,15 +150,6 @@ exports.editTest = async (req, res) => {
             res.render("error", error)
         })
     }
-
-
-
-
-    // data.name = req.params.name
-    // data.duration = req.params.duration
-    // data.questions = req.params.questions
-    // console.log('questions: '+data.questions)
-
 }
 
 exports.editQuestion = async (req, res) => {
@@ -382,9 +373,7 @@ exports.attemptTest = async (req, res) => {
         promises.push(attemptTestPromise)
 
         Promise.all(promises).then(() => {
-            console.log(data)
             res.render('attempt_test', { style: 'attempt_test.css', data })
-
         }).catch(error => {
 
             res.render("error", error)

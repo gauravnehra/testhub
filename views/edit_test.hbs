@@ -89,14 +89,10 @@
             }
         }
 
-         let testName=`{{data.editTest.testName}}`
-            document.cookie = "testName=" +testName
-
-            console.log(document.cookie)
+        let testName=`{{data.editTest.testName}}`
+        document.cookie = "testName=" +testName
 
         function addQuestion(){
-           
-
             window.location= `/addquestion/{{data.editTest.testId}}`
         }
 
@@ -132,7 +128,6 @@
         }
 
         function deleteQuestion(element) {
-            console.log(element.id)
             var xmlHttpRequest = new XMLHttpRequest()
             xmlHttpRequest.open("DELETE", `/company/test/{{data.editTest.testId}}/question/${element.id}`, true)
             xmlHttpRequest.setRequestHeader("Content-Type", "application/json")
@@ -154,8 +149,7 @@
         }
 
         function editQuestion(element) {
-            element.href = `/editquestion/{{data.editTest.testId}}/` + element.id 
-            console.log(link)
+            element.href = `/editquestion/{{data.editTest.testId}}/` + element.id      
         }
 
     </script>

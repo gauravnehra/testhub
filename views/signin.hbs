@@ -57,11 +57,9 @@
                     if (this.readyState === 4) {
                         if (this.status === 200) {
                             document.cookie = "authorization=" + this.getResponseHeader("authorization")
-                            console.log("signin success")
                             window.location = "/companydashboard"
                         }
                         else {
-                            console.log('error')
                             let p = document.createElement("p")
                             p.innerText = JSON.parse(this.responseText).msg
                             document.getElementById("error").classList.add("alert", "alert-danger")
@@ -70,7 +68,6 @@
                     }
                 }
                 xmlHttpRequest.open("POST", "/company/signin", true)
-                console.log("Request Made");
                 xmlHttpRequest.setRequestHeader("Content-Type", "application/json")
                 xmlHttpRequest.send(JSON.stringify({ email: email, password: password }))
             }
@@ -82,11 +79,9 @@
                     if (this.readyState === 4) {
                         if (this.status === 200) {
                             document.cookie = "authorization=" + this.getResponseHeader("authorization")
-                            console.log("signin success")
                             window.location = "/candidatedashboard"
                         }
                         else {
-                            console.log('error')
                             let p = document.createElement("p")
                             p.innerText = JSON.parse(this.responseText).msg
                             document.getElementById("error").classList.add("alert", "alert-danger")
@@ -95,7 +90,6 @@
                     }
                 }
                 xmlHttpRequest.open("POST", "/candidate/signin", true)
-                console.log("Request Made");
                 xmlHttpRequest.setRequestHeader("Content-Type", "application/json")
                 xmlHttpRequest.send(JSON.stringify({ email: email, password: password }))
             }

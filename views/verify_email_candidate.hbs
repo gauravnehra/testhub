@@ -32,14 +32,12 @@
             xmlHttpRequest.onreadystatechange = function () {
                 if (this.readyState === 4) {
                     if (this.status === 200) {
-                        console.log("success")
                         let p = document.createElement("p")
                         p.innerText = JSON.parse(this.responseText).msg
                         document.getElementById("error").classList.add("alert", "alert-success")
                         document.getElementById("error").appendChild(p)
                     }
                     else {
-                        console.log('error')
                         let p = document.createElement("p")
                         p.innerText = JSON.parse(this.responseText).msg
                         document.getElementById("error").classList.add("alert", "alert-danger")

@@ -112,8 +112,6 @@
     <script>
         // calling this to make sure correct form is loaded on page refresh
         changeQuestionType()
-        console.log(document.cookie)
-        console.log(getCookie("testName"))
 
         document.getElementById('test-name').innerText = getCookie("testName") + " - Add Question"
         document.getElementById('question-type').addEventListener('change', changeQuestionType)
@@ -153,7 +151,6 @@
                     if (this.readyState === 4) {
                         if (this.status === 200) {
                             document.getElementById('form').reset()
-                            console.log('success')
                         }
                         else {
                             document.getElementById("error").innerText = JSON.parse(this.responseText).msg
@@ -173,18 +170,9 @@
                 xmlHttpRequest.onreadystatechange = function () {
                     if (this.readyState === 4) {
                         if (this.status === 200) {
-                            //let test = JSON.parse(this.responseText).test
-                            //document.cookie = "testName=" + test.name
-                            //window.location = `/addquestion/${test._id}`
                             document.getElementById('form').reset()
-                            console.log('success')
                         }
                         else {
-                            //let msg = JSON.parse(this.responseText).msg
-                            //let p = document.createElement("p")
-                            //p.innerText = msg
-                            //document.getElementById("error").classList.add("alert", "alert-danger")
-
                             document.getElementById("error").innerText = JSON.parse(this.responseText).msg
                         }
                     }
