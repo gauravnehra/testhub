@@ -5,7 +5,7 @@
             <h2 id="test-name"></h2>
         </div>
 
-        <form id="form">
+        
         <div class="row my-row my-row-border align-items-center"
             style="height: 35px;border-top-left-radius: 10px; border-top-right-radius: 10px;">
             <div class="col-1.5 my-col my-col-border  ">
@@ -22,7 +22,7 @@
             </div>
            
         </div>
-
+        <form id="form">
         <div class="row my-row my-row-border">
             <div class="col-12 my-col my-col-color box ques">
                 <p>Question:</p>
@@ -152,19 +152,10 @@
                 xmlHttpRequest.onreadystatechange = function () {
                     if (this.readyState === 4) {
                         if (this.status === 200) {
-                            //let test = JSON.parse(this.responseText).test
-                            //document.cookie = "testName=" + test.name
-                            //window.location = `/addquestion/${tid}`
                             document.getElementById('form').reset()
                             console.log('success')
                         }
                         else {
-                            //let msg = JSON.parse(this.responseText).msg
-                            //let p = document.createElement("p")
-                            //p.innerText = msg
-                            //document.getElementById("error").classList.add("alert", "alert-danger")
-                            //document.getElementById("error").appendChild(p)
-
                             document.getElementById("error").innerText = JSON.parse(this.responseText).msg
                         }
                     }
