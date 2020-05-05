@@ -22,8 +22,10 @@ body,html{
     background-color: black;
     color: white;
     opacity: .8;
-
+    margin-bottom: 2vh;
 }
+
+
 
 p{
     height: fit-content !important;
