@@ -465,7 +465,7 @@ function sendInviteMail(toEmail, by, tid) {
   let mailOptions = {
     to : toEmail,
     subject : "testhub - Test Invite",
-    html : "You have been invited to a test by " + by + " on testhub. To attempt the test you can either login and take test from dashboard or go to: " + link
+    html : "You have been invited to a test by " + by + " on TestHub. To attempt the test you can either login and take test from dashboard or if you don't have a account on TestHub then, signup and open the following link in your browser afterwards. " + link
   }
 
   smtpTransport.sendMail(mailOptions, function(err, msg){
