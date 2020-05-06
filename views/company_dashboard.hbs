@@ -130,7 +130,7 @@
             xmlHttpRequest.onreadystatechange = function () {
                 if (this.readyState === 4) {
                     if (this.status === 200) {
-                        document.cookie = "authorization=; expires=Thu, 01 Jan 1970 00:00:00 UTC"
+                        document.cookie = "authorization=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/"
                         document.cookie = "testName=; expires=Thu, 01 Jan 1970 00:00:00 UTC"
                         window.location = "/"
                     }
