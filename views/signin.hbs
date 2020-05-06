@@ -56,7 +56,7 @@
                 xmlHttpRequest.onreadystatechange = function () {
                     if (this.readyState === 4) {
                         if (this.status === 200) {
-                            document.cookie = "authorization=" + this.getResponseHeader("authorization")
+                            document.cookie = "authorization=" + this.getResponseHeader("authorization") + "; path=/"
                             window.location = "/companydashboard"
                         }
                         else {
@@ -78,7 +78,7 @@
                 xmlHttpRequest.onreadystatechange = function () {
                     if (this.readyState === 4) {
                         if (this.status === 200) {
-                            document.cookie = "authorization=" + this.getResponseHeader("authorization")
+                            document.cookie = "authorization=" + this.getResponseHeader("authorization") + "; path=/"
                             window.location = "/candidatedashboard"
                         }
                         else {

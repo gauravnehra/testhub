@@ -76,7 +76,7 @@
                 xmlHttpRequest.onreadystatechange = function () {
                     if (this.readyState === 4) {
                         if (this.status === 200) {
-                            document.cookie = "authorization=" + this.getResponseHeader("authorization")
+                            document.cookie = "authorization=" + this.getResponseHeader("authorization") + "; path=/"
                             window.location = "/companyDashboard"
                         }
                         else {
@@ -105,12 +105,12 @@
                 xmlHttpRequest.onreadystatechange = function () {
                     if (this.readyState === 4) {
                         if (this.status === 200) {
-                            document.cookie = "authorization=" + this.getResponseHeader("authorization")
+                            document.cookie = "authorization=" + this.getResponseHeader("authorization") + "; path=/"
                             {{#if data.redirectToTest}}
                                 let tid = `{{data.redirectToTest}}`
                                 window.location = "/attempttest/" + tid
                             {{else}}
-                                window.location = "/candidateDashboard"
+                                window.location = "/candidatedashboard"
                             {{/if}}
                         }
                         else {

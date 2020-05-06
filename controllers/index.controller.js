@@ -326,6 +326,9 @@ exports.candidateDashboard = async (req, res) => {
             res.render("error", error)
         })
     }
+    else {
+        res.render("error")
+    }
 
 
 }

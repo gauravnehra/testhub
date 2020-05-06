@@ -90,7 +90,7 @@
         }
 
         let testName=`{{data.editTest.testName}}`
-        document.cookie = "testName=" +testName
+        document.cookie = "testName=" +testName + "; path=/"
 
         function addQuestion(){
             window.location= `/addquestion/{{data.editTest.testId}}`

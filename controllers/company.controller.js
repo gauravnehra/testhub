@@ -298,7 +298,7 @@ exports.inviteCandidates = async (req, res) => {
   // send invite mail to all candidates
   sendInviteMail(candidatesEmail, companyName, req.params.tid)
 
-  res.status(200).send({ msg: "Candidates Invited", linkForTest: "localhost:3000/candidate/test/" + req.params.tid })
+  res.status(200).send({ msg: "Candidates Invited", linkForTest: "http://18.221.203.121:3000/attempttest/" + req.params.tid })
 };
 
 exports.testresult = async (req, res) => {
@@ -467,7 +467,7 @@ function sendInviteMail(toEmail, by, tid) {
   let mailOptions = {
     to: toEmail,
     subject: "testhub - Test Invite",
-    html: "You have been invited to a test by " + by + " on TestHub. To attempt the test you can either login and take test from dashboard or if you don't have a account on TestHub then, signup as a candidate on http://18.221.203.121:3000/ and open the following link in your browser afterwards. " + link
+    html: "You have been invited to a test by " + by + " on TestHub. To attempt the test you can either login and take test from dashboard or if you don't have a account on TestHub then, go to the following link. " + link
   }
 
   smtpTransport.sendMail(mailOptions, function (err, msg) {
