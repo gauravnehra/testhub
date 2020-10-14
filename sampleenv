@@ -1,0 +1,6 @@
+PORT = 3000
+DB =
+EMAIL = 
+PASS = 
+EMAIL_SUB = 
+EMAIL_MSG = 
